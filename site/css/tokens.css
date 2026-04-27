@@ -1,47 +1,36 @@
 /*
   Hallmark — tokens
-  Twelve themes. Each one a complete palette + type + spacing + structural fingerprint.
+  Twelve themes. Each occupies a distinct point in OKLCH space.
+  Paper colours span dark / cream / saturated / cool / warm; never adjacent.
+  Display fonts span category-level differences (serif / mono / condensed sans / italic);
+  no theme is a minor variation of another.
   Switched via [data-theme="..."] on <html>.
-
-  Theme index:
-   01 specimen   — workshop / typographic specimen, warm oat
-   02 midnight   — dark technical
-   03 brutal     — high-contrast statement
-   04 garden     — soft botanical, italic serif
-   05 atelier    — luxury fashion-house, cream + gold
-   06 newsprint  — broadsheet newspaper
-   07 terminal   — phosphor CRT monospace
-   08 manifesto  — political poster
-   09 salon      — boutique apothecary, restrained ornament
-   10 linen      — quietly modern, natural fibres
-   11 almanac    — encyclopaedic data density
-   12 sport      — italic energy, condensed numerals
 */
 
-/* ——————————————————————————————————————————————————————————— */
-/*  01 · SPECIMEN — default                                       */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   SPECIMEN — warm oat editorial workshop · serif default
+   ────────────────────────────────────────────────────────────── */
 
 :root,
 [data-theme="specimen"] {
-  --color-paper:    oklch(96%  0.012 80);
-  --color-paper-2:  oklch(93%  0.014 80);
-  --color-paper-3:  oklch(89%  0.016 75);
-  --color-rule:     oklch(82%  0.010 75);
-  --color-rule-2:   oklch(72%  0.008 70);
-  --color-muted:    oklch(52%  0.008 65);
-  --color-neutral:  oklch(38%  0.008 60);
-  --color-ink-2:    oklch(26%  0.010 60);
-  --color-ink:      oklch(18%  0.010 60);
+  --color-paper:    oklch(96%  0.018 80);
+  --color-paper-2:  oklch(93%  0.020 80);
+  --color-paper-3:  oklch(89%  0.022 75);
+  --color-rule:     oklch(82%  0.014 75);
+  --color-rule-2:   oklch(70%  0.012 70);
+  --color-muted:    oklch(52%  0.012 65);
+  --color-neutral:  oklch(38%  0.014 60);
+  --color-ink-2:    oklch(26%  0.014 60);
+  --color-ink:      oklch(18%  0.014 60);
   --color-accent:   #FC4C02;
   --color-accent-ink: oklch(55% 0.21 32);
   --color-focus:    #FC4C02;
 
-  --font-display: "Fraunces", "Tiempos", "Newsreader", ui-serif, Georgia, serif;
+  --font-display: "Fraunces", "Tiempos", ui-serif, Georgia, serif;
   --font-body:    "The Future", "Söhne", ui-sans-serif, sans-serif;
   --font-serif:   "Fraunces", ui-serif, Georgia, serif;
-  --font-label:   "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
-  --font-mono:    "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
+  --font-label:   "The Future Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-mono:    "The Future Mono", "JetBrains Mono", ui-monospace, monospace;
 
   --display-weight: 340;
   --display-optical: 144;
@@ -106,29 +95,31 @@
   --z-tooltip:  600;
 }
 
-/* ——————————————————————————————————————————————————————————— */
-/*  02 · MIDNIGHT                                                 */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   MIDNIGHT — deep cool charcoal · technical
+   Paper: cool dark blue-tinted (was warm; now cool for stronger
+   differentiation from the warm-paper themes)
+   ────────────────────────────────────────────────────────────── */
 
 [data-theme="midnight"] {
-  --color-paper:    oklch(14%  0.010 40);
-  --color-paper-2:  oklch(18%  0.012 40);
-  --color-paper-3:  oklch(22%  0.014 40);
-  --color-rule:     oklch(30%  0.010 40);
-  --color-rule-2:   oklch(40%  0.010 40);
-  --color-muted:    oklch(56%  0.010 45);
-  --color-neutral:  oklch(70%  0.008 60);
-  --color-ink-2:    oklch(82%  0.008 70);
-  --color-ink:      oklch(94%  0.006 80);
-  --color-accent:   #FC4C02;
-  --color-accent-ink: oklch(72% 0.18 50);
-  --color-focus:    oklch(72% 0.18 50);
+  --color-paper:    oklch(15%  0.022 250);
+  --color-paper-2:  oklch(20%  0.024 250);
+  --color-paper-3:  oklch(25%  0.026 250);
+  --color-rule:     oklch(33%  0.024 245);
+  --color-rule-2:   oklch(48%  0.020 240);
+  --color-muted:    oklch(60%  0.018 240);
+  --color-neutral:  oklch(72%  0.014 235);
+  --color-ink-2:    oklch(86%  0.010 230);
+  --color-ink:      oklch(95%  0.008 230);
+  --color-accent:   oklch(72%  0.16 220);
+  --color-accent-ink: oklch(72% 0.16 220);
+  --color-focus:    oklch(72%  0.16 220);
 
   --font-display: "The Future", "Futura", "Avenir Next", ui-sans-serif, sans-serif;
   --font-body:    "The Future", "Söhne", ui-sans-serif, sans-serif;
-  --font-serif:   "Instrument Serif", "Tiempos", ui-serif, Georgia, serif;
-  --font-label:   "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
-  --font-mono:    "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
+  --font-serif:   "Instrument Serif", ui-serif, Georgia, serif;
+  --font-label:   "The Future Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-mono:    "The Future Mono", "JetBrains Mono", ui-monospace, monospace;
 
   --display-weight: 300;
   --display-optical: 144;
@@ -145,29 +136,29 @@
   --measure: 60ch;
 }
 
-/* ——————————————————————————————————————————————————————————— */
-/*  03 · BRUTAL                                                   */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   BRUTAL — stark white · heavy condensed · bright red
+   ────────────────────────────────────────────────────────────── */
 
 [data-theme="brutal"] {
-  --color-paper:    oklch(98%  0.003 90);
-  --color-paper-2:  oklch(95%  0.004 85);
-  --color-paper-3:  oklch(91%  0.004 80);
-  --color-rule:     oklch(15%  0.005 60);
-  --color-rule-2:   oklch(12%  0.005 60);
-  --color-muted:    oklch(40%  0.008 60);
-  --color-neutral:  oklch(28%  0.008 60);
-  --color-ink-2:    oklch(15%  0.008 60);
-  --color-ink:      oklch(10%  0.005 60);
-  --color-accent:   #FF2E2E;
+  --color-paper:    oklch(98%  0.001 0);
+  --color-paper-2:  oklch(95%  0.002 0);
+  --color-paper-3:  oklch(91%  0.003 0);
+  --color-rule:     oklch(12%  0.005 0);
+  --color-rule-2:   oklch(8%   0.005 0);
+  --color-muted:    oklch(38%  0.005 0);
+  --color-neutral:  oklch(22%  0.005 0);
+  --color-ink-2:    oklch(12%  0.005 0);
+  --color-ink:      oklch(8%   0.005 0);
+  --color-accent:   #E63946;
   --color-accent-ink: oklch(58% 0.24 25);
-  --color-focus:    #FF2E2E;
+  --color-focus:    #E63946;
 
-  --font-display: "Space Grotesk", "GT America", "Söhne", ui-sans-serif, sans-serif;
+  --font-display: "Space Grotesk", "GT America", ui-sans-serif, sans-serif;
   --font-body:    "Space Grotesk", "The Future", ui-sans-serif, sans-serif;
   --font-serif:   "Space Grotesk", ui-sans-serif, sans-serif;
-  --font-label:   "JetBrains Mono", "The Future Mono", ui-monospace, monospace;
-  --font-mono:    "JetBrains Mono", "The Future Mono", ui-monospace, monospace;
+  --font-label:   "JetBrains Mono", ui-monospace, monospace;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
 
   --display-weight: 700;
   --display-soft: 0;
@@ -189,42 +180,44 @@
   --section-head-gap: 1.5rem;
 
   --rule-hair: 1px;
-  --rule-fine: 2px;
+  --rule-fine: 3px;
   --measure: 58ch;
 }
 
-/* ——————————————————————————————————————————————————————————— */
-/*  04 · GARDEN                                                   */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   GARDEN — pale sage · italic serif · rose accent
+   Pushed greener and slightly cooler from previous version
+   ────────────────────────────────────────────────────────────── */
 
 [data-theme="garden"] {
-  --color-paper:    oklch(96%  0.020 115);
-  --color-paper-2:  oklch(93%  0.024 115);
-  --color-paper-3:  oklch(89%  0.028 120);
-  --color-rule:     oklch(80%  0.020 120);
-  --color-rule-2:   oklch(68%  0.028 130);
-  --color-muted:    oklch(52%  0.040 150);
-  --color-neutral:  oklch(38%  0.050 155);
-  --color-ink-2:    oklch(30%  0.050 158);
-  --color-ink:      oklch(24%  0.050 160);
+  --color-paper:    oklch(95%  0.030 130);
+  --color-paper-2:  oklch(92%  0.034 130);
+  --color-paper-3:  oklch(87%  0.038 130);
+  --color-rule:     oklch(78%  0.030 130);
+  --color-rule-2:   oklch(64%  0.034 135);
+  --color-muted:    oklch(50%  0.045 150);
+  --color-neutral:  oklch(36%  0.055 155);
+  --color-ink-2:    oklch(28%  0.055 158);
+  --color-ink:      oklch(22%  0.060 160);
   --color-accent:   #B6485E;
   --color-accent-ink: oklch(55% 0.14 18);
   --color-focus:    #B6485E;
 
-  --font-display: "Instrument Serif", "Fraunces", "Newsreader", ui-serif, Georgia, serif;
+  --font-display: "Cormorant Garamond", "Instrument Serif", "Fraunces", ui-serif, Georgia, serif;
   --font-body:    "The Future", "Söhne", ui-sans-serif, sans-serif;
-  --font-serif:   "Instrument Serif", "Fraunces", ui-serif, Georgia, serif;
-  --font-label:   "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
-  --font-mono:    "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
+  --font-serif:   "Cormorant Garamond", "Instrument Serif", ui-serif, Georgia, serif;
+  --font-label:   "The Future Mono", ui-monospace, monospace;
+  --font-mono:    "The Future Mono", ui-monospace, monospace;
 
   --display-weight: 400;
   --display-style: italic;
+  --display-optical: 96;
   --display-soft: 0;
 
   --text-display:   clamp(3.25rem, 6vw + 1rem, 6.5rem);
   --text-display-s: clamp(2.25rem, 3.5vw + 1rem, 3.5rem);
 
-  --tracking-display: -0.015em;
+  --tracking-display: -0.012em;
   --tracking-tight:   -0.005em;
   --tracking-label:   0.10em;
 
@@ -236,78 +229,81 @@
   --measure: 58ch;
 }
 
-/* ——————————————————————————————————————————————————————————— */
-/*  05 · ATELIER — luxury fashion-house, cream + charcoal + gold  */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   ATELIER — luxury fashion-house
+   Cool cream paper (low chroma so it reads "considered" not "warm")
+   + dark warm-brown ink + Playfair Display 900 (Didone-feel)
+   ────────────────────────────────────────────────────────────── */
 
 [data-theme="atelier"] {
-  --color-paper:    oklch(96%  0.012 70);
-  --color-paper-2:  oklch(94%  0.014 65);
-  --color-paper-3:  oklch(91%  0.016 65);
-  --color-rule:     oklch(78%  0.010 60);
-  --color-rule-2:   oklch(60%  0.012 55);
-  --color-muted:    oklch(48%  0.012 50);
+  --color-paper:    oklch(94%  0.005 60);
+  --color-paper-2:  oklch(91%  0.006 60);
+  --color-paper-3:  oklch(87%  0.008 55);
+  --color-rule:     oklch(78%  0.006 55);
+  --color-rule-2:   oklch(56%  0.008 50);
+  --color-muted:    oklch(46%  0.010 50);
   --color-neutral:  oklch(28%  0.014 45);
-  --color-ink-2:    oklch(18%  0.014 45);
-  --color-ink:      oklch(12%  0.012 40);
-  --color-accent:   oklch(58%  0.115 65);
+  --color-ink-2:    oklch(18%  0.020 40);
+  --color-ink:      oklch(12%  0.024 40);
+  --color-accent:   oklch(22%  0.060 40);
   --color-accent-ink: oklch(45% 0.13 60);
-  --color-focus:    oklch(58%  0.115 65);
+  --color-focus:    oklch(45%  0.13 60);
 
-  --font-display: "Cormorant Garamond", "Playfair Display", "Tiempos Headline", ui-serif, Georgia, serif;
+  --font-display: "Playfair Display", "Cormorant Garamond", "Tiempos Headline", ui-serif, Georgia, serif;
   --font-body:    "Hanken Grotesk", "The Future", ui-sans-serif, sans-serif;
-  --font-serif:   "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
-  --font-label:   "IBM Plex Mono", "The Future Mono", ui-monospace, monospace;
+  --font-serif:   "Playfair Display", "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-label:   "IBM Plex Mono", ui-monospace, monospace;
   --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
 
-  --display-weight: 300;
+  --display-weight: 900;
   --display-optical: 144;
-  --display-style: italic;
+  --display-style: normal;
   --display-soft: 0;
 
   --text-display:   clamp(3.75rem, 7vw + 1rem, 7.5rem);
   --text-display-s: clamp(2.5rem, 4vw + 1rem, 4rem);
 
-  --tracking-display: -0.012em;
-  --tracking-tight:   -0.006em;
-  --tracking-label:   0.22em;
+  --tracking-display: -0.018em;
+  --tracking-tight:   -0.008em;
+  --tracking-label:   0.24em;
 
   --lh-tight:   1.0;
   --lh-snug:    1.16;
-  --lh-normal:  1.5;
-  --lh-relaxed: 1.65;
+  --lh-normal:  1.55;
+  --lh-relaxed: 1.7;
 
-  --section-gap: 11rem;
-  --section-head-gap: 3rem;
+  --section-gap: 12rem;
+  --section-head-gap: 3.5rem;
   --measure: 56ch;
-  --page-max: 68rem;
+  --page-max: 64rem;
 }
 
-/* ——————————————————————————————————————————————————————————— */
-/*  06 · NEWSPRINT — broadsheet                                   */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   NEWSPRINT — broadsheet · salmon-pink paper · burgundy accent
+   FT-inspired pink (real)
+   ────────────────────────────────────────────────────────────── */
 
 [data-theme="newsprint"] {
-  --color-paper:    oklch(95%  0.020 60);
-  --color-paper-2:  oklch(92%  0.026 55);
-  --color-paper-3:  oklch(88%  0.028 50);
-  --color-rule:     oklch(70%  0.018 50);
-  --color-rule-2:   oklch(40%  0.012 50);
-  --color-muted:    oklch(48%  0.012 50);
-  --color-neutral:  oklch(32%  0.014 45);
-  --color-ink-2:    oklch(22%  0.014 250);
-  --color-ink:      oklch(18%  0.012 250);
-  --color-accent:   oklch(48%  0.13 30);
+  --color-paper:    oklch(92%  0.045 50);
+  --color-paper-2:  oklch(89%  0.050 50);
+  --color-paper-3:  oklch(84%  0.054 45);
+  --color-rule:     oklch(68%  0.030 40);
+  --color-rule-2:   oklch(35%  0.020 35);
+  --color-muted:    oklch(46%  0.022 35);
+  --color-neutral:  oklch(30%  0.025 30);
+  --color-ink-2:    oklch(20%  0.030 28);
+  --color-ink:      oklch(15%  0.030 25);
+  --color-accent:   oklch(32%  0.10 28);
   --color-accent-ink: oklch(45% 0.13 30);
-  --color-focus:    oklch(48%  0.13 30);
+  --color-focus:    oklch(48%  0.18 30);
 
-  --font-display: "Crimson Pro", "Crimson Text", "Noto Serif", ui-serif, Georgia, serif;
+  --font-display: "Playfair Display", "Crimson Pro", "Newsreader", ui-serif, Georgia, serif;
   --font-body:    "Crimson Pro", "Newsreader", ui-serif, Georgia, serif;
-  --font-serif:   "Crimson Pro", "Crimson Text", ui-serif, Georgia, serif;
+  --font-serif:   "Playfair Display", "Crimson Pro", ui-serif, Georgia, serif;
   --font-label:   "IBM Plex Sans", "The Future", ui-sans-serif, sans-serif;
   --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
 
-  --display-weight: 600;
+  --display-weight: 700;
   --display-optical: 48;
   --display-style: normal;
   --display-soft: 0;
@@ -320,35 +316,35 @@
   --text-display:   clamp(2.75rem, 5vw + 1rem, 5rem);
   --text-display-s: clamp(2rem, 3vw + 1rem, 2.875rem);
 
-  --tracking-display: -0.018em;
-  --tracking-tight:   -0.006em;
+  --tracking-display: -0.022em;
+  --tracking-tight:   -0.008em;
   --tracking-label:   0.06em;
 
   --lh-normal:  1.55;
   --lh-relaxed: 1.65;
 
   --section-gap: 6.5rem;
-  --section-head-gap: 1.25rem;
+  --section-head-gap: 1rem;
   --measure: 58ch;
 }
 
-/* ——————————————————————————————————————————————————————————— */
-/*  07 · TERMINAL — phosphor CRT, monospace-led                   */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   TERMINAL — phosphor CRT · monospace everywhere
+   ────────────────────────────────────────────────────────────── */
 
 [data-theme="terminal"] {
-  --color-paper:    oklch(11%  0.010 145);
-  --color-paper-2:  oklch(15%  0.014 145);
-  --color-paper-3:  oklch(19%  0.016 145);
-  --color-rule:     oklch(28%  0.024 140);
-  --color-rule-2:   oklch(40%  0.040 140);
-  --color-muted:    oklch(58%  0.080 140);
-  --color-neutral:  oklch(68%  0.110 140);
-  --color-ink-2:    oklch(78%  0.130 138);
-  --color-ink:      oklch(86%  0.150 138);
-  --color-accent:   oklch(78%  0.180 138);
-  --color-accent-ink: oklch(78% 0.180 138);
-  --color-focus:    oklch(86%  0.180 138);
+  --color-paper:    oklch(11%  0.018 145);
+  --color-paper-2:  oklch(15%  0.022 145);
+  --color-paper-3:  oklch(19%  0.024 145);
+  --color-rule:     oklch(28%  0.030 140);
+  --color-rule-2:   oklch(40%  0.050 140);
+  --color-muted:    oklch(58%  0.090 140);
+  --color-neutral:  oklch(68%  0.120 140);
+  --color-ink-2:    oklch(78%  0.140 138);
+  --color-ink:      oklch(86%  0.160 138);
+  --color-accent:   oklch(78%  0.190 138);
+  --color-accent-ink: oklch(78% 0.190 138);
+  --color-focus:    oklch(86%  0.190 138);
 
   --font-display: "JetBrains Mono", "IBM Plex Mono", "The Future Mono", ui-monospace, monospace;
   --font-body:    "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
@@ -377,42 +373,43 @@
   --measure: 70ch;
 }
 
-/* ——————————————————————————————————————————————————————————— */
-/*  08 · MANIFESTO — political poster, ALL CAPS heavy             */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   MANIFESTO — BLACK paper · ALL CAPS condensed · red colour-blocks
+   The opposite pole from Brutal: same red accent, inverted background.
+   ────────────────────────────────────────────────────────────── */
 
 [data-theme="manifesto"] {
-  --color-paper:    oklch(98%  0.004 90);
-  --color-paper-2:  oklch(94%  0.005 85);
-  --color-paper-3:  oklch(90%  0.006 80);
-  --color-rule:     oklch(8%   0.005 60);
-  --color-rule-2:   oklch(8%   0.005 60);
-  --color-muted:    oklch(38%  0.006 60);
-  --color-neutral:  oklch(20%  0.006 60);
-  --color-ink-2:    oklch(12%  0.005 60);
-  --color-ink:      oklch(8%   0.005 60);
+  --color-paper:    oklch(10%  0.005 60);
+  --color-paper-2:  oklch(15%  0.006 60);
+  --color-paper-3:  oklch(20%  0.008 60);
+  --color-rule:     oklch(28%  0.010 60);
+  --color-rule-2:   oklch(40%  0.012 60);
+  --color-muted:    oklch(60%  0.012 65);
+  --color-neutral:  oklch(72%  0.010 70);
+  --color-ink-2:    oklch(88%  0.006 80);
+  --color-ink:      oklch(98%  0.003 90);
   --color-accent:   #E51A1A;
-  --color-accent-ink: oklch(56% 0.24 28);
+  --color-accent-ink: oklch(58% 0.24 28);
   --color-focus:    #E51A1A;
 
-  --font-display: "Bricolage Grotesque", "Libre Franklin", "Space Grotesk", ui-sans-serif, sans-serif;
+  --font-display: "Anton", "Bebas Neue", "Bricolage Grotesque", "Space Grotesk", sans-serif;
   --font-body:    "IBM Plex Sans", "Public Sans", "The Future", ui-sans-serif, sans-serif;
-  --font-serif:   "Bricolage Grotesque", ui-sans-serif, sans-serif;
+  --font-serif:   "Anton", "Bricolage Grotesque", sans-serif;
   --font-label:   "JetBrains Mono", ui-monospace, monospace;
   --font-mono:    "JetBrains Mono", ui-monospace, monospace;
 
-  --display-weight: 800;
+  --display-weight: 400;
   --display-optical: 96;
   --display-style: normal;
 
-  --text-display:   clamp(4rem, 11vw + 1rem, 12rem);
+  --text-display:   clamp(4rem, 12vw + 1rem, 13rem);
   --text-display-s: clamp(2.75rem, 6vw + 1rem, 5.5rem);
   --text-2xl: 3rem;
   --text-xl:  2rem;
 
-  --tracking-display: -0.05em;
-  --tracking-tight:   -0.025em;
-  --tracking-label:   0.08em;
+  --tracking-display: 0.005em;
+  --tracking-tight:   0;
+  --tracking-label:   0.10em;
 
   --lh-tight: 0.86;
   --lh-snug:  1.0;
@@ -425,43 +422,45 @@
   --measure: 56ch;
 }
 
-/* ——————————————————————————————————————————————————————————— */
-/*  09 · SALON — boutique, restrained ornament                    */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   SALON — boutique apothecary · warm ivory · TYPEWRITER display
+   Display in mono is the key differentiator from the cream-serif themes
+   ────────────────────────────────────────────────────────────── */
 
 [data-theme="salon"] {
-  --color-paper:    oklch(95%  0.014 65);
-  --color-paper-2:  oklch(92%  0.020 60);
-  --color-paper-3:  oklch(88%  0.024 50);
-  --color-rule:     oklch(78%  0.020 50);
-  --color-rule-2:   oklch(62%  0.028 45);
-  --color-muted:    oklch(48%  0.024 40);
-  --color-neutral:  oklch(34%  0.024 35);
-  --color-ink-2:    oklch(28%  0.024 35);
-  --color-ink:      oklch(22%  0.024 35);
-  --color-accent:   oklch(58%  0.105 130);
-  --color-accent-ink: oklch(48% 0.10 130);
-  --color-focus:    oklch(58%  0.105 130);
+  --color-paper:    oklch(94%  0.030 65);
+  --color-paper-2:  oklch(91%  0.034 65);
+  --color-paper-3:  oklch(87%  0.038 60);
+  --color-rule:     oklch(76%  0.028 60);
+  --color-rule-2:   oklch(56%  0.030 55);
+  --color-muted:    oklch(48%  0.030 50);
+  --color-neutral:  oklch(34%  0.030 45);
+  --color-ink-2:    oklch(28%  0.030 40);
+  --color-ink:      oklch(22%  0.030 38);
+  --color-accent:   oklch(40%  0.085 50);
+  --color-accent-ink: oklch(45% 0.10 50);
+  --color-focus:    oklch(50%  0.12 50);
 
-  --font-display: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
+  --font-display: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
   --font-body:    "Plus Jakarta Sans", "Hanken Grotesk", "The Future", ui-sans-serif, sans-serif;
   --font-serif:   "Cormorant Garamond", ui-serif, Georgia, serif;
-  --font-label:   "IBM Plex Mono", "The Future Mono", ui-monospace, monospace;
+  --font-label:   "IBM Plex Mono", ui-monospace, monospace;
   --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
 
-  --display-weight: 400;
-  --display-style: italic;
-  --display-optical: 48;
+  --display-weight: 500;
+  --display-style: normal;
 
-  --text-display:   clamp(3rem, 5vw + 1rem, 5rem);
-  --text-display-s: clamp(2rem, 3vw + 1rem, 3rem);
+  --text-display:   clamp(2.25rem, 4vw + 1rem, 4rem);
+  --text-display-s: clamp(1.625rem, 2.5vw + 1rem, 2.5rem);
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
 
-  --tracking-display: -0.005em;
+  --tracking-display: 0.005em;
   --tracking-tight:   0;
   --tracking-label:   0.18em;
 
-  --lh-tight: 1.06;
-  --lh-snug:  1.18;
+  --lh-tight: 1.18;
+  --lh-snug:  1.32;
   --lh-normal: 1.55;
 
   --section-gap: 9rem;
@@ -470,42 +469,43 @@
   --page-max: 60rem;
 }
 
-/* ——————————————————————————————————————————————————————————— */
-/*  10 · LINEN — quietly modern, natural fibres                   */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   LINEN — desaturated linen-beige · LIGHT GEOMETRIC SANS display
+   Sans-serif display is the key differentiator from Specimen / Atelier / Salon
+   ────────────────────────────────────────────────────────────── */
 
 [data-theme="linen"] {
-  --color-paper:    oklch(94%  0.018 95);
-  --color-paper-2:  oklch(91%  0.022 100);
-  --color-paper-3:  oklch(88%  0.024 105);
-  --color-rule:     oklch(78%  0.020 110);
-  --color-rule-2:   oklch(64%  0.022 115);
-  --color-muted:    oklch(50%  0.022 130);
-  --color-neutral:  oklch(38%  0.024 140);
-  --color-ink-2:    oklch(30%  0.024 140);
-  --color-ink:      oklch(24%  0.022 140);
-  --color-accent:   oklch(54%  0.080 140);
-  --color-accent-ink: oklch(46% 0.085 140);
-  --color-focus:    oklch(54%  0.080 140);
+  --color-paper:    oklch(89%  0.022 95);
+  --color-paper-2:  oklch(86%  0.026 95);
+  --color-paper-3:  oklch(82%  0.030 95);
+  --color-rule:     oklch(72%  0.022 95);
+  --color-rule-2:   oklch(58%  0.024 95);
+  --color-muted:    oklch(46%  0.020 90);
+  --color-neutral:  oklch(34%  0.022 90);
+  --color-ink-2:    oklch(28%  0.024 90);
+  --color-ink:      oklch(22%  0.025 90);
+  --color-accent:   oklch(46%  0.06 95);
+  --color-accent-ink: oklch(50% 0.07 95);
+  --color-focus:    oklch(50%  0.10 100);
 
-  --font-display: "DM Serif Display", "Newsreader", "Fraunces", ui-serif, Georgia, serif;
-  --font-body:    "Hanken Grotesk", "Plus Jakarta Sans", "The Future", ui-sans-serif, sans-serif;
-  --font-serif:   "DM Serif Display", "Newsreader", ui-serif, Georgia, serif;
-  --font-label:   "IBM Plex Mono", "The Future Mono", ui-monospace, monospace;
+  --font-display: "IBM Plex Sans", "Hanken Grotesk", ui-sans-serif, sans-serif;
+  --font-body:    "IBM Plex Sans", "Hanken Grotesk", ui-sans-serif, sans-serif;
+  --font-serif:   "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-label:   "IBM Plex Mono", ui-monospace, monospace;
   --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
 
-  --display-weight: 400;
+  --display-weight: 300;
   --display-style: normal;
 
   --text-display:   clamp(3rem, 5.5vw + 1rem, 5.75rem);
   --text-display-s: clamp(2rem, 3vw + 1rem, 3rem);
 
   --tracking-display: -0.018em;
-  --tracking-tight:   -0.006em;
-  --tracking-label:   0.14em;
+  --tracking-tight:   -0.008em;
+  --tracking-label:   0.16em;
 
-  --lh-tight: 1.04;
-  --lh-snug:  1.18;
+  --lh-tight: 1.06;
+  --lh-snug:  1.20;
   --lh-normal: 1.55;
   --lh-relaxed: 1.7;
 
@@ -514,31 +514,33 @@
   --measure: 56ch;
 }
 
-/* ——————————————————————————————————————————————————————————— */
-/*  11 · ALMANAC — encyclopaedic, data-dense                      */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   ALMANAC — encyclopaedic · COOL pale paper (not warm) · slate accent
+   Cool hue 245 is the key differentiator from the warm-cream cluster
+   + dense type · sticky labels · grid lines
+   ────────────────────────────────────────────────────────────── */
 
 [data-theme="almanac"] {
-  --color-paper:    oklch(94%  0.012 80);
-  --color-paper-2:  oklch(91%  0.014 75);
-  --color-paper-3:  oklch(87%  0.016 70);
-  --color-rule:     oklch(74%  0.012 70);
-  --color-rule-2:   oklch(40%  0.014 60);
-  --color-muted:    oklch(46%  0.014 55);
-  --color-neutral:  oklch(28%  0.014 50);
-  --color-ink-2:    oklch(20%  0.012 45);
-  --color-ink:      oklch(16%  0.012 45);
+  --color-paper:    oklch(94%  0.008 245);
+  --color-paper-2:  oklch(91%  0.010 245);
+  --color-paper-3:  oklch(86%  0.012 240);
+  --color-rule:     oklch(74%  0.012 240);
+  --color-rule-2:   oklch(38%  0.018 240);
+  --color-muted:    oklch(46%  0.014 245);
+  --color-neutral:  oklch(28%  0.016 245);
+  --color-ink-2:    oklch(20%  0.018 245);
+  --color-ink:      oklch(16%  0.020 245);
   --color-accent:   oklch(38%  0.135 250);
   --color-accent-ink: oklch(40% 0.13 250);
   --color-focus:    oklch(38%  0.135 250);
 
-  --font-display: "Newsreader", "Fraunces", ui-serif, Georgia, serif;
+  --font-display: "Bricolage Grotesque", "IBM Plex Sans", ui-sans-serif, sans-serif;
   --font-body:    "IBM Plex Sans", "The Future", ui-sans-serif, sans-serif;
   --font-serif:   "Newsreader", ui-serif, Georgia, serif;
-  --font-label:   "IBM Plex Mono", "The Future Mono", ui-monospace, monospace;
+  --font-label:   "IBM Plex Mono", ui-monospace, monospace;
   --font-mono:    "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
 
-  --display-weight: 500;
+  --display-weight: 600;
   --display-optical: 48;
   --display-style: normal;
 
@@ -552,7 +554,7 @@
   --text-display:   clamp(2.25rem, 3.5vw + 1rem, 3.75rem);
   --text-display-s: clamp(1.5rem, 2vw + 1rem, 2.25rem);
 
-  --tracking-display: -0.012em;
+  --tracking-display: -0.014em;
   --tracking-tight:   -0.005em;
   --tracking-label:   0.06em;
 
@@ -570,14 +572,14 @@
   --page-max: 84rem;
 }
 
-/* ——————————————————————————————————————————————————————————— */
-/*  12 · SPORT — italic energy                                    */
-/* ——————————————————————————————————————————————————————————— */
+/* ──────────────────────────────────────────────────────────────
+   SPORT — crisp white · italic display · burnt orange accent
+   ────────────────────────────────────────────────────────────── */
 
 [data-theme="sport"] {
-  --color-paper:    oklch(96%  0.006 250);
-  --color-paper-2:  oklch(93%  0.008 250);
-  --color-paper-3:  oklch(89%  0.010 250);
+  --color-paper:    oklch(98%  0.003 250);
+  --color-paper-2:  oklch(95%  0.005 250);
+  --color-paper-3:  oklch(91%  0.007 250);
   --color-rule:     oklch(78%  0.008 250);
   --color-rule-2:   oklch(36%  0.060 255);
   --color-muted:    oklch(50%  0.020 250);
@@ -591,7 +593,7 @@
   --font-display: "Bricolage Grotesque", "Space Grotesk", ui-sans-serif, sans-serif;
   --font-body:    "Plus Jakarta Sans", "Hanken Grotesk", "The Future", ui-sans-serif, sans-serif;
   --font-serif:   "Bricolage Grotesque", ui-sans-serif, sans-serif;
-  --font-label:   "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+  --font-label:   "JetBrains Mono", ui-monospace, monospace;
   --font-mono:    "JetBrains Mono", ui-monospace, monospace;
 
   --display-weight: 700;

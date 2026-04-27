@@ -413,7 +413,7 @@
   border-bottom: var(--rule-hair) solid var(--color-rule-2);
 }
 
-/* ── NEWSPRINT — bottom-aligned head, multi-column body, double rule ── */
+/* ── NEWSPRINT — bottom-aligned head, multi-column body, double rule, drop cap ── */
 [data-theme="newsprint"] .opening {
   grid-template-columns: 1fr;
   border-top: 4px double var(--color-ink);
@@ -439,6 +439,16 @@
   text-align: justify;
   max-width: none;
   margin-top: var(--space-md);
+}
+/* Signature drop cap — first letter of the lede */
+[data-theme="newsprint"] .opening__sub::first-letter {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 4.2em;
+  line-height: 0.85;
+  float: left;
+  margin: 0.08em 0.12em 0 0;
+  color: var(--color-accent);
 }
 @media (max-width: 50rem) {
   [data-theme="newsprint"] .opening__sub { column-count: 1; }
@@ -616,7 +626,7 @@
 }
 [data-theme="salon"] .spec { text-align: left; }
 
-/* ── LINEN — hanging headings, two-column asymmetric ────────── */
+/* ── LINEN — hanging headings, two-column asymmetric, woven texture ─── */
 [data-theme="linen"] .opening { grid-template-columns: 7fr 5fr; gap: var(--space-3xl); }
 [data-theme="linen"] .section__head {
   grid-template-columns: 1fr;
@@ -632,7 +642,24 @@
 @media (max-width: 56rem) { [data-theme="linen"] .foundations { grid-template-columns: 1fr; } }
 [data-theme="linen"] .spec { border-top: 0; border-bottom: var(--rule-hair) solid var(--color-rule); }
 
-/* ── ALMANAC — sticky labels, 3-col equal, dense ────────────── */
+/* Signature: barely-visible woven texture — checkerboard at 3% opacity */
+html[data-theme="linen"] body {
+  background-image:
+    linear-gradient(45deg, oklch(20% 0.025 90 / 0.018) 25%, transparent 25%, transparent 75%, oklch(20% 0.025 90 / 0.018) 75%),
+    linear-gradient(45deg, oklch(20% 0.025 90 / 0.018) 25%, transparent 25%, transparent 75%, oklch(20% 0.025 90 / 0.018) 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 3px 3px;
+}
+
+/* ── ALMANAC — sticky labels, 3-col equal, dense, faint grid bg ────── */
+/* Signature: faint vertical grid running the full page (graph-paper) */
+html[data-theme="almanac"] body {
+  background-image:
+    linear-gradient(to right, oklch(38% 0.018 240 / 0.05) 0, oklch(38% 0.018 240 / 0.05) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
+  background-attachment: fixed;
+}
+
 [data-theme="almanac"] .section__head {
   position: sticky;
   top: 0;
