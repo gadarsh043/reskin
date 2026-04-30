@@ -79,6 +79,18 @@
   --rule-hair:     0.5px;
   --rule-fine:     1px;
 
+  /* Component shape — square by default; per-theme overrides below.
+     The radius / border-weight choice is part of each theme's voice:
+     editorial themes stay square (Specimen, Newsprint, Salon, Linen),
+     technical themes stay square (Almanac, Midnight, Terminal),
+     brutalist themes get heavier borders (Brutal, Manifesto),
+     soft themes get rounded corners (Pastel, Garden, Studio, Quiet). */
+  --radius-card:   0;          /* .code, .tell cards, .install__body */
+  --radius-pill:   0;          /* CTAs, dot indicators, badges */
+  --radius-input:  0;          /* form fields, single-line code blocks */
+  --rule-card:     1px;        /* card border thickness */
+  --shadow-card:   none;       /* card depth — most themes have no shadow */
+
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -798,3 +810,27 @@
 
   --measure: 60ch;
 }
+
+/* ──────────────────────────────────────────────────────────────
+   PER-THEME COMPONENT SHAPE — radius, border weight, shadow.
+   Defaults (in :root above): square edges, 1 px border, no shadow.
+   These overrides give each theme its own component voice without
+   touching colour or typography.
+
+   The discipline: editorial / brutalist / technical themes stay
+   square (the rule is the design); soft / modern themes get
+   measured radius (Pastel 12 px is the most rounded — it's the
+   post-Linear theme); brutalist / declarative themes get heavier
+   borders. Nothing is rounded "for fun".
+   ────────────────────────────────────────────────────────────── */
+
+[data-theme="brutal"]    { --rule-card: 2px; }
+[data-theme="manifesto"] { --rule-card: 2px; }
+[data-theme="sport"]     { --rule-card: 1.5px; }
+[data-theme="garden"]    { --radius-card: 6px; --radius-pill: 4px; }
+[data-theme="studio"]    { --radius-card: 6px; --radius-pill: 4px;  --shadow-card: 0 1px 2px oklch(20% 0.012 100 / 0.04); }
+[data-theme="pastel"]    { --radius-card: 12px; --radius-pill: 999px; --radius-input: 8px;
+                            --shadow-card: 0 8px 24px -10px oklch(50% 0.13 282 / 0.14); }
+[data-theme="riso"]      { --radius-card: 2px; --radius-pill: 2px; }
+[data-theme="quiet"]     { --radius-card: 4px; --radius-pill: 4px; --shadow-card: 0 1px 2px oklch(20% 0.005 240 / 0.05); }
+
