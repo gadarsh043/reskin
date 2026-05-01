@@ -1,7 +1,7 @@
 ---
 name: hallmark
 description: Use this skill when the user asks to design, build, redesign, audit, refine, or study a UI, web page, landing page, dashboard, component, or interface — or when they ask to make something "feel less AI-generated." Hallmark forces intentional design decisions (typography, color, layout, motion, interaction, structure) and refuses to default to the generic AI-UI template. Trigger phrases include "design a", "build a landing page", "make a dashboard", "redesign this site", "redesign the page", "refine this UI", "audit this design", "this looks AI-generated", "fix the design", "polish this", "give this a different look", and any request that will produce HTML / CSS / JSX / Tailwind output. **Also trigger when the user attaches a screenshot of a design they admire** — that is the `hallmark study` verb (extracts design DNA, never pixel-clones).
-version: 0.6.0
+version: 0.7.0
 ---
 
 # Hallmark
@@ -29,6 +29,8 @@ Hallmark has one default behaviour and four explicit verbs.
 | `hallmark study <screenshot>` | The user pasted or attached an image of a design they admire. Extract the **DNA** — macrostructure, archetypes, type-pairing role, colour anchor — and produce a diagnosis report, then optionally rebuild the user's content using the extracted DNA. **Never copies pixels. Never claims to identify exact fonts. Refuses obvious template-marketplace or competitor-page screenshots.** Load [`references/study.md`](references/study.md) before this verb runs. |
 
 If the user types anything that does not clearly map to `audit`, `refine`, `redesign`, or `study`, treat it as default. If the user attaches an image without a verb prefix, ask: *"Should I `study` this (extract the DNA), or should I treat it as a reference for a fresh build?"*
+
+The default Design flow always picks a theme. By default it picks one of the **16 named themes** — the *catalog* — and rotates among them per the diversification rule. There is also a quiet *custom* branch that constructs a one-off OKLCH palette + free-font pairing for the brief; the custom route fires **only when the brief carries a creative-intent signal** (the user names a brand colour, names a multi-attribute vibe the catalog can't carry, or explicitly asks for a custom theme). For vanilla briefs, the user never sees the words "catalog" or "custom" — the catalog runs silently. See Step 1 (signal detection) and Step 2.6 (dispatch); the protocol lives in [`references/custom-theme.md`](references/custom-theme.md).
 
 ---
 
@@ -96,6 +98,17 @@ Hallmark works best when you know three things before writing code:
 3. **Tone.** Pick an extreme — *editorial, brutalist, soft, utilitarian, luxury, playful, technical, austere*. "Clean and modern" is not a tone.
 
 **Ask once, then commit.** If any of the three is missing, ask for all missing items in **one** short message — not one at a time, not in a follow-up. Offer the user an opt-out at the end of that message: *"or say 'go ahead' and I'll infer from the brief — I'll tell you what I picked."*
+
+**Theme route — only surface when the brief signals it.** Hallmark has two theme routes: **catalog** (the 16 named themes — Specimen, Atelier, Pastel, Brutal, Salon, Newsprint, Linen, Studio, Manifesto, Plain, Terminal, Midnight, Almanac, Garden, Quiet, Riso) and **custom** (an OKLCH palette + free-font pairing tuned to this one brief). **Catalog is the default.** Do **not** offer the user a choice on every prompt — that's friction, not discipline. Surface the route only when the brief carries one of these signals:
+
+- The user explicitly says **custom theme** / **tailored to our brand** / **make it ours** / **something unique** / **play with the colors and fonts**.
+- The user names a **specific brand colour** as the anchor (e.g., "use our terracotta", "the brand red is hex #c0392b", "anchor on sea-blue").
+- The user describes a **multi-attribute aesthetic that doesn't map to a single catalog theme** — three or more vibe words pointing at a specific feel (e.g., "moss, lichen, soft pink, herbal" / "sun-drenched, market-day, carbon-black" / "late-night, neon, brutalist deli"). One adjective ("warm", "technical", "playful") is *not* a custom signal — that's a tone, and the catalog already carries it.
+- The user attaches a **brand-mood reference** (a colour swatch, a moodboard, a Pantone chip) without asking to study a screenshot.
+
+If any of those fires, ask one short follow-up before picking: *"This brief reads like a custom palette would fit better than the 16 named themes. Want me to construct a custom OKLCH palette + free-font pairing tuned to <one-line summary of the vibe>, or stay on the catalog for variety + speed?"* Wait for the user to say custom (or catalog). Default is still catalog — silence routes to catalog, not custom.
+
+If none of the signals fires, **proceed with catalog silently. Do not mention the fork.** Most briefs don't need a custom theme — the catalog's 16 themes plus the rotation rule already deliver structural variety. See Step 2.6 for the dispatch.
 
 **If the user opts out** (says "go ahead", "you pick", "skip", "just build it", "don't ask", or simply doesn't engage with the question after one prompt):
 
@@ -171,6 +184,20 @@ Then the theme rotation, on the next line:
 
 The rotation block keeps the user inside the discipline without making them read the rules. Skip it and the user starts thinking the diversification is theatre.
 
+### 2.6. Theme route — catalog or custom
+
+By the time you reach this step, one of three things is true:
+
+1. **The user named custom** (because they said so, or because Step 1's signal detection fired and they confirmed) → load [`references/custom-theme.md`](references/custom-theme.md), ask the **one** follow-up (vibe in 4–8 words + optional anchor colour), construct the OKLCH palette + free-font pairing, compute the three axis values (paper-band / display-style / accent-hue), then continue to Step 3.
+2. **The user named catalog** (or implicitly accepted it by not naming custom) → pick one of the 16 named themes per the diversification rule above. Existing flow — continue to Step 3.
+3. **Neither was discussed** (Step 1's signals didn't fire — vanilla brief) → default to **catalog**. Do not pause. Do not ask. Continue to Step 3.
+
+**Custom is a quiet branch, not a default question.** Most briefs route to catalog and the user never sees the words "catalog" or "custom." The 16 named themes plus the rotation rule already deliver structural variety; the fork is reserved for when the brief specifically asks for a tuned look the catalog can't carry.
+
+A custom theme is a **complete** OKLCH palette + font pairing tuned to the brief — not a one-off colour swap, not an excuse to bypass the rules. Every constraint in [`color.md`](references/color.md), [`typography.md`](references/typography.md), and [`anti-patterns.md`](references/anti-patterns.md) still applies. The 38 slop-test gates fire unchanged. The Step 5 preview block surfaces the palette + pairing in plain text **before** any code is emitted, so the user can redirect.
+
+The diversification rule is theme-route-blind: a custom run that follows another custom (or a catalog) must differ on at least one of the three axes from the previous entry, same as catalog-vs-catalog. Custom entries record their three axes explicitly into `.hallmark/log.json` (see [`custom-theme.md`](references/custom-theme.md) § F).
+
 ### 3. Load the visual ruleset
 
 The non-negotiables live in [`references/`](references/). Read only what you need:
@@ -213,7 +240,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 **Format** (Markdown bullets, not ASCII boxes — they render reliably across every chat client and terminal):
 
 ```markdown
-**Hallmark · v0.6.0**
+**Hallmark · v0.7.0**
 
 - **Macrostructure** · Stat-Led
 - **Theme** · Plain (#fff paper · cool greys · ink-blue accent)
@@ -227,7 +254,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 **Six required bullets, one optional:**
 
 1. **Macrostructure** — the named pick from [`macrostructures.md`](references/macrostructures.md).
-2. **Theme** — name + one-line palette summary (paper colour band · accent hue · display style).
+2. **Theme** — for catalog: name + one-line palette summary (paper colour band · accent hue · display style). For custom: `custom (vibe: "<4–8 words>" · paper oklch(<L%> <C> <H>) · accent oklch(<L%> <C> <H>) <one-word hue label> · <display face> + <body face>)`.
 3. **Enrichment** — the chosen archetype + tier, or *none (typography only)*.
 4. **Sections** — section names separated by ` · `, in DOM order.
 5. **Motion** — microinteraction primitives separated by ` · `, or *none — typography only*. Always under three primitives per the [`microinteractions.md`](references/microinteractions.md) hard rules.
@@ -237,7 +264,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 **Three more sample preview blocks** for the model to imitate, varied across macrostructure types:
 
 *Long Document (editorial, motion-cut):*
-> **Hallmark · v0.6.0**
+> **Hallmark · v0.7.0**
 >
 > - **Macrostructure** · Long Document
 > - **Theme** · Linen (cool slate paper · steel-blue accent · geometric sans)
@@ -248,7 +275,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 > - **Diversification** · first run for this project
 
 *Bento Grid (SaaS, motion-on):*
-> **Hallmark · v0.6.0**
+> **Hallmark · v0.7.0**
 >
 > - **Macrostructure** · Bento Grid
 > - **Theme** · Pastel (light cool paper · indigo accent · geometric Geist)
@@ -259,7 +286,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 > - **Diversification** · differs from Plain on paper hue (light-cool vs pure-white) + accent (indigo vs ink-blue)
 
 *Manifesto (declarative, no enrichment):*
-> **Hallmark · v0.6.0**
+> **Hallmark · v0.7.0**
 >
 > - **Macrostructure** · Manifesto
 > - **Theme** · Manifesto (dark · Inter Tight 900 · single red bleed)
@@ -268,6 +295,17 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 > - **Motion** · none — typography only
 > - **Slop test** · 38 / 38 ✓
 > - **Diversification** · differs from Linen on paper band (dark vs light) + display style (display-heavy vs geometric-sans)
+
+*Custom (Coffeebox archival café):*
+> **Hallmark · v0.7.0**
+>
+> - **Macrostructure** · Long Document
+> - **Theme** · custom (vibe: "archival warmth, hand-set, no varnish" · paper oklch(94% 0.020 65) · accent oklch(58% 0.16 35) terracotta · Fraunces italic display + Source Serif 4 body)
+> - **Enrichment** · Tier-A pure-CSS coffee bean (60-line SVG, breathing-loop optional)
+> - **Sections** · Masthead · Letter · Three Notes · Visit · Colophon
+> - **Motion** · breathing-loop on bean (with reduced-motion fallback)
+> - **Slop test** · 38 / 38 ✓
+> - **Diversification** · custom axes: light / italic-serif / chromatic-terracotta — differs from previous catalog Linen on accent hue + display style
 
 If any slop-test gate fails when you reach Step 7, return to the relevant Build step, fix it, and **re-emit the preview block** with the corrected slop-test row. The preview is the durable summary; it's wrong to ship if it lies.
 
@@ -287,8 +325,8 @@ Always:
 - Include `:focus-visible` with a visible ring at ≥3:1 contrast. **Never animate the ring's appearance** — it must show instantly on focus.
 - For each interaction in the output (button, input, modal, toast, drag, copy, etc.), apply the recipe in [`microinteractions.md`](references/microinteractions.md). Pick *silent success* over celebratory toasts. Pick *optimistic update + Undo* over confirmation dialogs. Pick *delay 800ms* on hover tooltips and *0ms* on focus tooltips.
 - Cut motion before adding it. Most pages have too much, not too little. If removing an animation wouldn't lose the user information, remove it.
-- **Stamp the output.** The first non-empty line of the produced CSS file (or the top of `<style>` if inline) MUST be a comment of the form: `/* Hallmark · macrostructure: <name> · tone: <tone> · anchor hue: <hue> */`. This stamp is the durable record of what you chose. The next time Hallmark runs in this project, it reads the stamp and picks a *different* macrostructure.
-- **Append to project memory.** After you write the stamp, update (or create) `.hallmark/log.json` at the project root. Append a new entry at the **front** of the array: `{ "date": "<YYYY-MM-DD>", "macrostructure": "<name>", "theme": "<name>", "enrichment": "<E# name or 'none'>", "brief": "<one-line summary>" }`. Trim the file to the last 20 entries (rotate the oldest off). Create `.hallmark/` and the file if they don't exist; respect any existing `.gitignore` (the user may or may not want this committed). This file is what Step 2.5 reads on the next run.
+- **Stamp the output.** The first non-empty line of the produced CSS file (or the top of `<style>` if inline) MUST be a comment of the form: `/* Hallmark · macrostructure: <name> · tone: <tone> · anchor hue: <hue> */`. This stamp is the durable record of what you chose. The next time Hallmark runs in this project, it reads the stamp and picks a *different* macrostructure. **For custom themes**, the stamp also carries the vibe, paper + accent OKLCH values, the chosen display + body fonts, and the three diversification axes — the full multi-line format is in [`custom-theme.md`](references/custom-theme.md) § E.
+- **Append to project memory.** After you write the stamp, update (or create) `.hallmark/log.json` at the project root. Append a new entry at the **front** of the array: `{ "date": "<YYYY-MM-DD>", "macrostructure": "<name>", "theme": "<name>", "enrichment": "<E# name or 'none'>", "brief": "<one-line summary>" }`. **Custom entries** also carry `"theme": "custom"` plus `"theme_axes": "<paper-band> / <display-style> / <accent-hue>"` and an optional `"vibe": "<4–8 words>"` — see [`custom-theme.md`](references/custom-theme.md) § F. Trim the file to the last 20 entries (rotate the oldest off). Create `.hallmark/` and the file if they don't exist; respect any existing `.gitignore` (the user may or may not want this committed). This file is what Step 2.5 reads on the next run.
 
 ### 7. The slop test
 
@@ -436,7 +474,7 @@ The user has attached or pasted a screenshot of a design they admire. They want 
 
 4. **Confirmation question.** Ask: *"Adopt this DNA wholesale, or change one axis? For example, I could keep the macrostructure but pick a theme that better matches your tone."* Wait for the user's answer before building.
 
-5. **Build.** Pick the closest matching theme from the canon. Stamp the comment with the inferred macrostructure + archetypes + theme. The user's content goes in; the screenshot's content does not.
+5. **Build.** Pick the closest matching theme from the catalog. Stamp the comment with the inferred macrostructure + archetypes + theme. The user's content goes in; the screenshot's content does not.
 
 ### Output contract for `study`
 

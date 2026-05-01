@@ -429,18 +429,15 @@ function interpolate(node, copy) {
 function buildDenseColophon(themeName) {
   // Pre-formatted dense block for the dense footer. Generated rather than
   // template-string'd so it stays monospace-aligned.
-  const today = "2026-04-28";
+  const today = "2026-05-01";
   return [
-    `# hallmark · v0.2 · ${themeName.toLowerCase()}`,
+    `# hallmark · v0.7.0 · ${themeName.toLowerCase()}`,
     `# build: ${today} · MIT · powered by together ai`,
     `#`,
-    `# influences:`,
-    `#   pbakaus/impeccable     — the named-tells canon`,
-    `#   tw93/kami              — the slop-test concept`,
-    `#   leonxlnx/taste-skill   — taste vocabulary`,
-    `#   anthropics/skills      — frontend-design skill`,
+    `# stats:  21 macrostructures · 32 archetypes · 16 themes · 38 gates`,
+    `#         catalog (16 named) + custom (per-brand, opt-in)`,
     `#`,
-    `# stats:  21 macrostructures · 32 archetypes · 12 themes · 29 gates`,
+    `# repo:   github.com/Luffixos/hallmark`,
   ].join("\n");
 }
 

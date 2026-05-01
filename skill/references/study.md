@@ -171,7 +171,7 @@ Anti-patterns I'd skip: [list anything from anti-patterns.md visible in
 the screenshot — bouncy hovers, transition-all, three-feature grid, etc.
 If there are none, say so.]
 
-If you adopt this DNA, the closest theme in the canon is [theme name].
+If you adopt this DNA, the closest theme in the catalog is [theme name].
 That's a candidate, not a requirement — your content might point elsewhere.
 
 Want me to build with this DNA, or change one axis first?
@@ -232,7 +232,7 @@ The last line is the **confirmation question**. Wait for the user before buildin
 >
 > Anti-patterns I'd skip: nothing from this screenshot stands out as carry-over risk. The reference is clean.
 >
-> If you adopt this DNA, the closest theme in the canon is **Studio** (Instrument Serif italic display + Geist body + forest-green accent). Note: the screenshot's accent is neutral; Studio uses a small green mark — if you want neutral, I can desaturate the accent in the build.
+> If you adopt this DNA, the closest theme in the catalog is **Studio** (Instrument Serif italic display + Geist body + forest-green accent). Note: the screenshot's accent is neutral; Studio uses a small green mark — if you want neutral, I can desaturate the accent in the build.
 >
 > Want me to build with this DNA, or change one axis first?
 
