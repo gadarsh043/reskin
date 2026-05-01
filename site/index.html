@@ -46,12 +46,22 @@
   <header class="banner" role="banner">
     <a class="banner__mark" href="#top" aria-label="Hallmark — top of page">
       <span class="banner__name">Hallmark</span>
-      <span class="banner__ver">v0.7</span>
+      <span class="banner__ver">v0.8</span>
     </a>
+
+    <a class="banner__install" href="#install" aria-label="Jump to install section">Install</a>
+
+    <span class="banner__stamp" data-stamp aria-label="Current Hallmark stamp">
+      <span class="banner__stamp-text" data-stamp-text>marquee · specimen · enrich-A</span>
+      <span class="banner__stamp-detail" data-stamp-detail aria-hidden="true">/* Hallmark · genre: editorial · macrostructure: marquee · theme: specimen · enrichment: A */</span>
+    </span>
 
     <span class="banner__spacer" aria-hidden="true"></span>
 
-    <span class="banner__center" data-theme-current>Specimen</span>
+    <span class="banner__center" data-theme-current>
+      <span class="banner__theme">Specimen</span>
+      <span class="banner__genre" data-theme-genre>editorial</span>
+    </span>
 
     <div class="banner__picker" role="radiogroup" aria-label="Theme">
       <button class="banner__dot" type="button" data-theme-btn="specimen" aria-label="Specimen"
@@ -85,7 +95,9 @@
       <button class="banner__dot" type="button" data-theme-btn="riso" aria-label="Riso"
         style="--dot: oklch(91% 0.034 30); --dot-edge: oklch(58% 0.170 220);"></button>
       <button class="banner__dot" type="button" data-theme-btn="quiet" aria-label="Quiet"
-        style="--dot: oklch(99.5% 0.002 90); --dot-edge: oklch(16% 0.005 240);"></button>
+        style="--dot: oklch(100% 0 0); --dot-edge: oklch(15% 0 0);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="bloom" aria-label="Bloom"
+        style="--dot: oklch(8% 0.012 35); --dot-edge: oklch(72% 0.190 45);"></button>
 
     </div>
 
@@ -101,6 +113,13 @@
       </svg>
       <span class="banner__shuffle-key">T</span>
     </button>
+
+    <aside class="t-tooltip" data-t-tooltip hidden role="status" aria-live="polite">
+      <span class="t-tooltip__arrow" aria-hidden="true"></span>
+      <span class="t-tooltip__body">
+        Press <kbd>T</kbd> to see this page in <strong>17 shapes</strong>.
+      </span>
+    </aside>
   </header>
 
   <main class="page">
@@ -133,6 +152,13 @@
             <span class="ex-card__brief">Indie podcast · warm cream, mono masthead</span>
             <span class="ex-card__open">Open ↗</span>
           </div>
+          <div class="ex-card__trail" aria-hidden="true">
+            <p class="trail__row"><span class="trail__k">Brief</span><span class="trail__v">Indie podcast for solo hosts.</span></p>
+            <p class="trail__row"><span class="trail__k">Genre</span><span class="trail__v">editorial</span></p>
+            <p class="trail__row"><span class="trail__k">Macro</span><span class="trail__v">Letter</span></p>
+            <p class="trail__row"><span class="trail__k">Theme</span><span class="trail__v">Salon</span></p>
+            <p class="trail__row"><span class="trail__k">Enrich</span><span class="trail__v">none — typography only</span></p>
+          </div>
         </a>
 
         <a class="ex-card" href="_tests/02-streampipe-cli/index.html" target="_blank" rel="noopener" role="listitem">
@@ -144,6 +170,13 @@
             <span class="ex-card__name">Streampipe</span>
             <span class="ex-card__brief">Open-source CLI · prose-led docs, embedded terminal</span>
             <span class="ex-card__open">Open ↗</span>
+          </div>
+          <div class="ex-card__trail" aria-hidden="true">
+            <p class="trail__row"><span class="trail__k">Brief</span><span class="trail__v">Open-source CLI tool docs.</span></p>
+            <p class="trail__row"><span class="trail__k">Genre</span><span class="trail__v">atmospheric</span></p>
+            <p class="trail__row"><span class="trail__k">Macro</span><span class="trail__v">Long Document</span></p>
+            <p class="trail__row"><span class="trail__k">Theme</span><span class="trail__v">Terminal</span></p>
+            <p class="trail__row"><span class="trail__k">Enrich</span><span class="trail__v">Tier-A inline CSS-art terminal</span></p>
           </div>
         </a>
 
@@ -157,6 +190,13 @@
             <span class="ex-card__brief">Artisan bakery · market-board layout, hand-built SVG</span>
             <span class="ex-card__open">Open ↗</span>
           </div>
+          <div class="ex-card__trail" aria-hidden="true">
+            <p class="trail__row"><span class="trail__k">Brief</span><span class="trail__v">Artisan bakery, eight breads.</span></p>
+            <p class="trail__row"><span class="trail__k">Genre</span><span class="trail__v">editorial</span></p>
+            <p class="trail__row"><span class="trail__k">Macro</span><span class="trail__v">Catalogue</span></p>
+            <p class="trail__row"><span class="trail__k">Theme</span><span class="trail__v">Almanac</span></p>
+            <p class="trail__row"><span class="trail__k">Enrich</span><span class="trail__v">Tier-A hand-built SVG silhouettes</span></p>
+          </div>
         </a>
 
         <a class="ex-card" href="_tests/04-meridian-manifesto/index.html" target="_blank" rel="noopener" role="listitem">
@@ -168,6 +208,13 @@
             <span class="ex-card__name">Meridian</span>
             <span class="ex-card__brief">Studio manifesto · dark paper, yellow strike</span>
             <span class="ex-card__open">Open ↗</span>
+          </div>
+          <div class="ex-card__trail" aria-hidden="true">
+            <p class="trail__row"><span class="trail__k">Brief</span><span class="trail__v">Studio manifesto, four principles.</span></p>
+            <p class="trail__row"><span class="trail__k">Genre</span><span class="trail__v">editorial</span></p>
+            <p class="trail__row"><span class="trail__k">Macro</span><span class="trail__v">Quote-Led</span></p>
+            <p class="trail__row"><span class="trail__k">Theme</span><span class="trail__v">Brutal</span></p>
+            <p class="trail__row"><span class="trail__k">Enrich</span><span class="trail__v">none — voice carries the brand</span></p>
           </div>
         </a>
 
@@ -181,6 +228,13 @@
             <span class="ex-card__brief">Observability SaaS · dark paper, sticky trace panel</span>
             <span class="ex-card__open">Open ↗</span>
           </div>
+          <div class="ex-card__trail" aria-hidden="true">
+            <p class="trail__row"><span class="trail__k">Brief</span><span class="trail__v">SaaS observability platform.</span></p>
+            <p class="trail__row"><span class="trail__k">Genre</span><span class="trail__v">atmospheric</span></p>
+            <p class="trail__row"><span class="trail__k">Macro</span><span class="trail__v">Workbench</span></p>
+            <p class="trail__row"><span class="trail__k">Theme</span><span class="trail__v">Midnight</span></p>
+            <p class="trail__row"><span class="trail__k">Enrich</span><span class="trail__v">Tier-A sticky trace panel</span></p>
+          </div>
         </a>
 
         <a class="ex-card" href="_tests/06-anya-portfolio/index.html" target="_blank" rel="noopener" role="listitem">
@@ -192,6 +246,13 @@
             <span class="ex-card__name">Anya</span>
             <span class="ex-card__brief">Software architect personal site · sticky TOC, pure white</span>
             <span class="ex-card__open">Open ↗</span>
+          </div>
+          <div class="ex-card__trail" aria-hidden="true">
+            <p class="trail__row"><span class="trail__k">Brief</span><span class="trail__v">Software architect personal site.</span></p>
+            <p class="trail__row"><span class="trail__k">Genre</span><span class="trail__v">modern-minimal</span></p>
+            <p class="trail__row"><span class="trail__k">Macro</span><span class="trail__v">Index-First</span></p>
+            <p class="trail__row"><span class="trail__k">Theme</span><span class="trail__v">Quiet</span></p>
+            <p class="trail__row"><span class="trail__k">Enrich</span><span class="trail__v">none — typography only</span></p>
           </div>
         </a>
 
@@ -205,6 +266,13 @@
             <span class="ex-card__brief">SOC2 compliance SaaS · six-tile bento, deep-red accent</span>
             <span class="ex-card__open">Open ↗</span>
           </div>
+          <div class="ex-card__trail" aria-hidden="true">
+            <p class="trail__row"><span class="trail__k">Brief</span><span class="trail__v">SOC2 compliance SaaS.</span></p>
+            <p class="trail__row"><span class="trail__k">Genre</span><span class="trail__v">editorial</span></p>
+            <p class="trail__row"><span class="trail__k">Macro</span><span class="trail__v">Bento Grid</span></p>
+            <p class="trail__row"><span class="trail__k">Theme</span><span class="trail__v">Newsprint</span></p>
+            <p class="trail__row"><span class="trail__k">Enrich</span><span class="trail__v">Tier-A logo grid + counter</span></p>
+          </div>
         </a>
 
         <a class="ex-card" href="_tests/08-cohort-courses/index.html" target="_blank" rel="noopener" role="listitem">
@@ -217,12 +285,19 @@
             <span class="ex-card__brief">Cohort-based courses · stat-led, three supporting figures</span>
             <span class="ex-card__open">Open ↗</span>
           </div>
+          <div class="ex-card__trail" aria-hidden="true">
+            <p class="trail__row"><span class="trail__k">Brief</span><span class="trail__v">Cohort-based courses platform.</span></p>
+            <p class="trail__row"><span class="trail__k">Genre</span><span class="trail__v">editorial</span></p>
+            <p class="trail__row"><span class="trail__k">Macro</span><span class="trail__v">Stat-Led</span></p>
+            <p class="trail__row"><span class="trail__k">Theme</span><span class="trail__v">Linen</span></p>
+            <p class="trail__row"><span class="trail__k">Enrich</span><span class="trail__v">none — typography only</span></p>
+          </div>
         </a>
 
       </div>
     </section>
 
-    <!-- 03 · WITHOUT / WITH — same copy, two design languages -->
+    <!-- 03 · WITHOUT / WITH — same copy, two design languages, two examples -->
     <section class="section reveal" style="--i:2" aria-labelledby="s3">
       <header class="section__head">
         <p class="section-label">
@@ -233,42 +308,175 @@
         </h2>
       </header>
 
-      <div class="vs">
-        <div class="vs__col">
-          <div class="vs__head"><span class="vs__label">Without Hallmark</span></div>
-          <div class="vs__panel" data-variant="slop">
-            <p class="vs__panel-eyebrow">✨ Introducing</p>
-            <h3 class="vs__panel-title">Notes that think with you.</h3>
-            <p class="vs__panel-sub">A writing tool that organizes your ideas as you draft.</p>
-            <span class="vs__panel-cta">Try free</span>
+      <input type="radio" name="vs-toggle" id="vs-notes" class="vs-toggle__input" checked />
+      <input type="radio" name="vs-toggle" id="vs-dashboard" class="vs-toggle__input" />
+      <input type="radio" name="vs-toggle" id="vs-pricing" class="vs-toggle__input" />
+      <input type="radio" name="vs-toggle" id="vs-personal" class="vs-toggle__input" />
+
+      <div class="vs-toggle" role="tablist" aria-label="Choose a brief">
+        <label for="vs-notes" class="vs-toggle__btn" data-vs="notes" role="tab">
+          <span class="vs-toggle__num">01</span>
+          <span class="vs-toggle__label">Writing app</span>
+        </label>
+        <label for="vs-dashboard" class="vs-toggle__btn" data-vs="dashboard" role="tab">
+          <span class="vs-toggle__num">02</span>
+          <span class="vs-toggle__label">Dashboard</span>
+        </label>
+        <label for="vs-pricing" class="vs-toggle__btn" data-vs="pricing" role="tab">
+          <span class="vs-toggle__num">03</span>
+          <span class="vs-toggle__label">Pricing card</span>
+        </label>
+        <label for="vs-personal" class="vs-toggle__btn" data-vs="personal" role="tab">
+          <span class="vs-toggle__num">04</span>
+          <span class="vs-toggle__label">Personal site</span>
+        </label>
+      </div>
+
+      <div class="vs-pairs">
+
+        <div class="vs vs--notes" data-vs-pair="notes">
+          <div class="vs__col">
+            <div class="vs__head"><span class="vs__label">Without Hallmark</span></div>
+            <div class="vs__panel" data-variant="slop">
+              <p class="vs__panel-eyebrow">✨ Introducing</p>
+              <h3 class="vs__panel-title">Notes that think with you.</h3>
+              <p class="vs__panel-sub">A writing tool that organizes your ideas as you draft.</p>
+              <span class="vs__panel-cta">Try free</span>
+            </div>
+            <p class="vs__caption">
+              Centred everything. Purple-to-pink gradient on the headline. Inter top to bottom. A pill button with a gradient fill. A page every LLM has produced ten thousand times.
+            </p>
           </div>
-          <p class="vs__caption">
-            Centred everything. Purple-to-pink gradient on the headline. Inter top to bottom. A pill button with a gradient fill. A page every LLM has produced ten thousand times.
-          </p>
-        </div>
-        <div class="vs__col">
-          <div class="vs__head"><span class="vs__label">With Hallmark</span></div>
-          <div class="vs__panel" data-variant="hallmark">
-            <p class="vs__panel-eyebrow"><span class="vs__panel-mark" aria-hidden="true"></span>Introducing</p>
-            <h3 class="vs__panel-title">Notes that think <em>with you.</em></h3>
-            <p class="vs__panel-sub">A writing tool that organizes your ideas as you draft.</p>
-            <span class="vs__panel-cta">Try free →</span>
+          <div class="vs__col">
+            <div class="vs__head"><span class="vs__label">With Hallmark</span></div>
+            <div class="vs__panel" data-variant="hallmark">
+              <p class="vs__panel-eyebrow"><span class="vs__panel-mark" aria-hidden="true"></span>Introducing</p>
+              <h3 class="vs__panel-title">Notes that think <em>with you.</em></h3>
+              <p class="vs__panel-sub">A writing tool that organizes your ideas as you draft.</p>
+              <span class="vs__panel-cta">Try free →</span>
+            </div>
+            <p class="vs__caption">
+              Left-aligned, asymmetric. A display face with character set against a clean body. One small accent on the eyebrow only. A square-edged button. Same words — a page that knows what it is.
+            </p>
           </div>
-          <p class="vs__caption">
-            Left-aligned, asymmetric. A display face with character set against a clean body. One small accent on the eyebrow only. A square-edged button. Same words — a page that knows what it is.
-          </p>
         </div>
+
+        <div class="vs vs--dashboard" data-vs-pair="dashboard">
+          <div class="vs__col">
+            <div class="vs__head"><span class="vs__label">Without Hallmark</span></div>
+            <div class="vs__panel vs__panel--dash" data-variant="slop">
+              <p class="vs__panel-eyebrow">📊 Overview</p>
+              <h3 class="vs__panel-stat">1,284</h3>
+              <p class="vs__panel-stat-label">Active sessions today</p>
+              <span class="vs__panel-badge">↑ 12%</span>
+              <p class="vs__panel-sub">Up from yesterday. Across 47 regions.</p>
+              <span class="vs__panel-cta">View report</span>
+            </div>
+            <p class="vs__caption">
+              A glassmorphic widget. Gradient sparkline. Floating green-glow badge. Pill button with gradient fill. Centred on a softly-shadowed card. The AI-default dashboard.
+            </p>
+          </div>
+          <div class="vs__col">
+            <div class="vs__head"><span class="vs__label">With Hallmark</span></div>
+            <div class="vs__panel vs__panel--dash" data-variant="hallmark">
+              <p class="vs__panel-eyebrow"><span class="vs__panel-mark" aria-hidden="true"></span>Overview</p>
+              <p class="vs__panel-stat-line">
+                <span class="vs__panel-stat-num">1,284</span>
+                <span class="vs__panel-stat-delta"><span class="vs__panel-stat-dot" aria-hidden="true"></span>↑ 12%</span>
+              </p>
+              <p class="vs__panel-stat-label">Active sessions today.<br />Up from yesterday — across 47 regions.</p>
+              <span class="vs__panel-cta">View report →</span>
+            </div>
+            <p class="vs__caption">
+              Hairline rule above the figure. Mono tabular numerals at display size. Inline 12% with a single accent dot, no glow. Asymmetric, left-aligned. Square-edge CTA. Information, not decoration.
+            </p>
+          </div>
+        </div>
+
+        <div class="vs vs--pricing" data-vs-pair="pricing">
+          <div class="vs__col">
+            <div class="vs__head"><span class="vs__label">Without Hallmark</span></div>
+            <div class="vs__panel vs__panel--pricing" data-variant="slop">
+              <span class="vs__panel-pop">✨ Most popular</span>
+              <p class="vs__panel-eyebrow">Starter</p>
+              <h3 class="vs__panel-price"><span class="vs__panel-price-num">$24</span><span class="vs__panel-price-unit">/month</span></h3>
+              <p class="vs__panel-sub">For solo writers and side projects.</p>
+              <ul class="vs__panel-bullets">
+                <li>✅ 5,000 words / month</li>
+                <li>✅ Unlimited drafts</li>
+                <li>✅ Email support</li>
+              </ul>
+              <span class="vs__panel-cta">Choose Starter</span>
+            </div>
+            <p class="vs__caption">
+              Glassmorphic centred card. "Most popular" badge with sparkle emoji. Gradient on the price. Emoji checkmarks. Pill button with gradient fill. The B2B SaaS pricing card the LLM ships every time.
+            </p>
+          </div>
+          <div class="vs__col">
+            <div class="vs__head"><span class="vs__label">With Hallmark</span></div>
+            <div class="vs__panel vs__panel--pricing" data-variant="hallmark">
+              <p class="vs__panel-eyebrow"><span class="vs__panel-mark" aria-hidden="true"></span>Recommended</p>
+              <p class="vs__panel-tier">Starter</p>
+              <h3 class="vs__panel-price">
+                <span class="vs__panel-price-num">$24</span>
+                <span class="vs__panel-price-unit">/ month</span>
+              </h3>
+              <p class="vs__panel-sub">For solo writers and side projects.</p>
+              <ul class="vs__panel-bullets">
+                <li>5,000 words a month</li>
+                <li>Unlimited drafts</li>
+                <li>Reply-by-Wednesday email support</li>
+              </ul>
+              <span class="vs__panel-cta">Choose Starter →</span>
+            </div>
+            <p class="vs__caption">
+              Tier name set in display face above a hairline rule. Mono tabular price. No gradients, no glow, no emoji. Plain bullets, plain rules. The price is the design.
+            </p>
+          </div>
+        </div>
+
+        <div class="vs vs--personal" data-vs-pair="personal">
+          <div class="vs__col">
+            <div class="vs__head"><span class="vs__label">Without Hallmark</span></div>
+            <div class="vs__panel vs__panel--personal" data-variant="slop">
+              <span class="vs__panel-avatar" aria-hidden="true">A</span>
+              <h3 class="vs__panel-name">Anya Reyes</h3>
+              <p class="vs__panel-sub">Software architect &amp; distributed-systems builder.</p>
+              <div class="vs__panel-pills">
+                <span class="vs__panel-pill">About</span>
+                <span class="vs__panel-pill">Work</span>
+                <span class="vs__panel-pill">Contact</span>
+              </div>
+            </div>
+            <p class="vs__caption">
+              Centred avatar bubble. Gradient on the name. Three pill nav buttons in a row. Inter top to bottom. The portfolio template the LLM falls back to when it doesn't know who you are.
+            </p>
+          </div>
+          <div class="vs__col">
+            <div class="vs__head"><span class="vs__label">With Hallmark</span></div>
+            <div class="vs__panel vs__panel--personal" data-variant="hallmark">
+              <p class="vs__panel-eyebrow"><span class="vs__panel-mark" aria-hidden="true"></span>About · 01</p>
+              <h3 class="vs__panel-name">Anya <em>Reyes.</em></h3>
+              <p class="vs__panel-bio">Software architect, ten years on distributed systems. Currently building Streampipe. Writes about latency and the small print of caches.</p>
+              <p class="vs__panel-links"><a href="#" class="vs__panel-linkitem">Notes</a> · <a href="#" class="vs__panel-linkitem">Work</a> · <a href="#" class="vs__panel-linkitem">Garden</a> · <a href="#" class="vs__panel-linkitem">Contact</a></p>
+            </div>
+            <p class="vs__caption">
+              No avatar. Italic name with a roman emphasis on the surname. Numbered eyebrow (<code>01</code>) like a chapter mark. Body serif bio that reads like a letter. Plain text links separated by middots. A page that knows its subject.
+            </p>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- 04 · FOUNDATIONS — eight rules in plain English -->
+    <!-- 04 · FOUNDATIONS — five plain-English rules -->
     <section class="section reveal" style="--i:3" aria-labelledby="s4">
       <header class="section__head">
         <p class="section-label">
           <span class="num">04</span><span class="divider">⁄</span><span>Foundations</span>
         </p>
         <h2 class="section__title" id="s4">
-          Eight things Hallmark holds the line on — explained without the jargon.
+          Five things Hallmark holds the line on — explained without the jargon.
         </h2>
       </header>
 
@@ -352,58 +560,12 @@
           </div>
         </article>
 
-        <article class="spec">
+        <article class="spec spec--strip">
           <header class="spec__head">
-            <span class="spec__name">States</span>
+            <span class="spec__name">Voice</span>
             <span class="spec__num">F / 05</span>
           </header>
-          <p class="spec__rule">Buttons and inputs need real feedback for every state — hover, press, focus, loading, error, success — not just on and off. Hit targets big enough to actually tap.</p>
-          <div class="spec__body">
-            <div class="spec__viz spec__viz--states">
-              <button class="spec__viz-button" type="button" data-states-demo>
-                <span data-states-label>Hover, focus, click me</span>
-              </button>
-              <p class="spec__viz-state-readout" data-states-readout aria-live="polite">default</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="spec">
-          <header class="spec__head">
-            <span class="spec__name">Responsive</span>
-            <span class="spec__num">F / 06</span>
-          </header>
-          <p class="spec__rule">Mobile first. Add breakpoints where the <em>content</em> starts to look wrong, not where some device used to sit.</p>
-          <div class="spec__body">
-            <div class="spec__viz spec__viz--responsive" aria-hidden="true">
-              <div class="vg-frame vg-frame--phone">
-                <span class="vg-line vg-line--head"></span>
-                <span class="vg-line"></span>
-                <span class="vg-line"></span>
-                <span class="vg-line vg-line--short"></span>
-              </div>
-              <div class="vg-frame vg-frame--tablet">
-                <span class="vg-line vg-line--head"></span>
-                <span class="vg-line"></span>
-                <span class="vg-line"></span>
-                <span class="vg-line vg-line--short"></span>
-              </div>
-              <div class="vg-frame vg-frame--laptop">
-                <span class="vg-line vg-line--head"></span>
-                <span class="vg-line"></span>
-                <span class="vg-line"></span>
-                <span class="vg-line vg-line--short"></span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="spec">
-          <header class="spec__head">
-            <span class="spec__name">Copy</span>
-            <span class="spec__num">F / 07</span>
-          </header>
-          <p class="spec__rule">Write like a person. Specific verbs over vague ones. Link text that makes sense out of context. Real apostrophes, not straight quotes.</p>
+          <p class="spec__rule">Write like a person. Specific verbs over vague ones. Link text that makes sense out of context. Real apostrophes, not straight quotes. No "seamless," no "unleash," no "built for the modern team."</p>
           <div class="spec__body">
             <div class="spec__viz spec__viz--copy">
               <div class="spec__viz-copy-col" data-variant="bad">
@@ -411,34 +573,15 @@
                 <p class="spec__viz-copy-line">Click here</p>
                 <p class="spec__viz-copy-line">Get started</p>
                 <p class="spec__viz-copy-line">Built for the modern team</p>
+                <p class="spec__viz-copy-line">Unleash the future</p>
               </div>
               <div class="spec__viz-copy-col" data-variant="good">
                 <p class="spec__viz-copy-label">Specific</p>
                 <p class="spec__viz-copy-line">View pricing plans</p>
                 <p class="spec__viz-copy-line">Save changes</p>
                 <p class="spec__viz-copy-line">The email API for developers</p>
+                <p class="spec__viz-copy-line">Notes that think with you</p>
               </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="spec spec--strip">
-          <header class="spec__head">
-            <span class="spec__name">Anti-patterns</span>
-            <span class="spec__num">F / 08</span>
-          </header>
-          <p class="spec__rule">Twenty-one named tells the AI keeps reaching for. Run <code>hallmark audit</code> to find them, <code>hallmark refine</code> to fix them in place.</p>
-          <div class="spec__body">
-            <div class="spec__viz spec__viz--tells" aria-hidden="true">
-              <span class="vt vt--purple"></span>
-              <span class="vt vt--gradtext"></span>
-              <span class="vt vt--icontile"></span>
-              <span class="vt vt--centered"></span>
-              <span class="vt vt--glass"></span>
-              <span class="vt vt--pill"></span>
-              <span class="vt vt--bigfeat"></span>
-              <span class="vt vt--threecard"></span>
-              <span class="vt vt--moremore">+13</span>
             </div>
           </div>
         </article>
@@ -446,62 +589,50 @@
       </div>
     </section>
 
-    <!-- 05 · HOW IT WORKS -->
-    <section class="section reveal" style="--i:4" aria-labelledby="s5">
+    <!-- 05 · FAQ — six typographic Q/A pairs -->
+    <section class="section reveal" style="--i:4" id="faq" aria-labelledby="s5">
       <header class="section__head">
         <p class="section-label">
-          <span class="num">05</span><span class="divider">⁄</span><span>How it works</span>
+          <span class="num">05</span><span class="divider">⁄</span><span>FAQ</span>
         </p>
         <h2 class="section__title" id="s5">
-          Install once. Ask for what you need. Hallmark handles the rest.
+          The questions people actually ask.
         </h2>
       </header>
 
-      <div class="how">
+      <ol class="faq" role="list">
 
-        <article class="step">
-          <span class="step__num">I</span>
-          <div>
-            <h3 class="step__head">Install the skill</h3>
-            <p class="step__sub">One command. Works in Claude Code, Cursor, and Codex out of the box.</p>
-          </div>
-          <div class="step__body">
-            <pre class="code"
-              data-copy-source><span class="prompt">$</span><span data-copy-text>npx skills add hallmark</span><button class="code__copy" type="button" data-copy-btn aria-label="Copy install command"><span class="code__copy-default">Copy</span><span class="code__copy-done">Copied</span></button></pre>
-          </div>
-        </article>
+        <li class="faq__row">
+          <p class="faq__q-mark"><span class="faq__qletter">Q</span> ⁄ 01</p>
+          <h3 class="faq__q">Does it work with Cursor and Codex?</h3>
+          <p class="faq__a">Yes. Drop the body of <code>SKILL.md</code> into <code>.cursor/rules/hallmark.mdc</code> for Cursor, or copy the <code>skill/</code> folder into your Codex agent config. Claude Code picks it up at <code>~/.claude/skills/hallmark/</code>.</p>
+        </li>
 
-        <article class="step">
-          <span class="step__num">II</span>
-          <div>
-            <h3 class="step__head">Ask for a UI</h3>
-            <p class="step__sub">In plain language. Hallmark asks a few questions first — who's it for, what's it for, what tone — so the page actually fits the brief.</p>
-          </div>
-          <div class="step__body">
-            <pre class="code code--block">&gt; build a landing page for a local bookshop's
-  new poetry collection. editorial tone,
-  for literary-minded customers.</pre>
-          </div>
-        </article>
+        <li class="faq__row">
+          <p class="faq__q-mark"><span class="faq__qletter">Q</span> ⁄ 02</p>
+          <h3 class="faq__q">Can I disable a specific rule?</h3>
+          <p class="faq__a">Most rules are universal — typography discipline, accessibility, anti-purple-text-gradient. Genre-specific rules can be loosened by picking a different genre: <em>atmospheric</em> allows dark-canvas radial gradients that <em>editorial</em> bans; <em>modern-minimal</em> allows pure white that <em>editorial</em> bans.</p>
+        </li>
 
-        <article class="step">
-          <span class="step__num">III</span>
-          <div>
-            <h3 class="step__head">Five verbs: build, audit, refine, redesign, study</h3>
-            <p class="step__sub">The default verb builds. <code>hallmark audit</code> scores existing code against the
-              named tells. <code>hallmark refine</code> polishes in place. <code>hallmark redesign</code> rethinks the
-              structure. <code>hallmark study</code> reads a screenshot you admire and extracts what makes it work — the structure, the type pairing, the colour anchor — never the pixels.</p>
-          </div>
-          <div class="step__body">
-            <pre class="code code--block">$ claude "hallmark study ./reference.png"
-  → Macrostructure: Split Studio
-  → Hero: H2 Split (6/6, proof column)
-  → Type: italic editorial serif + grotesque
-  → Theme candidate: Studio</pre>
-          </div>
-        </article>
+        <li class="faq__row">
+          <p class="faq__q-mark"><span class="faq__qletter">Q</span> ⁄ 03</p>
+          <h3 class="faq__q">What if I want my brand colours, not the catalog?</h3>
+          <p class="faq__a">Mention them in the brief, or attach a brand colour. Hallmark's <strong>custom-theme</strong> route builds an OKLCH palette tuned to your anchor and pairs free fonts to it — full rules still apply, just on your colours.</p>
+        </li>
 
-      </div>
+        <li class="faq__row">
+          <p class="faq__q-mark"><span class="faq__qletter">Q</span> ⁄ 04</p>
+          <h3 class="faq__q">What does "AI-slop" mean exactly?</h3>
+          <p class="faq__a">Twenty-one named tells the LLM reaches for by default — purple-gradient hero, centred-everything, icon-tile feature row, glass card, gradient headline, pill button with gradient fill. Run <code>hallmark audit</code> on any page to see them flagged.</p>
+        </li>
+
+        <li class="faq__row">
+          <p class="faq__q-mark"><span class="faq__qletter">Q</span> ⁄ 05</p>
+          <h3 class="faq__q">Five verbs — what do they do?</h3>
+          <p class="faq__a"><code>hallmark</code> (default) builds. <code>hallmark audit</code> scores existing code. <code>hallmark refine</code> polishes in place. <code>hallmark redesign</code> rethinks structure — and on a whole project, writes a <code>design.md</code> first so every page shares the system. <code>hallmark study</code> reads a screenshot you admire and extracts its DNA, never the pixels.</p>
+        </li>
+
+      </ol>
     </section>
 
     <!-- 06 · INSTALL — one command, every harness -->
@@ -759,7 +890,7 @@
       <div class="foot__col">
         <p class="foot__col-head">Catalog</p>
         <ul>
-          <li>16 themes</li>
+          <li>17 themes</li>
           <li>21 macrostructures</li>
           <li>32 archetypes</li>
           <li>38 slop-test gates</li>

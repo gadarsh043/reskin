@@ -41,6 +41,7 @@ const THEMES = {
   pastel: "Pastel",
   riso: "Riso",
   quiet: "Quiet",
+  bloom: "Bloom",
 };
 const STORAGE_KEY = "hallmark-theme";
 
@@ -64,7 +65,36 @@ const ARCHETYPES = {
   studio: { hero: "photographic", footer: "index" },
   pastel: { hero: "clipped", footer: "masthead" },
   riso: { hero: "quote-led", footer: "dense" },
-  quiet: { hero: "letter", footer: "inline" },
+  quiet: { hero: "split", footer: "masthead" },
+  bloom: { hero: "marquee", footer: "masthead" },
+};
+
+/* — Theme → genre map ——————————————————————————————————
+   Each theme belongs to one of four genres — a rule-set overlay that
+   scopes which slop-test gates apply and which voice fixtures the
+   skill picks from. See skill/references/genres/. */
+const THEME_GENRES = {
+  // editorial — the canonical Hallmark voice (12 themes)
+  specimen:  "editorial",
+  newsprint: "editorial",
+  atelier:   "editorial",
+  garden:    "editorial",
+  salon:     "editorial",
+  linen:     "editorial",
+  almanac:   "editorial",
+  studio:    "editorial",
+  riso:      "editorial",
+  sport:     "editorial",
+  brutal:    "editorial",
+  manifesto: "editorial",
+  // modern-minimal — Stripe / Linear / ElevenLabs school
+  quiet:     "modern-minimal",
+  // atmospheric — Suno / Runway / dark-AI-tool school
+  bloom:     "atmospheric",
+  midnight:  "atmospheric",
+  terminal:  "atmospheric",
+  // playful — post-Linear soft school
+  pastel:    "playful",
 };
 
 /* — Locked hero title —————————————————————————————————
@@ -380,25 +410,46 @@ const COPY = {
     captionB: "press · 04",
   },
   quiet: {
-    eyebrow: "v0.4",
+    eyebrow: "Polished minimal",
     title: HERO_TITLE,
-    lede: "System fonts. Near-white paper. Average-sized headers. A theme that argues against itself.",
-    ctaLabel: "Install",
-    proofLabel: "Notes",
-    proofA: "System-native typography",
-    proofB: "No chromatic accent",
-    proofC: "No reveal animation",
-    cta: "Read on",
-    stat: "16",
-    qualifier: "themes, one of them is this.",
-    mockStat: "16",
-    quote: "Restraint, when it's the brief, is the design.",
+    lede: "Geist sans. Pure white. One bold display. Generous space. The design decides what to leave out — and stands behind those choices.",
+    ctaLabel: "Get started",
+    proofLabel: "Decisions",
+    proofA: "Pure-white paper, dark ink",
+    proofB: "Geist sans, single weight",
+    proofC: "Pill CTAs · monochrome accent",
+    cta: "Get started",
+    stat: "1",
+    qualifier: "decision, made everywhere.",
+    mockStat: "1",
+    quote: "The work that looks effortless is the work where the choices were made.",
     attrib: "Quiet",
     salutation: "Hello.",
-    letterBody: "This is a page that doesn't try. The font is whatever your operating system gives. The accent colour is the same as the text. The headlines are average-sized. The whitespace is generous. There is nothing here to surprise you, and that's the design.",
+    letterBody: "A theme for the modern enterprise page — the Stripe / Linear / ElevenLabs school of restraint. Clean white, confident typography, pill CTAs. Minimalism with conviction, not absence.",
     signoff: "Yours,",
-    captionA: "Plain",
-    captionB: "Quiet",
+    captionA: "Quiet",
+    captionB: "v0.8",
+  },
+  bloom: {
+    eyebrow: "Atmospheric · 2026",
+    title: HERO_TITLE,
+    lede: "For the AI-creative product page. Dark canvas, warm bloom, declarative type. The aesthetic of a tool you'd actually want to use after dark.",
+    ctaLabel: "Try it now",
+    proofLabel: "Atmosphere",
+    proofA: "Dark canvas with two warm blooms",
+    proofB: "Geist sans, one weight, plain English",
+    proofC: "Single warm accent — never gradient text",
+    cta: "Try it now",
+    stat: "1",
+    qualifier: "warm canvas — many uses.",
+    mockStat: "1",
+    quote: "The page should feel like a place you could sit in.",
+    attrib: "Bloom note",
+    salutation: "Welcome,",
+    letterBody: "A dark theme for the AI-creative tool page — Suno, Runway, the late-night software where atmosphere matters. Two soft colour blooms, plain confident type, a single warm accent. Restraint of a different kind.",
+    signoff: "— Bloom",
+    captionA: "Bloom",
+    captionB: "Late-night",
   },
 };
 
@@ -441,7 +492,7 @@ function buildDenseColophon(themeName) {
     `# hallmark · v0.7.0 · ${themeName.toLowerCase()}`,
     `# build: ${today} · MIT · powered by together ai`,
     `#`,
-    `# stats:  21 macrostructures · 32 archetypes · 16 themes · 38 gates`,
+    `# stats:  21 macrostructures · 32 archetypes · 17 themes · 38 gates`,
     `#         catalog (16 named) + custom (per-brand, opt-in)`,
     `#`,
     `# repo:   github.com/Luffixos/hallmark`,
@@ -512,12 +563,28 @@ function attachCopyButtons(scope = document) {
 attachCopyButtons();
 
 /* — Theme application ————————————————————————————————— */
+/* Cached banner subnodes — populated once at startup. */
+const themeLabelEl = document.querySelector(".banner__theme");
+const themeGenreEl = document.querySelector("[data-theme-genre]");
+const stampTextEl = document.querySelector("[data-stamp-text]");
+const stampDetailEl = document.querySelector("[data-stamp-detail]");
+
 function setPressed(theme) {
   dots.forEach((btn) => {
     const active = btn.dataset.themeBtn === theme;
     btn.setAttribute("aria-pressed", active ? "true" : "false");
   });
-  if (currentLabel) currentLabel.textContent = THEMES[theme] || "Specimen";
+  const themeName = THEMES[theme] || "Specimen";
+  const genre = THEME_GENRES[theme] || "editorial";
+  const archetype = (ARCHETYPES[theme] && ARCHETYPES[theme].hero) || "marquee";
+
+  if (themeLabelEl) themeLabelEl.textContent = themeName;
+  if (themeGenreEl) themeGenreEl.textContent = genre;
+  if (stampTextEl)  stampTextEl.textContent = `${archetype} · ${theme} · enrich-A`;
+  if (stampDetailEl) stampDetailEl.textContent = `/* Hallmark · genre: ${genre} · macrostructure: ${archetype} · theme: ${theme} · enrichment: A */`;
+
+  // Fallback for older callers — keep the public theme-current span up to date.
+  if (currentLabel && !themeLabelEl) currentLabel.textContent = themeName;
 }
 
 function applyTheme(theme) {
@@ -567,6 +634,55 @@ if (shuffleBtn) {
   shuffleBtn.addEventListener("click", () => applyTheme(pickRandomTheme()));
 }
 
+/* — T-key onboarding tooltip ————————————————————————————————
+   First-time visitors don't know T cycles themes. After ~5s of no T
+   presses (and only if they haven't seen the tooltip before), fade
+   it in near the shuffle button. Dismisses on first T press, on
+   click, or after 8s of being shown. localStorage flag is set on
+   dismiss so it never returns. */
+const T_TOOLTIP_KEY = "hallmark-t-tooltip-seen";
+const T_TOOLTIP_DELAY_MS = 5000;
+const T_TOOLTIP_AUTO_HIDE_MS = 8000;
+const T_TOOLTIP_FADE_MS = 240;
+const tTooltipEl = document.querySelector("[data-t-tooltip]");
+let tTooltipShown = false;
+let tTooltipTimer = null;
+let tTooltipAutoHideTimer = null;
+
+function tTooltipSeen() {
+  try { return localStorage.getItem(T_TOOLTIP_KEY) === "1"; } catch (e) { return false; }
+}
+
+function markTTooltipSeen() {
+  try { localStorage.setItem(T_TOOLTIP_KEY, "1"); } catch (e) { }
+}
+
+function showTTooltip() {
+  if (!tTooltipEl || tTooltipShown || tTooltipSeen()) return;
+  tTooltipShown = true;
+  tTooltipEl.hidden = false;
+  delete tTooltipEl.dataset.state;
+  clearTimeout(tTooltipAutoHideTimer);
+  tTooltipAutoHideTimer = setTimeout(hideTTooltip, T_TOOLTIP_AUTO_HIDE_MS);
+}
+
+function hideTTooltip() {
+  if (!tTooltipEl || !tTooltipShown) return;
+  clearTimeout(tTooltipAutoHideTimer);
+  tTooltipEl.dataset.state = "closing";
+  setTimeout(() => {
+    tTooltipEl.hidden = true;
+    delete tTooltipEl.dataset.state;
+    tTooltipShown = false;
+    markTTooltipSeen();
+  }, T_TOOLTIP_FADE_MS);
+}
+
+if (tTooltipEl && !tTooltipSeen()) {
+  tTooltipTimer = setTimeout(showTTooltip, T_TOOLTIP_DELAY_MS);
+  tTooltipEl.addEventListener("click", hideTTooltip);
+}
+
 /* — Easter egg — "chill, designer." ————————————————————————
    Spam T fast enough and the page intervenes. We track timestamps in
    a rolling 3.2s window; if the user crosses the threshold (≈ a full
@@ -583,7 +699,7 @@ const EASTER_COOLDOWN_MS = 15000;
 const EASTER_PUNCHLINES = [
   "chill, designer.",
   "you've seen them all.",
-  "sixteen is plenty.",
+  "seventeen is plenty.",
   "pick. build. ship.",
   "easy on the keyboard.",
   "one theme will do.",
@@ -655,6 +771,10 @@ document.addEventListener("keydown", (e) => {
 
   if (e.key === "t" || e.key === "T") {
     e.preventDefault();
+    // Dismiss the onboarding tooltip on first T press.
+    clearTimeout(tTooltipTimer);
+    if (tTooltipShown) hideTTooltip();
+    else markTTooltipSeen();
     // Easter-egg counter — track press cadence in a rolling window.
     // Push BEFORE applying the theme so the trigger fires on this same
     // keystroke if we've crossed the threshold.

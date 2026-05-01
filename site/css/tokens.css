@@ -771,52 +771,98 @@
    ────────────────────────────────────────────────────────────── */
 
 [data-theme="quiet"] {
-  --color-paper:    oklch(99.5% 0.002 90);   /* barely-warm near-white */
-  --color-paper-2:  oklch(97%   0.003 90);
-  --color-paper-3:  oklch(94%   0.004 90);
-  --color-rule:     oklch(86%   0.003 240);
-  --color-rule-2:   oklch(72%   0.003 240);
-  --color-muted:    oklch(50%   0.004 240);
-  --color-neutral:  oklch(38%   0.004 240);
-  --color-ink-2:    oklch(22%   0.005 240);
-  --color-ink:      oklch(16%   0.005 240);  /* barely-cool near-black */
-  --color-accent:   oklch(16%   0.005 240);  /* accent IS ink — no chroma */
-  --color-accent-ink: oklch(16% 0.005 240);
-  --color-focus:    oklch(16%   0.005 240);
+  --color-paper:    oklch(100%  0     0);    /* pure white */
+  --color-paper-2:  oklch(98.5% 0     0);    /* card surface */
+  --color-paper-3:  oklch(96%   0     0);    /* hover surface */
+  --color-rule:     oklch(91%   0     0);    /* hairline */
+  --color-rule-2:   oklch(82%   0     0);    /* prominent border */
+  --color-muted:    oklch(55%   0     0);
+  --color-neutral:  oklch(40%   0     0);
+  --color-ink-2:    oklch(28%   0     0);
+  --color-ink:      oklch(15%   0     0);    /* near-black */
+  --color-accent:   oklch(15%   0     0);    /* mono — accent IS ink */
+  --color-accent-ink: oklch(15% 0     0);
+  --color-focus:    oklch(60%   0.10  240);  /* a single tiny blue for keyboard focus only */
 
-  --font-display: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-body:    system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Geist", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-body:    "Geist", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-serif:   ui-serif, Georgia, "Times New Roman", serif;
-  --font-label:   ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --font-mono:    ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-label:   "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-mono:    "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --display-weight: 500;
   --display-style:  normal;
 
-  /* Average-sized headers — much smaller than other themes' 3.5–8rem display */
-  --text-display:   clamp(1.75rem, 2.5vw + 0.5rem, 2.75rem);
-  --text-display-s: clamp(1.5rem, 2vw + 0.25rem, 2rem);
-  --text-2xl: 1.625rem;
-  --text-xl:  1.25rem;
-  --text-lg:  1.125rem;
+  /* A confident, large display — minimalism with conviction, not timidity. */
+  --text-display:   clamp(2.5rem, 5vw + 0.5rem, 4.75rem);
+  --text-display-s: clamp(2rem, 3vw + 0.5rem, 3rem);
+  --text-2xl: clamp(1.75rem, 2vw + 0.5rem, 2.5rem);
+  --text-xl:  1.5rem;
+  --text-lg:  1.25rem;
 
-  --tracking-display: -0.02em;
-  --tracking-tight:   -0.01em;
-  --tracking-label:   0.06em;
+  --tracking-display: -0.025em;
+  --tracking-tight:   -0.015em;
+  --tracking-label:   0.04em;
 
-  --lh-tight:   1.15;
-  --lh-snug:    1.4;
-  --lh-normal:  1.6;
-  --lh-relaxed: 1.75;
+  --lh-tight:   1.08;
+  --lh-snug:    1.25;
+  --lh-normal:  1.55;
+  --lh-relaxed: 1.7;
 
   /* Generous whitespace — the page breathes */
-  --section-gap:      12rem;
+  --section-gap:      10rem;
   --section-head-gap: 2.5rem;
-  --space-2xl:        6rem;
-  --space-3xl:        9rem;
-  --space-4xl:        14rem;
+  --space-2xl:        4.5rem;
+  --space-3xl:        7rem;
+  --space-4xl:        11rem;
 
-  --measure: 60ch;
+  --measure: 64ch;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   BLOOM — atmospheric dark · warm radial bloom · expressive
+   For the "AI-creative product" page (think Suno, Runway, music
+   tools). Dark canvas, two soft colour blooms behind the content,
+   confident sans display, single warm accent. The first non-print
+   theme in the catalog.
+   ────────────────────────────────────────────────────────────── */
+
+[data-theme="bloom"] {
+  --color-paper:    oklch(8%    0.012  35);    /* near-black, hint warm */
+  --color-paper-2:  oklch(11%   0.014  35);    /* elevated surface */
+  --color-paper-3:  oklch(14%   0.018  38);    /* hover / inset */
+  --color-rule:     oklch(22%   0.018  38);
+  --color-rule-2:   oklch(34%   0.022  40);
+  --color-muted:    oklch(58%   0.018  40);
+  --color-neutral:  oklch(74%   0.012  40);
+  --color-ink-2:    oklch(86%   0.008  40);
+  --color-ink:      oklch(98%   0.005  40);
+  --color-accent:   oklch(72%   0.190  45);    /* warm orange/amber */
+  --color-accent-ink: oklch(72% 0.190  45);
+  --color-accent-2:   oklch(64% 0.220  18);    /* secondary pink/red bloom */
+  --color-focus:    oklch(72%   0.190  45);
+
+  --font-display: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-body:    "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif:   "Instrument Serif", ui-serif, Georgia, serif;
+  --font-label:   "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-mono:    "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --display-weight: 600;
+  --display-style:  normal;
+
+  --text-display:   clamp(3rem, 6vw + 1rem, 6rem);
+  --text-display-s: clamp(2rem, 3vw + 1rem, 3.5rem);
+
+  --tracking-display: -0.035em;
+  --tracking-tight:   -0.02em;
+  --tracking-label:   0.10em;
+
+  --lh-tight: 1.04;
+  --lh-snug:  1.18;
+
+  --section-gap:      9rem;
+  --section-head-gap: 2rem;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -840,5 +886,8 @@
 [data-theme="pastel"]    { --radius-card: 12px; --radius-pill: 999px; --radius-input: 8px;
                             --shadow-card: 0 8px 24px -10px oklch(50% 0.13 282 / 0.14); }
 [data-theme="riso"]      { --radius-card: 2px; --radius-pill: 2px; }
-[data-theme="quiet"]     { --radius-card: 4px; --radius-pill: 4px; --shadow-card: 0 1px 2px oklch(20% 0.005 240 / 0.05); }
+[data-theme="quiet"]     { --radius-card: 8px; --radius-pill: 999px; --radius-input: 8px; }
+[data-theme="bloom"]     { --radius-card: 16px; --radius-pill: 999px; --radius-input: 12px;
+                            --shadow-card: 0 24px 48px -16px oklch(8% 0.04 35 / 0.6),
+                                           0 1px 2px oklch(8% 0.04 35 / 0.4); }
 

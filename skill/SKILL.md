@@ -30,7 +30,7 @@ Hallmark has one default behaviour and four explicit verbs.
 
 If the user types anything that does not clearly map to `audit`, `refine`, `redesign`, or `study`, treat it as default. If the user attaches an image without a verb prefix, ask: *"Should I `study` this (extract the DNA), or should I treat it as a reference for a fresh build?"*
 
-The default Design flow always picks a theme. By default it picks one of the **16 named themes** — the *catalog* — and rotates among them per the diversification rule. There is also a quiet *custom* branch that constructs a one-off OKLCH palette + free-font pairing for the brief; the custom route fires **only when the brief carries a creative-intent signal** (the user names a brand colour, names a multi-attribute vibe the catalog can't carry, or explicitly asks for a custom theme). For vanilla briefs, the user never sees the words "catalog" or "custom" — the catalog runs silently. See Step 1 (signal detection) and Step 2.6 (dispatch); the protocol lives in [`references/custom-theme.md`](references/custom-theme.md).
+The default Design flow always picks a theme. By default it picks one of the **17 named themes** — the *catalog* — and rotates among them per the diversification rule. There is also a quiet *custom* branch that constructs a one-off OKLCH palette + free-font pairing for the brief; the custom route fires **only when the brief carries a creative-intent signal** (the user names a brand colour, names a multi-attribute vibe the catalog can't carry, or explicitly asks for a custom theme). For vanilla briefs, the user never sees the words "catalog" or "custom" — the catalog runs silently. See Step 1 (signal detection) and Step 2.6 (dispatch); the protocol lives in [`references/custom-theme.md`](references/custom-theme.md).
 
 ---
 
@@ -40,8 +40,9 @@ The default Design flow always picks a theme. By default it picks one of the **1
 
 If the project already has code — a `package.json`, a `tailwind.config.*`, an `index.html`, any CSS — Hallmark should **read it before asking the user anything**. Stomping on an established palette or font stack is the difference between a skill the user keeps and a skill the user uninstalls.
 
-**Five signal sources, scanned in order:**
+**Six signal sources, scanned in order:**
 
+0. **`design.md`** — at the project root (or `DESIGN.md`). If present, this is the **locked design system for the project** — written by a previous `hallmark redesign` run on the whole app, or by hand. **Read it first; it overrides everything else.** Subsequent picks (genre, theme, type, motion) defer to it. The diversification rule is *inverted* on `design.md`-managed projects: pages must share the system, not differ from each other. See [`verbs/redesign.md`](references/verbs/redesign.md) § Multi-page flow for how the file is produced and amended.
 1. **Font stack** — `package.json` for `next/font`, `@fontsource/*`, `expo-google-fonts`, `geist`; any `<link rel="stylesheet" href="...fonts.googleapis.com/...">` in HTML / layout files; `tailwind.config.{js,ts}` `theme.extend.fontFamily`; `@import url("fonts.googleapis.com/...")` in any stylesheet.
 2. **Palette** — OKLCH / HSL / hex values inside `:root` blocks; `tailwind.config` `theme.extend.colors`; any `tokens.json`, `design-tokens.{json,yaml}`, or DTCG-shaped file.
 3. **Microinteraction stance** — `package.json` dependencies for `framer-motion`, `gsap`, `motion`, `lenis`, `lottie-react`, `@react-spring/*`, `auto-animate`. Any one of those = "motion-on" project. None = "motion-cut" project.
@@ -73,6 +74,7 @@ If the cache is re-used, emit a one-line note instead of the full block: *"Pre-f
 
 **Edge cases:**
 
+- **`design.md` found** → emit *"`design.md` detected at project root — this is a system-managed project. Reading the locked design system; subsequent picks defer to it."* Then read the file in full and use it as the source of truth for genre / theme / typography / spacing / motion / CTA voice. Skip Step 1's catalog/custom dispatch; the system is already chosen. Proceed to macrostructure pick (Step 2) within the family `design.md` allows for this page's type.
 - **No signals found** (vanilla HTML project, empty repo, scratch directory) → silent. One line only: *"No pre-flight signals — proceeding with full Hallmark stack."*
 - **Conflicting signals** (e.g. `framer-motion` installed but no `motion.div` usage anywhere; or `Geist` import in `package.json` but `font-family: Inter` hard-coded in CSS) → flag the conflict explicitly: *"Conflict: Geist imported via next/font but a hard-coded `font-family: Inter` in app/globals.css L4. I'll preserve next/font Geist; please confirm or remove the Inter declaration."*
 - **Empty project** (no `package.json`, no `index.html`) → silent.
@@ -99,16 +101,26 @@ Hallmark works best when you know three things before writing code:
 
 **Ask once, then commit.** If any of the three is missing, ask for all missing items in **one** short message — not one at a time, not in a follow-up. Offer the user an opt-out at the end of that message: *"or say 'go ahead' and I'll infer from the brief — I'll tell you what I picked."*
 
-**Theme route — only surface when the brief signals it.** Hallmark has two theme routes: **catalog** (the 16 named themes — Specimen, Atelier, Pastel, Brutal, Salon, Newsprint, Linen, Studio, Manifesto, Plain, Terminal, Midnight, Almanac, Garden, Quiet, Riso) and **custom** (an OKLCH palette + free-font pairing tuned to this one brief). **Catalog is the default.** Do **not** offer the user a choice on every prompt — that's friction, not discipline. Surface the route only when the brief carries one of these signals:
+**Genre — pick before themes.** Before the theme route, settle on a genre. Hallmark ships four: **editorial** (default · the canonical anti-slop voice), **modern-minimal** (Stripe / Linear / ElevenLabs school), **atmospheric** (Suno / Runway / dark-AI-tool school), **playful** (post-Linear soft school). The genre scopes which themes can rotate, which slop-test gates apply, and which voice fixtures the LLM picks from. Detection is signal-based — silent default to editorial unless the brief fires one of these:
+
+- *AI tool, generative, music, video, voice, late-night, dark mode, atmospheric* → **atmospheric** → load [`references/genres/atmospheric.md`](references/genres/atmospheric.md)
+- *SaaS, enterprise, API, platform, developer tool, infra, B2B, dev experience* → **modern-minimal** → load [`references/genres/modern-minimal.md`](references/genres/modern-minimal.md)
+- *fun, consumer, casual, friendly, onboarding, family, community* → **playful** → load [`references/genres/playful.md`](references/genres/playful.md)
+
+If two non-default signals fire (rare), ask one short follow-up: *"This brief fits both modern-minimal and atmospheric — which feels closer? \[modern-minimal · atmospheric]"*. Default with no signal: silent **editorial** → load [`references/genres/editorial.md`](references/genres/editorial.md). The chosen genre file is loaded eagerly (it scopes everything downstream); other genre files stay on disk.
+
+State the genre out loud at Step 2.5 alongside the macrostructure and theme picks: *"Genre: atmospheric. Macrostructure: Marquee Hero. Theme: Bloom (atmospheric cluster)."*
+
+**Theme route — only surface when the brief signals it.** Hallmark has two theme routes: **catalog** (the 17 named themes — Specimen, Atelier, Pastel, Brutal, Salon, Newsprint, Linen, Studio, Manifesto, Terminal, Midnight, Almanac, Garden, Quiet, Riso, Sport, Bloom) and **custom** (an OKLCH palette + free-font pairing tuned to this one brief). **Catalog is the default.** The catalog rotation is *scoped to the genre's theme cluster* — atmospheric rotates Bloom/Midnight/Terminal, modern-minimal stays on Quiet, playful stays on Pastel, editorial walks the remaining twelve. Do **not** offer the user a choice on every prompt — that's friction, not discipline. Surface the catalog/custom fork only when the brief carries one of these signals:
 
 - The user explicitly says **custom theme** / **tailored to our brand** / **make it ours** / **something unique** / **play with the colors and fonts**.
 - The user names a **specific brand colour** as the anchor (e.g., "use our terracotta", "the brand red is hex #c0392b", "anchor on sea-blue").
 - The user describes a **multi-attribute aesthetic that doesn't map to a single catalog theme** — three or more vibe words pointing at a specific feel (e.g., "moss, lichen, soft pink, herbal" / "sun-drenched, market-day, carbon-black" / "late-night, neon, brutalist deli"). One adjective ("warm", "technical", "playful") is *not* a custom signal — that's a tone, and the catalog already carries it.
 - The user attaches a **brand-mood reference** (a colour swatch, a moodboard, a Pantone chip) without asking to study a screenshot.
 
-If any of those fires, ask one short follow-up before picking: *"This brief reads like a custom palette would fit better than the 16 named themes. Want me to construct a custom OKLCH palette + free-font pairing tuned to <one-line summary of the vibe>, or stay on the catalog for variety + speed?"* Wait for the user to say custom (or catalog). Default is still catalog — silence routes to catalog, not custom.
+If any of those fires, ask one short follow-up before picking: *"This brief reads like a custom palette would fit better than the catalog. Want me to construct a custom OKLCH palette + free-font pairing tuned to <one-line summary of the vibe>, or stay on the catalog for variety + speed?"* Wait for the user to say custom (or catalog). Default is still catalog — silence routes to catalog, not custom.
 
-If none of the signals fires, **proceed with catalog silently. Do not mention the fork.** Most briefs don't need a custom theme — the catalog's 16 themes plus the rotation rule already deliver structural variety. See Step 2.6 for the dispatch.
+If none of the signals fires, **proceed with catalog silently. Do not mention the fork.** Most briefs don't need a custom theme — the catalog's 17 themes plus the rotation rule already deliver structural variety. See Step 2.6 for the dispatch.
 
 **If the user opts out** (says "go ahead", "you pick", "skip", "just build it", "don't ask", or simply doesn't engage with the question after one prompt):
 
@@ -189,10 +201,10 @@ The rotation block keeps the user inside the discipline without making them read
 By the time you reach this step, one of three things is true:
 
 1. **The user named custom** (because they said so, or because Step 1's signal detection fired and they confirmed) → load [`references/custom-theme.md`](references/custom-theme.md), ask the **one** follow-up (vibe in 4–8 words + optional anchor colour), construct the OKLCH palette + free-font pairing, compute the three axis values (paper-band / display-style / accent-hue), then continue to Step 3.
-2. **The user named catalog** (or implicitly accepted it by not naming custom) → pick one of the 16 named themes per the diversification rule above. Existing flow — continue to Step 3.
+2. **The user named catalog** (or implicitly accepted it by not naming custom) → pick one of the 17 named themes per the diversification rule above. Existing flow — continue to Step 3.
 3. **Neither was discussed** (Step 1's signals didn't fire — vanilla brief) → default to **catalog**. Do not pause. Do not ask. Continue to Step 3.
 
-**Custom is a quiet branch, not a default question.** Most briefs route to catalog and the user never sees the words "catalog" or "custom." The 16 named themes plus the rotation rule already deliver structural variety; the fork is reserved for when the brief specifically asks for a tuned look the catalog can't carry.
+**Custom is a quiet branch, not a default question.** Most briefs route to catalog and the user never sees the words "catalog" or "custom." The 17 named themes plus the rotation rule already deliver structural variety; the fork is reserved for when the brief specifically asks for a tuned look the catalog can't carry.
 
 A custom theme is a **complete** OKLCH palette + font pairing tuned to the brief — not a one-off colour swap, not an excuse to bypass the rules. Every constraint in [`color.md`](references/color.md), [`typography.md`](references/typography.md), and [`anti-patterns.md`](references/anti-patterns.md) still applies. The 38 slop-test gates fire unchanged. The Step 5 preview block surfaces the palette + pairing in plain text **before** any code is emitted, so the user can redirect.
 
@@ -200,28 +212,42 @@ The diversification rule is theme-route-blind: a custom run that follows another
 
 ### 3. Load the visual ruleset
 
-The non-negotiables live in [`references/`](references/). Read only what you need:
+The non-negotiables live in [`references/`](references/). **Be precise about what to load when.** Loading every file every time costs ~40k tokens; loading only what's needed costs ~15k. Discipline matters.
 
+**Always-load (the eager bundle, ~3 files):**
+- The genre file picked in Step 1 — [`genres/editorial.md`](references/genres/editorial.md), [`genres/modern-minimal.md`](references/genres/modern-minimal.md), [`genres/atmospheric.md`](references/genres/atmospheric.md), or [`genres/playful.md`](references/genres/playful.md). Scopes everything downstream.
+- [`macrostructures.md`](references/macrostructures.md) — 21 named whole-page shapes; you must pick one before writing code (Step 2 already required this).
+- [`component-cookbook.md`](references/component-cookbook.md) — 32 component archetypes (hero shapes, section heads, feature blocks, CTA shapes, testimonials, footers, navigations) composable into any macrostructure.
+
+**Load-per-build (universal rules — load every build):**
 - [`typography.md`](references/typography.md) — fonts, scale, pairing, weights, measure
-- [`color.md`](references/color.md) — OKLCH, palette construction, accent discipline, dark mode
-- [`layout-and-space.md`](references/layout-and-space.md) — 4pt scale, grid-breaks, asymmetry, depth
-- [`macrostructures.md`](references/macrostructures.md) — twenty-one named whole-page shapes (Bento Grid, Long Document, Marquee Hero, Stat-Led, Workbench, etc.); pick one before writing code
-- [`component-cookbook.md`](references/component-cookbook.md) — thirty-two component archetypes (six hero shapes, five section-head shapes, five feature blocks, four CTA shapes, four testimonials, four footers, four navigations) you can compose into any macrostructure
-- [`structure.md`](references/structure.md) — the six primitive axes underlying the macrostructures, for when you need to deviate
+- [`color.md`](references/color.md) — OKLCH, palette construction, accent discipline
+- [`layout-and-space.md`](references/layout-and-space.md) — 4 pt scale, grid-breaks, asymmetry, depth
 - [`motion.md`](references/motion.md) — durations, easings, what to animate, reduced-motion
-- [`microinteractions.md`](references/microinteractions.md) — per-interaction recipes (button press, focus, modal, toast, optimistic update, command palette, drag, copy-to-clipboard, search-as-you-type) and the named microinteraction tells
-- [`interaction-and-states.md`](references/interaction-and-states.md) — the eight states, focus, hit-targets, forms
-- [`responsive.md`](references/responsive.md) — mobile-first, content-driven breakpoints, safe areas
 - [`copy.md`](references/copy.md) — verbs, labels, error structure, link text
 - [`anti-patterns.md`](references/anti-patterns.md) — the named tells you must not emit
-- [`hero-enrichment.md`](references/hero-enrichment.md) — when (and when not) to add a demo video / illustration / mockup / animated loop / abstract background to the hero, plus the eight enrichment archetypes (load when reaching Step 4)
-- [`custom-craft.md`](references/custom-craft.md) — *how* to hand-build hero artwork: pure CSS art, hand-built SVG, declarative animation (`@property`, `animation-timeline`, View Transitions), JS-driven (Motion / GSAP), and when Three.js earns its place. Load only when an enrichment archetype requires construction.
-- [`assets.md`](references/assets.md) — the sourcing catalogue: icons (Lucide / Phosphor / Heroicons / Tabler), brand logos (Simple Icons / SVGL), generated illustration (Nanobanana 2 / Recraft V4 / Midjourney), library illustration, app mockups, hero video, photography, abstract backgrounds, Lottie. Per-category rules and what to avoid. Load only when an enrichment archetype actually needs an external asset.
-- [`study.md`](references/study.md) — vision-extraction protocol for the `hallmark study` verb (load only when that verb runs)
-- [`study-examples.md`](references/study-examples.md) — three worked DNA-extractions (Pentagram-style portfolio · Klim-style specimen · Rauno-style personal site) showing the diagnose → confirm → build flow end-to-end. Load whenever `study` runs and the user wants to see what a good DNA-extraction looks like before pasting their own screenshot.
-- [`recipes.md`](references/recipes.md) — eight worked briefs with the prompt, inferred trio, picked macrostructure + theme + enrichment, and a one-paragraph excerpt of the output. The first recipe (Coffeebox) is the canonical try-it prompt the README points users at. Load when the user asks "what does Hallmark output look like?" or wants a near-match for a brief in hand.
 
-For most design work you need `macrostructures`, `component-cookbook`, `typography`, `color`, `layout-and-space`, and `anti-patterns`. **Load `microinteractions` whenever the output has *any* interactive element** — buttons, links, inputs, forms, modals, tabs, dropdowns, toasts, drag handles, command palettes, copy buttons, anything with hover/focus/active states. That is most pages.
+**Load-conditionally (only when the page actually needs it):**
+- [`microinteractions.md`](references/microinteractions.md) — load whenever the output has *any* interactive element (buttons, inputs, modals, tabs, dropdowns, toasts, drag handles, copy buttons). That is most pages.
+- [`interaction-and-states.md`](references/interaction-and-states.md) — load when the page has stateful UI (forms, command palettes, optimistic updates).
+- [`responsive.md`](references/responsive.md) — load when mobile is in scope.
+- [`structure.md`](references/structure.md) — load only when deviating from a named macrostructure.
+- [`hero-enrichment.md`](references/hero-enrichment.md) — load at Step 4 if the brief asks for enrichment.
+- [`custom-craft.md`](references/custom-craft.md) — load only when an enrichment archetype requires construction (CSS art, SVG, declarative animation, etc.).
+- [`assets.md`](references/assets.md) — load only when an enrichment archetype needs an external asset (icons, illustration, photography, Lottie).
+- [`custom-theme.md`](references/custom-theme.md) — load only when Step 2.6 routes to custom.
+
+**Load-at-the-end:**
+- [`slop-test.md`](references/slop-test.md) — load at Step 7 (the gate-check after build), not earlier.
+- [`contract.md`](references/contract.md) — load at handoff time for output-contract + scope rules.
+
+**Verb-specific:**
+- [`verbs/audit.md`](references/verbs/audit.md), [`verbs/refine.md`](references/verbs/refine.md), [`verbs/redesign.md`](references/verbs/redesign.md) — load only when that verb runs.
+- [`study.md`](references/study.md) — load only when `hallmark study` runs.
+
+**Human-only (do NOT auto-load):**
+- [`../docs/recipes.md`](../docs/recipes.md) — eight worked briefs for human readers.
+- [`../docs/study-examples.md`](../docs/study-examples.md) — three worked DNA-extractions for human readers.
 
 ### 4. Decide on hero enrichment
 
@@ -330,129 +356,29 @@ Always:
 
 ### 7. The slop test
 
-Before handing back, run the output through these thirty-eight questions. Every answer must be **no**. Run this BEFORE writing the Slop test row in the Step 5 preview block — that row reflects the actual outcome of this step.
+Before handing back, run the output through the 38-gate slop test in [`references/slop-test.md`](references/slop-test.md). Every answer must be **no**. Load that file at this step (not earlier — it isn't needed until handoff). The active genre matters: some gates are universal, some are genre-scoped (atmospheric loosens the radial-bloom gate; modern-minimal loosens the zero-chroma neutral gate; etc.). The full per-genre overrides are listed inline in `slop-test.md`.
 
-**Visual:**
+Run the slop test BEFORE writing the Slop test row in the Step 5 preview block — that row reflects the actual outcome of this step.
 
-1. Is the display font Inter, Roboto, Open Sans, Poppins, Lato, or a system default?
-2. Is there a purple-to-blue (or cyan-to-magenta) gradient anywhere?
-3. Is there a 3-equal-column card grid with icon-above-heading tiles?
-4. Is any card nested inside another card?
-5. Is there a `background-clip: text` gradient headline?
-6. Is any card using a thick coloured left/right side-stripe border?
-7. Is the hero `min-height: 100vh` with everything centred?
-8. Is pure `#000` or pure `#fff` used as a base colour anywhere?
-
-**Structural:**
-
-9. Does the page use the *same* structural fingerprint as the last page you built? (Hero → 3 features → CTA → footer is the AI structural template; reject it.)
-10. Are sections separated only by equal whitespace, with no rule, no ornament, no colour shift — every section identical in rhythm?
-
-**Microinteractions:**
-
-11. Is `transition-all` (or `transition: all`) used anywhere? (Specify the properties.)
-12. Is `hover:scale-105` (or any uniform hover-scale) applied across multiple unrelated elements?
-13. Are bouncy / overshoot easings (`cubic-bezier(0.34, 1.56, ...)`, etc.) used on UI state changes — buttons, modals, tooltips? (Reserve overshoots for physical interactions only.)
-14. Does any element have *more than one* hover effect at the same time (translate + scale + shadow + colour + rotate)?
-15. Are you animating `width`, `height`, `top`, `left`, `margin`, or `padding` anywhere?
-16. Does the focus ring transition into existence (fade in)? (Focus rings must appear instantly — keyboard users need an immediate indicator.)
-17. Is there a celebratory success toast for an action whose effect the user can already see? (Silent success is taste; toasts are for failures and invisible effects.)
-18. Are tooltip hover-delay and focus-delay equal? (Hover should delay 800–1000 ms; focus should be 0 ms.)
-19. Is auto-rotating content (carousel, banner, stats) lacking pause-on-hover-and-focus? (WCAG 2.2.2.)
-20. Is there a placeholder name "Jane Doe / John Smith" or a startup cliché (Acme, Nexus, Seamless, Unleash)?
-
-**Variety:**
-
-21. Is the `/* Hallmark · macrostructure: <name> · ... */` stamp missing from the top of the CSS? (It must be present.)
-22. Is the macrostructure I picked the same as a previous Hallmark output's stamp in this project? (Read the file system; if a stamp exists, mine must differ.)
-23. Did I default to the **Specimen** macrostructure (numbered left-margin labels + huge serif + asymmetric spans + typographic-only CTA) when the brief did not explicitly call for editorial / foundry / specimen energy? (Specimen fall-through is banned.)
-
-**Implementation gates** (the rules that used to be advice; now they're checks):
-
-24. Does any neutral / surface colour have `oklch(... 0 ...)` (zero chroma)? Pure greys read as flat. Tint every neutral toward the anchor hue — minimum 0.005 chroma.
-25. Does the accent colour cover more than ~5 % of any single viewport (count by area: solid fills, large headings in accent, full-bleed accent backgrounds)? If yes, retreat — accent is for emphasis, not for filling.
-26. Is any padding / gap / margin a value that isn't on the named spacing scale (`--space-3xs` … `--space-5xl`, multiples of 4 px)? Arbitrary `padding: 17px` is a tell.
-27. Is any prose container's `max-width` outside the 45–75 ch range? Measure must read; under 45 ch is choppy, over 75 ch loses the eye.
-28. Does any interactive element lack `:focus-visible`, `:active`, OR `:disabled` styling? (Eight states is the rule. Default + hover is two; you need at least default + hover + focus-visible + active + disabled present in code.)
-29. Is there any `transform` / `animation` keyframe that is NOT covered by a `@media (prefers-reduced-motion: reduce)` fallback? Every motion gets a reduced-motion alternative.
-
-**Hero enrichment gates** (when the page carries enrichment — see [`references/hero-enrichment.md`](references/hero-enrichment.md)):
-
-30. If the page has a demo video, does it autoplay with sound, lack a `poster`, lack `fetchpriority="high"`, or use `loading="lazy"` on the LCP element? (LCP-killers fail this gate.)
-31. If the page has an abstract background, is it more than one accent colour, more than ~5 % footprint, or animating mesh-gradient on the whole page? (Aurora blobs and mesh-on-everything fail this gate.)
-32. Does the page mix two or more icon libraries? (Material + Heroicons + Lucide on the same page = the icon-set tell.)
-33. If the page has illustration, did I default to a Lottie library when a hand-built SVG or pure-CSS shape would have worked? (Lottie is last resort, not the default.)
-
-**Diversification gates** (cross-reference [`.hallmark/log.json`](#25-check-project-memory) when present):
-
-34. If I used the same archetype as a previous Hallmark output (per `.hallmark/log.json` or the latest macrostructure stamp), did I pick at least one different *variation knob*? Two Bento Grids with `tiles=6, spans=irregular, accent=corner-only` are the same Bento — the within-archetype knobs in [`component-cookbook.md`](references/component-cookbook.md) exist precisely to prevent that. State the knob deltas in the stamp.
-35. Does any visual-only `<svg>`, custom-art `<div>`, `<canvas>`, or decorative figure lack `aria-label` or `aria-hidden="true"`? Hand-built CSS art and SVG illustrations need an accessible name *or* an explicit hide. Skipping this is the new accessibility tell.
-
-**Layout-safety gates** (the page must survive every viewport):
-
-36. Does the page horizontally scroll on any viewport between 320 px and 1920 px? Open the rendered page; drag the dev-tools width slider across that range. If a horizontal scrollbar appears at any width, fail. The fix is `html { overflow-x: clip; }` plus `body { overflow-x: clip; }` as a safety net for any clipped-edge enrichment that pushes past the viewport. Use `overflow-x: clip` (not `hidden`) — `clip` preserves `position: sticky` and `position: fixed` on descendants. (Cross-reference: [`layout-and-space.md` § Page-edge clipping](references/layout-and-space.md).)
-37. For every decorative effect on text — highlighter `<mark>` / `<em>` band / accent stroke / underline — did I visually confirm the position and size? A highlighter band must sit behind the x-height (`linear-gradient(180deg, transparent ~38%, accent ~38%, accent ~92%, transparent ~92%)`), **not** at the baseline (which reads as a fat underline). Underlines must be 1–2 px and offset 1–2 px from the baseline, never 5+ px. Decorative strokes must not exceed 5 % of the viewport (gate 25). The check is *visual*: imagine the rendered output and confirm the band lands in the right vertical zone.
-38. Are interactive bars (nav, toolbar, command bar, hero CTA row, footer link strip) explicitly vertically centered? Default flex layouts inherit `align-items: stretch`, which makes a button taller than its sibling text and breaks the visual baseline. Every flex row mixing height-different elements (button + text, icon + text, mark + body) must declare `align-items: center` and `line-height: 1` on the items with intrinsic height. Inheriting `line-height: 1.55` from `html` fights the row's vertical rhythm.
-
-If any answer is yes, fix it. Do not ship slop.
+If any gate fails, fix it. Do not ship slop.
 
 ---
 
 ## `hallmark audit`
 
-Read the file(s) the user pointed at. For each finding, return:
-
-- **Tell** — the named anti-pattern from `anti-patterns.md`.
-- **Where** — file path and line range.
-- **Severity** — `critical` (ships as slop), `major` (looks AI-generated), `minor` (small taste issue).
-- **Fix** — one-line concrete correction.
-
-Group by severity. Do not edit. Do not redesign. End with a count: `N critical · M major · K minor`.
-
-Audit *also* checks structural fingerprint: if the page uses the AI template (centered hero, 3 equal feature cards, CTA, footer, with no asymmetry or surprise), flag it as a critical structural finding even if the visual treatment is fine.
-
-**Stamp-vs-page check.** If the audited file contains a `/* Hallmark · macrostructure: <name> · ... */` stamp, verify the page actually matches that name. If the stamp says **Bento Grid** but the page is a centered single-column hero with a CTA, flag it as a critical structural finding: `stamp lies` — the stamp must reflect what shipped or be removed. This catches drift where a previous Hallmark run stamped one thing and a later edit pulled the page back toward the AI template.
+Load [`references/verbs/audit.md`](references/verbs/audit.md) and follow it.
 
 ---
 
 ## `hallmark refine`
 
-The user has code they are happy with structurally but wants polished. Your job is to apply the ruleset with the smallest possible diff.
-
-- Do not move or rename elements unless necessary.
-- Do not restructure the DOM.
-- Do swap fonts, rewrite colour tokens to OKLCH, tighten the type scale, correct easings, add missing states, fix any flagged anti-patterns.
-- At the end, list what you changed and which reference file prompted each change.
+Load [`references/verbs/refine.md`](references/verbs/refine.md) and follow it.
 
 ---
 
 ## `hallmark redesign`
 
-The user wants a different page from the same content. They are not happy with the current structure — typically because it reads as templated, generic, or AI-shaped. Your job is to throw the structure out and build a new one.
-
-**What to preserve:**
-- The copy (every word, ideally)
-- The information architecture (which sections exist, in roughly what order)
-- The brand (colours and fonts they've named, if any)
-- The primary action
-
-**What to replace:**
-- The structural fingerprint — pick a **different** combination from `structure.md` than the source had.
-- The component voice — different button style, different divider language, different image treatment.
-- The reveal pattern — if the original faded everything in on scroll, the new one might have no reveals at all.
-- The visual rhythm — different sections having different padding, different alignments, deliberate breaks.
-
-**Optional `--mood <name>` argument:**
-
-If the user specifies a mood (`hallmark redesign ./hero.tsx --mood luxury`), pick a tone aligned to that mood and let it drive the structural fingerprint. Mood names map to tones from `references/typography.md` and `references/structure.md`. If no mood is given, ask the user what *feeling* they want — one word — and proceed.
-
-**Output:**
-
-Return the redesigned code, plus a short note explaining:
-
-- The structural fingerprint you picked, axis by axis.
-- Why this combination fits the brief better than the original.
-- One thing you removed and why.
+Load [`references/verbs/redesign.md`](references/verbs/redesign.md) and follow it.
 
 ---
 
@@ -500,28 +426,9 @@ If `references/study.md` cannot be loaded for any reason, refuse the verb polite
 
 ---
 
-## Output contract
+## Output contract & scope
 
-When producing new work:
-
-- Put design tokens in one place at the top of the stylesheet (`:root` custom properties) or in a `tokens.css` / `tokens.ts` file if the project uses one.
-- Name tokens by semantic role, not value. `--color-ink`, not `--color-black`.
-- If the project uses Tailwind, extend the theme; do not inline arbitrary values across components.
-- If the project uses a framework, match the framework's file conventions — don't reinvent them.
-- Include a short comment block at the top of the stylesheet naming the tone the user picked, the palette's anchor hue, and the structural fingerprint. This is the only comment you need.
-
----
-
-## Scope and limits
-
-Hallmark is a *taste* skill. It will not:
-
-- Invent product copy. If the user hasn't given you the words, ask.
-- Pick a brand identity. It will follow one you give it.
-- Enforce a specific style (dark mode, glassmorphism, brutalism). It will execute whichever tone the user committed to.
-- Build logic — state management, data fetching, business rules. It is a visual / interaction layer only.
-
-If a request falls outside taste — "build the auth flow", "wire up Stripe" — do the work, but apply Hallmark to the rendered surface.
+Load [`references/contract.md`](references/contract.md) once, at handoff time, for the full output contract and scope-of-skill rules.
 
 ---
 

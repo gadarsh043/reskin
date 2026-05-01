@@ -202,11 +202,115 @@
 .examples-rail::-webkit-scrollbar-track { background: transparent; }
 .examples-rail::-webkit-scrollbar-thumb { background: var(--color-rule-2); border-radius: 0; }
 
-/* — 03 · Without / With (parity panels) ——————————————— */
+/* — 03 · Without / With (parity panels, four pairs) ——————
+   The section holds four W/W pairs that swap based on which toggle
+   radio is :checked. Pure CSS, no JS.
+
+   Scroll-jump fix: the radio inputs sit in normal document flow
+   with zero size + opacity 0 (no position:absolute). When the user
+   clicks a label, the browser focuses the input — but because the
+   input is already in view (right above the toggle), no scroll
+   happens. Earlier versions used position:absolute which positioned
+   the input at top:0 of the viewport; clicking a label far below
+   would scroll the page back to the top. */
+.vs-toggle__input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  opacity: 0;
+  flex: 0 0 0;
+  pointer-events: none;
+}
+
+.vs-toggle {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  padding: 0.25rem;
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-pill, 999px);
+  margin-block-end: var(--space-xl);
+  align-self: start;
+  max-width: 100%;
+}
+
+.vs-toggle__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.45rem 0.95rem;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  cursor: pointer;
+  border-radius: var(--radius-pill, 999px);
+  transition: background-color var(--dur-micro) var(--ease-out),
+              color var(--dur-micro) var(--ease-out);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.vs-toggle__btn:hover { color: var(--color-ink); }
+
+.vs-toggle__num {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  letter-spacing: 0.04em;
+  color: inherit;
+  opacity: 0.6;
+  font-feature-settings: "tnum";
+}
+
+.vs-toggle__label {
+  font-weight: 500;
+}
+
+/* Focus ring on whichever button corresponds to the focused input. */
+#vs-notes:focus-visible ~ .vs-toggle .vs-toggle__btn[for="vs-notes"],
+#vs-dashboard:focus-visible ~ .vs-toggle .vs-toggle__btn[for="vs-dashboard"],
+#vs-pricing:focus-visible ~ .vs-toggle .vs-toggle__btn[for="vs-pricing"],
+#vs-personal:focus-visible ~ .vs-toggle .vs-toggle__btn[for="vs-personal"] {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+#vs-notes:checked ~ .vs-toggle .vs-toggle__btn[for="vs-notes"],
+#vs-dashboard:checked ~ .vs-toggle .vs-toggle__btn[for="vs-dashboard"],
+#vs-pricing:checked ~ .vs-toggle .vs-toggle__btn[for="vs-pricing"],
+#vs-personal:checked ~ .vs-toggle .vs-toggle__btn[for="vs-personal"] {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+#vs-notes:checked ~ .vs-toggle .vs-toggle__btn[for="vs-notes"] .vs-toggle__num,
+#vs-dashboard:checked ~ .vs-toggle .vs-toggle__btn[for="vs-dashboard"] .vs-toggle__num,
+#vs-pricing:checked ~ .vs-toggle .vs-toggle__btn[for="vs-pricing"] .vs-toggle__num,
+#vs-personal:checked ~ .vs-toggle .vs-toggle__btn[for="vs-personal"] .vs-toggle__num {
+  opacity: 0.85;
+}
+
+.vs-pairs { display: contents; }
+
 .vs {
-  display: grid;
+  display: none;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-lg);
+}
+
+#vs-notes:checked ~ .vs-pairs .vs--notes,
+#vs-dashboard:checked ~ .vs-pairs .vs--dashboard,
+#vs-pricing:checked ~ .vs-pairs .vs--pricing,
+#vs-personal:checked ~ .vs-pairs .vs--personal {
+  display: grid;
 }
 
 @media (max-width: 50rem) {
@@ -305,6 +409,136 @@
 }
 
 .step__body { display: grid; gap: var(--space-sm); }
+
+/* — 05 · FAQ — typographic Q/A ——————————————————————————
+   Five numbered Q/A pairs in editorial format. Q in display face,
+   A in body serif. Tighter than a typical FAQ — meant to scan, not
+   loom. Re-typesets per-theme. */
+.faq {
+  display: grid;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.faq__row {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 0.4rem var(--space-xl);
+  align-items: baseline;
+  padding-block: var(--space-lg) var(--space-md);
+  padding-inline: 0;
+  border-block-start: var(--rule-hair) solid var(--color-rule);
+}
+
+.faq__row:first-child { border-block-start: 0; padding-block-start: 0; }
+
+@media (max-width: 50rem) {
+  .faq__row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    padding-block: var(--space-md);
+  }
+}
+
+.faq__q-mark {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-feature-settings: "tnum";
+  align-self: baseline;
+}
+
+.faq__qletter {
+  font-family: var(--font-display);
+  font-style: var(--display-style, normal);
+  font-weight: var(--display-weight, 500);
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-ink);
+  margin-inline-end: 0.2em;
+}
+
+[data-theme="riso"] .faq__qletter { text-transform: lowercase; }
+[data-theme="brutal"] .faq__qletter,
+[data-theme="manifesto"] .faq__qletter,
+[data-theme="sport"] .faq__qletter { text-transform: uppercase; }
+
+.faq__q {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight, 500);
+  font-style: var(--display-style, normal);
+  font-size: clamp(1.125rem, 1vw + 0.75rem, 1.5rem);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-ink);
+  font-optical-sizing: auto;
+  grid-column: 2;
+}
+
+@media (max-width: 50rem) {
+  .faq__q { grid-column: 1; }
+}
+
+.faq__a {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.9375rem;
+  line-height: var(--lh-normal);
+  color: var(--color-ink-2);
+  max-width: 64ch;
+  grid-column: 2;
+}
+
+@media (max-width: 50rem) {
+  .faq__a { grid-column: 1; }
+}
+
+.faq__a code {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.875em;
+  background: var(--color-paper-2);
+  padding: 0.05em 0.35em;
+  border: 1px solid var(--color-rule);
+  border-radius: 2px;
+  color: var(--color-ink);
+}
+
+.faq__a strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.faq__a em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+[data-theme="brutal"] .faq__a,
+[data-theme="manifesto"] .faq__a,
+[data-theme="terminal"] .faq__a,
+[data-theme="sport"] .faq__a,
+[data-theme="almanac"] .faq__a,
+[data-theme="quiet"] .faq__a,
+[data-theme="bloom"] .faq__a {
+  font-family: var(--font-body);
+  font-style: normal;
+}
+
+[data-theme="manifesto"] .faq__q,
+[data-theme="brutal"] .faq__q,
+[data-theme="sport"] .faq__q { text-transform: uppercase; }
+
+[data-theme="riso"] .faq__q { text-transform: lowercase; }
 
 /* — 06 · Install pane ——————————————————————————————
    A single bordered "manual page" card with three numbered rows —

@@ -69,6 +69,183 @@
   letter-spacing: 0.14em;
 }
 
+/* Sticky Install link — sits between the wordmark and the spacer.
+   Becomes the most prominent thing on the banner once the user
+   scrolls past the hero. */
+.banner__install {
+  margin-inline-start: var(--space-md);
+  padding: 0.18rem 0.65rem;
+  font-family: var(--font-label);
+  font-weight: 500;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  text-decoration: none;
+  border: 1px solid var(--color-rule-2);
+  border-radius: var(--radius-pill, 999px);
+  transition: background-color var(--dur-micro) var(--ease-out),
+              color var(--dur-micro) var(--ease-out),
+              border-color var(--dur-micro) var(--ease-out);
+}
+
+.banner__install:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
+}
+
+.banner__install:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@media (max-width: 50rem) {
+  .banner__install { display: none; }
+}
+
+/* Live stamp callout — small mono annotation showing what Hallmark
+   is currently rendering. Hover expands to the full stamp comment.
+   Sits between the install link and the spacer; hides on narrow. */
+.banner__stamp {
+  position: relative;
+  margin-inline-start: var(--space-sm);
+  padding: 0.18rem 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0;
+  text-transform: lowercase;
+  color: var(--color-muted);
+  border: 1px dashed var(--color-rule);
+  border-radius: 2px;
+  user-select: text;
+  cursor: default;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .banner__stamp:hover { color: var(--color-ink); border-color: var(--color-rule-2); }
+  .banner__stamp:hover .banner__stamp-detail { opacity: 1; pointer-events: auto; transform: translateY(0); }
+}
+
+.banner__stamp-detail {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  white-space: nowrap;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-ink-2);
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule-2);
+  border-radius: 2px;
+  box-shadow: 0 4px 12px -4px oklch(20% 0.02 60 / 0.16);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 140ms var(--ease-out), transform 140ms var(--ease-out);
+  z-index: 10;
+}
+
+@media (max-width: 64rem) {
+  .banner__stamp { display: none; }
+}
+
+/* Genre label — small text after the theme name in the banner. */
+.banner__theme {
+  display: inline;
+}
+
+.banner__genre {
+  display: inline;
+  margin-inline-start: 0.5em;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--color-muted);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.banner__genre::before {
+  content: "· ";
+  color: var(--color-rule-2);
+  margin-inline-end: 0.1em;
+}
+
+@media (max-width: 38rem) {
+  .banner__genre { display: none; }
+}
+
+/* T-key onboarding tooltip — appears after 5 s idle, dismisses on
+   first T press. Anchored under the shuffle button. */
+.t-tooltip {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: var(--page-gutter);
+  padding: 0.55rem 0.85rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.45;
+  box-shadow: 0 8px 24px -8px oklch(20% 0.02 60 / 0.32);
+  z-index: var(--z-sticky);
+  animation: t-tooltip-in 320ms var(--ease-out) both;
+}
+
+.t-tooltip[hidden] { display: none; }
+
+.t-tooltip[data-state="closing"] {
+  animation: t-tooltip-out 240ms var(--ease-in) forwards;
+}
+
+@keyframes t-tooltip-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes t-tooltip-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateY(-4px); }
+}
+
+.t-tooltip__arrow {
+  position: absolute;
+  top: -5px;
+  right: 28px;
+  width: 10px;
+  height: 10px;
+  background: var(--color-ink);
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+.t-tooltip__body kbd {
+  display: inline-block;
+  padding: 0.1em 0.45em;
+  margin-inline: 0.1em;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.t-tooltip__body strong {
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-tooltip { animation: none; }
+}
+
 /* The active theme name — sits to the LEFT of the theme picker so the
    page restructure registers as a deliberate event, not a passive repaint.
    Smaller text + closer to the picker on desktop; hidden on narrow viewports. */
@@ -711,6 +888,419 @@
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   border-radius: 0;
+}
+
+/* Dashboard W/W variant — slop = glass widget, hallmark = considered. */
+.vs__panel--dash {
+  min-height: 18rem;
+}
+
+/* Slop dashboard — glassmorphic, gradient, centered, badged. */
+.vs__panel--dash[data-variant="slop"] {
+  position: relative;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, #6366f1 14%, transparent) 0%,
+      color-mix(in srgb, #c14de0 14%, transparent) 60%,
+      color-mix(in srgb, #f97316 12%, transparent) 100%),
+    rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-color: rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  text-align: center;
+  align-content: center;
+  justify-items: center;
+  box-shadow: 0 12px 32px -16px rgba(99, 102, 241, 0.35);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.vs__panel--dash[data-variant="slop"] .vs__panel-stat {
+  margin: 0;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: clamp(2.75rem, 4vw + 1rem, 3.75rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background: linear-gradient(95deg, #6366f1, #a855f7 50%, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.vs__panel--dash[data-variant="slop"] .vs__panel-stat-label {
+  margin: 0.4rem 0 0;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: #6b6b76;
+}
+
+.vs__panel--dash[data-variant="slop"] .vs__panel-badge {
+  display: inline-flex;
+  align-items: center;
+  margin: 0.6rem 0 0.4rem;
+  padding: 0.18rem 0.65rem;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #16a34a;
+  background: rgba(34, 197, 94, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 0 12px -2px rgba(34, 197, 94, 0.5);
+}
+
+/* Hallmark dashboard — hairline rule, mono numerals, asymmetric. */
+.vs__panel--dash[data-variant="hallmark"] {
+  text-align: left;
+  padding-top: var(--space-2xl);
+  border-top: 2px solid var(--color-ink);
+  border-left: var(--rule-hair) solid var(--color-rule-2);
+  border-right: var(--rule-hair) solid var(--color-rule-2);
+  border-bottom: var(--rule-hair) solid var(--color-rule-2);
+  background: var(--color-paper);
+  border-radius: 0;
+}
+
+.vs__panel--dash[data-variant="hallmark"] .vs__panel-stat-line {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  margin: 0;
+}
+
+.vs__panel--dash[data-variant="hallmark"] .vs__panel-stat-num {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2.75rem, 4vw + 1rem, 3.75rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  line-height: 1;
+}
+
+.vs__panel--dash[data-variant="hallmark"] .vs__panel-stat-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.vs__panel--dash[data-variant="hallmark"] .vs__panel-stat-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+.vs__panel--dash[data-variant="hallmark"] .vs__panel-stat-label {
+  margin: var(--space-md) 0 0;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-ink-2);
+  max-width: 32ch;
+}
+
+/* Pricing W/W variant — slop = popular badge + glow + emoji,
+   hallmark = editorial tier card with hairline rule and mono price. */
+.vs__panel--pricing { min-height: 22rem; }
+
+.vs__panel--pricing[data-variant="slop"] {
+  position: relative;
+  text-align: center;
+  align-content: start;
+  justify-items: center;
+  padding-top: 2.4rem;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, #6366f1 8%, transparent) 0%,
+      color-mix(in srgb, #ec4899 8%, transparent) 100%),
+    rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 18px;
+  box-shadow: 0 16px 36px -16px rgba(99, 102, 241, 0.4);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.vs__panel--pricing[data-variant="slop"] .vs__panel-pop {
+  position: absolute;
+  top: -0.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.85rem;
+  background: linear-gradient(95deg, #6366f1, #a855f7, #ec4899);
+  color: #fff;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px -2px rgba(168, 85, 247, 0.5);
+  white-space: nowrap;
+}
+
+.vs__panel--pricing[data-variant="slop"] .vs__panel-eyebrow {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6366f1;
+  margin: 0;
+}
+
+.vs__panel--pricing[data-variant="slop"] .vs__panel-price {
+  margin: 0.4rem 0;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 2.5rem;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+.vs__panel--pricing[data-variant="slop"] .vs__panel-price-num {
+  background: linear-gradient(95deg, #6366f1, #a855f7 50%, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.vs__panel--pricing[data-variant="slop"] .vs__panel-price-unit {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b6b76;
+  letter-spacing: 0;
+  margin-inline-start: 0.25em;
+}
+
+.vs__panel--pricing[data-variant="slop"] .vs__panel-sub {
+  margin: 0;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: #6b6b76;
+  max-width: 28ch;
+}
+
+.vs__panel--pricing[data-variant="slop"] .vs__panel-bullets {
+  list-style: none;
+  margin: 0.6rem 0 0.3rem;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: #2a2a32;
+  text-align: left;
+}
+
+/* Hallmark pricing — editorial tier card. */
+.vs__panel--pricing[data-variant="hallmark"] {
+  text-align: left;
+  align-content: start;
+}
+
+.vs__panel--pricing[data-variant="hallmark"] .vs__panel-tier {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight, 500);
+  font-style: var(--display-style, normal);
+  font-size: var(--text-xl);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-ink);
+  padding-block-end: var(--space-sm);
+  border-block-end: var(--rule-hair) solid var(--color-rule-2);
+  font-optical-sizing: auto;
+}
+
+.vs__panel--pricing[data-variant="hallmark"] .vs__panel-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin: var(--space-md) 0 0;
+}
+
+.vs__panel--pricing[data-variant="hallmark"] .vs__panel-price-num {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2.25rem, 3vw + 1rem, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  line-height: 1;
+}
+
+.vs__panel--pricing[data-variant="hallmark"] .vs__panel-price-unit {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  letter-spacing: 0;
+}
+
+.vs__panel--pricing[data-variant="hallmark"] .vs__panel-sub {
+  margin: var(--space-sm) 0 0;
+  max-width: 30ch;
+}
+
+.vs__panel--pricing[data-variant="hallmark"] .vs__panel-bullets {
+  list-style: none;
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-ink-2);
+}
+
+.vs__panel--pricing[data-variant="hallmark"] .vs__panel-bullets li {
+  padding-block: var(--space-sm);
+  border-block-end: var(--rule-hair) solid var(--color-rule);
+}
+
+.vs__panel--pricing[data-variant="hallmark"] .vs__panel-bullets li:last-child {
+  border-block-end: 0;
+}
+
+/* Personal-site W/W variant — slop = avatar + gradient name + pills,
+   hallmark = letter format with italic name and text links. */
+.vs__panel--personal { min-height: 22rem; }
+
+.vs__panel--personal[data-variant="slop"] {
+  text-align: center;
+  align-content: center;
+  justify-items: center;
+  background:
+    linear-gradient(160deg,
+      color-mix(in srgb, #ec4899 6%, transparent) 0%,
+      color-mix(in srgb, #6366f1 8%, transparent) 100%),
+    rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.vs__panel--personal[data-variant="slop"] .vs__panel-avatar {
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  color: #fff;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+  box-shadow: 0 8px 22px -10px rgba(168, 85, 247, 0.5);
+  margin-bottom: 0.6rem;
+}
+
+.vs__panel--personal[data-variant="slop"] .vs__panel-name {
+  margin: 0;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 1.875rem;
+  letter-spacing: -0.025em;
+  background: linear-gradient(95deg, #6366f1, #a855f7 50%, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.vs__panel--personal[data-variant="slop"] .vs__panel-sub {
+  margin: 0.4rem 0 0.9rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: #6b6b76;
+  max-width: 28ch;
+}
+
+.vs__panel--personal[data-variant="slop"] .vs__panel-pills {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.vs__panel--personal[data-variant="slop"] .vs__panel-pill {
+  padding: 0.4rem 0.95rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #6366f1;
+  box-shadow: 0 2px 6px -2px rgba(99, 102, 241, 0.2);
+}
+
+/* Hallmark personal — letter format. */
+.vs__panel--personal[data-variant="hallmark"] {
+  text-align: left;
+  align-content: start;
+}
+
+.vs__panel--personal[data-variant="hallmark"] .vs__panel-name {
+  margin: var(--space-sm) 0 0;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight, 500);
+  font-style: italic;
+  font-size: clamp(2rem, 3vw + 1rem, 2.875rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  font-optical-sizing: auto;
+}
+
+.vs__panel--personal[data-variant="hallmark"] .vs__panel-name em {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: var(--display-weight, 500);
+}
+
+.vs__panel--personal[data-variant="hallmark"] .vs__panel-bio {
+  margin: var(--space-md) 0 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: var(--lh-relaxed);
+  color: var(--color-ink-2);
+  max-width: 38ch;
+}
+
+.vs__panel--personal[data-variant="hallmark"] .vs__panel-links {
+  margin: var(--space-lg) 0 0;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.vs__panel--personal[data-variant="hallmark"] .vs__panel-linkitem {
+  color: var(--color-ink);
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: background-size var(--dur-short) var(--ease-out);
+}
+
+.vs__panel--personal[data-variant="hallmark"] .vs__panel-linkitem:hover {
+  background-size: 100% 2px;
 }
 
 /* — Install pane internals ——————————————————————————— */
@@ -2009,10 +2599,11 @@
   .slot[data-populating] > * { animation: none; opacity: 1; }
 }
 
-/* ───────────── QUIET — restraint as the design ─────────────
-   Override every "expressive" treatment on the page when Quiet is active.
-   No reveals, no per-theme display weight tricks, no shadow glows.
-   System fonts inherit naturally; just make sure nothing yells. */
+/* ───────────── QUIET — polished minimalism ─────────────
+   The "modern enterprise" theme: Geist sans, pure white, large
+   confident display, generous space, pill CTAs. Reads like the
+   ElevenLabs / Stripe school of restraint. Reveals stay off — the
+   page is composed, not animated in. */
 
 [data-theme="quiet"] .reveal,
 [data-theme="quiet"] .reveal.is-in,
@@ -2028,31 +2619,35 @@
 [data-theme="quiet"] .section__title,
 [data-theme="quiet"] .foot__wordmark,
 [data-theme="quiet"] .spec__name,
-[data-theme="quiet"] .tell__name {
+[data-theme="quiet"] .ex-card__name,
+[data-theme="quiet"] .harness__name {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 600;
   font-style: normal;
   text-transform: none;
-  letter-spacing: -0.015em;
-  text-shadow: none;            /* override Riso's off-register if a user toggled */
+  letter-spacing: -0.025em;
+  text-shadow: none;
 }
+
+[data-theme="quiet"] .hero__display { font-weight: 600; }
 
 [data-theme="quiet"] .hero__lede,
 [data-theme="quiet"] .hero__letter-body,
 [data-theme="quiet"] .spec__rule,
-[data-theme="quiet"] .tell__why,
-[data-theme="quiet"] .foot__tagline {
+[data-theme="quiet"] .foot__tagline,
+[data-theme="quiet"] .install-pane__next {
   font-family: var(--font-body);
   font-style: normal;
+  font-weight: 400;
   color: var(--color-neutral);
 }
 
 [data-theme="quiet"] .hero__salutation {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-style: normal;
-  font-weight: 500;
-  font-size: var(--text-xl);
-  letter-spacing: 0;
+  font-weight: 600;
+  font-size: var(--text-2xl);
+  letter-spacing: -0.02em;
 }
 
 [data-theme="quiet"] .hero__sign,
@@ -2061,16 +2656,66 @@
   font-style: normal;
 }
 
+[data-theme="quiet"] .hero__attrib,
+[data-theme="quiet"] .section-label,
+[data-theme="quiet"] .label,
+[data-theme="quiet"] .install-pane__label,
+[data-theme="quiet"] .vs__label,
+[data-theme="quiet"] .ex-card__num {
+  font-family: var(--font-label);
+  font-weight: 500;
+}
+
 [data-theme="quiet"] .banner__center {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: var(--text-sm);
-  letter-spacing: 0;
+  font-size: 0.875rem;
+  letter-spacing: -0.005em;
   text-transform: none;
 }
 
 [data-theme="quiet"] .banner {
-  background: color-mix(in oklch, var(--color-paper) 92%, transparent);
+  background: color-mix(in oklch, var(--color-paper) 94%, transparent);
+  border-block-end-color: var(--color-rule);
+}
+
+/* Pill CTAs — Quiet's signature button. Black-filled primary, white-
+   outlined secondary. Applied to anything that reads as a CTA. */
+[data-theme="quiet"] .install-pane__copy {
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
+  font-weight: 600;
+}
+[data-theme="quiet"] .install-pane__copy:hover {
+  background: var(--color-ink-2);
+  color: var(--color-paper);
+  border-color: var(--color-ink-2);
+}
+[data-theme="quiet"] .install-pane__copy[data-state="copied"] {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
+}
+
+/* Quiet's install command bar — refined card surface, clean typography. */
+[data-theme="quiet"] .install-pane {
+  background: var(--color-paper-2);
+  border-color: var(--color-rule);
+}
+[data-theme="quiet"] .install-pane__cmd {
+  background: var(--color-paper);
+  border-color: var(--color-rule);
+}
+[data-theme="quiet"] .install-pane__prompt {
+  color: var(--color-muted);
+}
+
+/* The "without/with" demo on Quiet — soft, monochrome panels. */
+[data-theme="quiet"] .vs__panel[data-variant="hallmark"] {
+  border-left-color: var(--color-rule-2);
+  border-color: var(--color-rule);
 }
 
 /* No reveal animation on Quiet — the page is intentionally still. */
@@ -2082,6 +2727,172 @@
 /* Quiet's hero never shows the clipped mockup — even if forced. */
 [data-theme="quiet"] .hero--clipped .hero__mock { display: none; }
 [data-theme="quiet"] .hero--clipped { grid-template-columns: 1fr; }
+
+/* ───────────── BLOOM — atmospheric dark, warm bloom ─────────────
+   Suno-school: dark canvas with two soft radial colour blooms behind
+   the content, confident sans display, single warm accent on small
+   surfaces, pill CTAs. Reads like an AI-creative product page. */
+
+html[data-theme="bloom"] {
+  background: var(--color-paper);
+}
+
+html[data-theme="bloom"] body {
+  background:
+    radial-gradient(ellipse 80% 60% at 90% 0%,
+                    color-mix(in oklch, var(--color-accent) 28%, transparent) 0%,
+                    transparent 55%),
+    radial-gradient(ellipse 70% 55% at 5% 95%,
+                    color-mix(in oklch, var(--color-accent-2) 26%, transparent) 0%,
+                    transparent 55%),
+    var(--color-paper);
+  background-attachment: fixed;
+  min-height: 100dvh;
+}
+
+[data-theme="bloom"] .hero__display,
+[data-theme="bloom"] .hero__quote p,
+[data-theme="bloom"] .hero__stat,
+[data-theme="bloom"] .section__title,
+[data-theme="bloom"] .foot__wordmark,
+[data-theme="bloom"] .spec__name,
+[data-theme="bloom"] .ex-card__name,
+[data-theme="bloom"] .harness__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: -0.03em;
+  text-shadow: none;
+}
+
+[data-theme="bloom"] .hero__lede,
+[data-theme="bloom"] .hero__letter-body,
+[data-theme="bloom"] .spec__rule,
+[data-theme="bloom"] .foot__tagline,
+[data-theme="bloom"] .install-pane__next,
+[data-theme="bloom"] .ex-card__brief {
+  font-family: var(--font-body);
+  font-style: normal;
+  color: var(--color-ink-2);
+}
+
+[data-theme="bloom"] .hero__salutation {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-2xl);
+  letter-spacing: -0.025em;
+  font-style: normal;
+}
+
+/* Bloom's hero — centered, generous, with a glow behind the type. */
+[data-theme="bloom"] .hero--marquee,
+[data-theme="bloom"] .hero--clipped {
+  text-align: center;
+  align-items: center;
+  justify-items: center;
+  padding-block: var(--space-3xl) var(--space-2xl);
+}
+
+[data-theme="bloom"] .hero--marquee .hero__display,
+[data-theme="bloom"] .hero--clipped .hero__display {
+  margin-inline: auto;
+  max-width: 22ch;
+}
+
+[data-theme="bloom"] .hero--marquee .hero__lede,
+[data-theme="bloom"] .hero--clipped .hero__lede {
+  margin-inline: auto;
+  text-align: center;
+  max-width: 52ch;
+}
+
+[data-theme="bloom"] .hero__eyebrow {
+  margin-inline: auto;
+  justify-content: center;
+}
+
+[data-theme="bloom"] .hero--marquee .hero__cta,
+[data-theme="bloom"] .hero--clipped .hero__cta {
+  margin-inline: auto;
+  justify-self: center;
+}
+
+[data-theme="bloom"] .hero--clipped .hero__mock { display: none; }
+[data-theme="bloom"] .hero--clipped { grid-template-columns: 1fr; }
+
+/* Bloom's section heads — also centered for atmosphere. */
+[data-theme="bloom"] .section__head {
+  grid-template-columns: 1fr;
+  text-align: center;
+  border-bottom: 0;
+  padding-bottom: var(--space-md);
+}
+[data-theme="bloom"] .section-label {
+  justify-content: center;
+}
+[data-theme="bloom"] .section__title {
+  margin-inline: auto;
+  max-width: 26ch;
+}
+
+/* Bloom's banner — tinted dark glass over the canvas. */
+[data-theme="bloom"] .banner {
+  background: color-mix(in oklch, var(--color-paper) 70%, transparent);
+  border-block-end-color: var(--color-rule);
+}
+[data-theme="bloom"] .banner__center {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: -0.005em;
+  text-transform: none;
+}
+
+/* Bloom's install command bar — feels like a Suno input field. */
+[data-theme="bloom"] .install-pane {
+  background: var(--color-paper-2);
+  border-color: var(--color-rule);
+}
+[data-theme="bloom"] .install-pane__cmd {
+  background: var(--color-paper-3);
+  border-color: var(--color-rule);
+}
+[data-theme="bloom"] .install-pane__copy {
+  background: var(--color-accent);
+  color: var(--color-paper);
+  border-color: var(--color-accent);
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+[data-theme="bloom"] .install-pane__copy:hover {
+  background: color-mix(in oklch, var(--color-accent) 88%, var(--color-paper));
+  color: var(--color-paper);
+  border-color: transparent;
+}
+
+/* Bloom's example rail tiles — elevated cards floating on the canvas. */
+[data-theme="bloom"] .ex-card {
+  background: var(--color-paper-2);
+  border-color: var(--color-rule);
+}
+
+/* Without/With on Bloom — the slop panel still uses the white-AI
+   look against the dark canvas, which actually demonstrates "the AI
+   reaches for the same generic page even on a dark site." */
+[data-theme="bloom"] .vs__panel[data-variant="hallmark"] {
+  background: var(--color-paper-2);
+  border-left-color: var(--color-accent);
+  border-color: var(--color-rule);
+}
+
+/* Bloom's reveal — fade only, no slide. The atmosphere does the work. */
+[data-theme="bloom"] .reveal { transform: none; }
+[data-theme="bloom"] .reveal.is-in {
+  animation: reveal-fade calc(var(--dur-long) * 1.2) var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
 
 /* ───────────── EXAMPLES RAIL — TILES ─────────────
    Each tile in the horizontal scroll-snap rail. Cards inherit the
@@ -2218,6 +3029,75 @@
 }
 
 [data-theme="riso"] .ex-card__name { text-transform: lowercase; }
+
+/* Decision-trail popover — appears after 600ms hover/focus on a tile.
+   Shows the routing chain Hallmark used to arrive at this output.
+   Pure CSS — no JS, just transition-delay on the show transition. */
+.ex-card__trail {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  right: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  display: grid;
+  gap: 0.4rem;
+  background: var(--color-paper);
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-input, 0);
+  box-shadow: 0 12px 28px -10px oklch(20% 0.02 60 / 0.28);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--color-ink);
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity 200ms var(--ease-out),
+              transform 200ms var(--ease-out);
+  z-index: 5;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ex-card:hover .ex-card__trail,
+  .ex-card:focus-visible .ex-card__trail {
+    opacity: 1;
+    transform: none;
+    transition-delay: 600ms;
+  }
+}
+
+.trail__row {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: var(--space-sm);
+  margin: 0;
+  align-items: baseline;
+}
+
+.trail__k {
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.trail__v {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-ink);
+  letter-spacing: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ex-card__trail { transition-duration: 0ms; transition-delay: 600ms; }
+}
+
+@media (hover: none) {
+  /* On touch devices the popover doesn't trigger — hide it entirely
+     so it doesn't clip badly. The trail is a desktop affordance. */
+  .ex-card__trail { display: none; }
+}
 
 /* ───────────── FOUNDATION VIZ — illustrations ─────────────
    Eight different visual demos, one per spec card. Each one prefers

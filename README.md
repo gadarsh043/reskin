@@ -2,7 +2,7 @@
 
 **A design skill that studies what you admire — and rebuilds your content with it.**
 
-→ Live demo: **[hallmark-murex.vercel.app](https://hallmark-murex.vercel.app)** · sixteen themes, eight worked tests, press `T` to cycle.
+→ Live demo: **[hallmark-murex.vercel.app](https://hallmark-murex.vercel.app)** · seventeen themes, eight worked tests, press `T` to cycle.
 → Current version: **v0.7.0** — adds the `custom` theme route (catalog stays the default; custom fires only when the brief signals it).
 
 <table>
@@ -28,7 +28,7 @@ Paste this into Claude Code, Cursor, or Codex with the Hallmark skill installed:
 
 > *"Build me a landing page for Coffeebox — a small-batch coffee subscription. Roast on Sunday, ship on Monday, drink Tuesday. Audience: people who already buy good coffee. Tone: warm, hand-set, editorial."*
 
-If Hallmark is wired correctly, you'll see Long Document · Linen (warm-paper roman-serif) · Tier-B hand-built SVG. Eight more worked briefs are documented in [`recipes.md`](skill/references/recipes.md) — copy/paste them to discover the skill before reading anything else.
+If Hallmark is wired correctly, you'll see Long Document · Linen (warm-paper roman-serif) · Tier-B hand-built SVG. Eight more worked briefs are documented in [`docs/recipes.md`](docs/recipes.md) — copy/paste them to discover the skill before reading anything else.
 
 ---
 
@@ -44,7 +44,7 @@ If Hallmark is wired correctly, you'll see Long Document · Linen (warm-paper ro
 | **Pages by archetype** | 21 named macrostructures, picked per brief | by brief | 5 deterministic directions | n/a |
 | **Verbs** | 5 (default · `audit` · `refine` · `redesign` · `study`) | 1 | 31 | 1 (CLI) |
 
-Hallmark's edge is **`study`** — every other tool ships a preset menu or a scraper. Hallmark is the only one that takes a screenshot of a design you admire, names what it sees, refuses paid-template-marketplace listings, and rebuilds your content with the extracted DNA. Three worked study examples in [`study-examples.md`](skill/references/study-examples.md).
+Hallmark's edge is **`study`** — every other tool ships a preset menu or a scraper. Hallmark is the only one that takes a screenshot of a design you admire, names what it sees, refuses paid-template-marketplace listings, and rebuilds your content with the extracted DNA. Three worked study examples in [`docs/study-examples.md`](docs/study-examples.md).
 
 ---
 
@@ -98,14 +98,16 @@ Each page is its own self-contained HTML + CSS — no shared theme, no shared la
 ## What's inside
 
 - **[`SKILL.md`](skill/SKILL.md)** — the routing file. Six-step design flow (including `Step 2.5 · Check project memory` reading `.hallmark/log.json`), 38-question slop test, output contract.
-- **[`references/`](skill/references/)** — eighteen short, opinionated rule files: typography, colour, layout, motion, microinteractions, interaction-and-states, responsive, copy, anti-patterns, the 21 named macrostructures, the 36 component archetypes with variation knobs, the 6 primitive structure axes, the vision-extraction protocol for `study`, hero enrichment, custom-craft (CSS art over Lottie), assets, plus the new **[`recipes.md`](skill/references/recipes.md)** (8 worked briefs + a canonical try-it prompt) and **[`study-examples.md`](skill/references/study-examples.md)** (3 worked DNA-extractions).
-- **[`site/`](site/)** — a self-demonstrating landing page. Hand-written HTML + CSS + ES module, no framework, no build step. **Sixteen themes** balanced across the warm / cool / neutral spectrum: warm-paper (Specimen, Atelier, Newsprint, Salon, Riso), cool-paper (Linen-cool-slate, Studio-cool-grey, Garden, Almanac, Pastel, Sport), neutral (Brutal, Quiet), dark (Midnight, Terminal, Manifesto). Switching themes literally rebuilds the page — different hero archetype, different footer archetype.
+- **[`references/`](skill/references/)** — short, opinionated rule files: typography, colour, layout, motion, microinteractions, interaction-and-states, responsive, copy, anti-patterns, the 21 named macrostructures, the 36 component archetypes with variation knobs, the 6 primitive structure axes, the vision-extraction protocol for `study`, hero enrichment, custom-craft (CSS art over Lottie), assets, the slop-test gates, four genre rule-overlays, and per-verb dispatchers.
+- **[`docs/`](docs/)** — human-reading content: **[`recipes.md`](docs/recipes.md)** (8 worked briefs + a canonical try-it prompt) and **[`study-examples.md`](docs/study-examples.md)** (3 worked DNA-extractions). Not auto-loaded by the skill.
+- **[`site/`](site/)** — a self-demonstrating landing page. Hand-written HTML + CSS + ES module, no framework, no build step. **Seventeen themes** balanced across the warm / cool / neutral / dark spectrum: warm-paper (Specimen, Atelier, Newsprint, Salon, Riso), cool-paper (Linen-cool-slate, Studio-cool-grey, Garden, Almanac, Pastel, Sport), polished-minimal (Quiet), neutral (Brutal), dark (Midnight, Terminal, Manifesto, Bloom). Switching themes literally rebuilds the page — different hero archetype, different footer archetype.
 
 ---
 
 ## What's distinct (the long list)
 
 - **One skill, five verbs.** Not eighteen commands.
+- **Genres broaden the range.** Hallmark routes a brief through one of four genres before picking a theme: **editorial** (default · the canonical anti-slop voice), **modern-minimal** (Stripe / Linear / ElevenLabs school), **atmospheric** (Suno / Runway / dark-AI-tool school), **playful** (post-Linear soft school). Each genre is its own rule overlay — atmospheric allows radial blooms; modern-minimal allows pure white and pill CTAs; editorial bans both. Detection is signal-based, silent default to editorial.
 - **Tone is a first-class decision.** "Clean and modern" is rejected. Pick an extreme — *editorial · brutalist · soft · technical · luxury · playful · austere*.
 - **Macrostructures over axes.** Pick one of 21 named whole-page shapes wholesale; the macrostructure stamp lives in the CSS comment, so the next Hallmark run picks something different.
 - **Within-archetype variation.** Two Bento Grids should not be twins; each archetype has 2–3 picked-per-output knobs.
@@ -118,7 +120,7 @@ Each page is its own self-contained HTML + CSS — no shared theme, no shared la
 - **Microinteractions default-on for SaaS-shaped archetypes.** Bento Grid, Stat-Led, Workbench, Marquee Hero pages ship with 2–3 purposeful microinteractions (number reveal, pricing lift, marquee, stagger) without the user having to ask. Editorial / Manifesto / Letter / Quote-Led pages stay still.
 - **SaaS page sequence.** Hero → social proof → features → testimonials → pricing → FAQ → CTA → footer. Real prices, not "contact sales for pricing." Specific testimonials with role + company.
 - **Wordmark may use a different display face.** A Geist-bodied SaaS page can set its wordmark in Fraunces. Same-family collapse on Bento / Stat-Led / Workbench / Marquee Hero is the new "un-branded" tell.
-- **`study` extracts DNA, not pixels.** Refusal heuristics, type-role vocabulary (no font ID guessing), confirmation step before any code. Three worked examples in [`study-examples.md`](skill/references/study-examples.md).
+- **`study` extracts DNA, not pixels.** Refusal heuristics, type-role vocabulary (no font ID guessing), confirmation step before any code. Three worked examples in [`docs/study-examples.md`](docs/study-examples.md).
 
 ---
 
