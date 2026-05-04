@@ -30,7 +30,90 @@ Hallmark has one default behaviour and four explicit verbs.
 
 If the user types anything that does not clearly map to `audit`, `refine`, `redesign`, or `study`, treat it as default. If the user attaches an image without a verb prefix, ask: *"Should I `study` this (extract the DNA), or should I treat it as a reference for a fresh build?"*
 
-The default Design flow always picks a theme. By default it picks one of the **17 named themes** — the *catalog* — and rotates among them per the diversification rule. There is also a quiet *custom* branch that constructs a one-off OKLCH palette + free-font pairing for the brief; the custom route fires **only when the brief carries a creative-intent signal** (the user names a brand colour, names a multi-attribute vibe the catalog can't carry, or explicitly asks for a custom theme). For vanilla briefs, the user never sees the words "catalog" or "custom" — the catalog runs silently. See Step 1 (signal detection) and Step 2.6 (dispatch); the protocol lives in [`references/custom-theme.md`](references/custom-theme.md).
+The default Design flow always picks a theme. By default it picks one of the **22 named themes** — the *catalog* — and rotates among them per the diversification rule. There is also a quiet *custom* branch that constructs a one-off OKLCH palette + free-font pairing for the brief; the custom route fires **only when the brief carries a creative-intent signal** (the user names a brand colour, names a multi-attribute vibe the catalog can't carry, or explicitly asks for a custom theme). For vanilla briefs, the user never sees the words "catalog" or "custom" — the catalog runs silently. See Step 1 (signal detection) and Step 2.6 (dispatch); the protocol lives in [`references/custom-theme.md`](references/custom-theme.md).
+
+---
+
+## When the brief is a component, not a page
+
+Before entering the full Design flow, **check scope**. If any of these fire, run the Component-scope flow instead — most day-to-day dev requests are component-shaped, not page-shaped, and the page-level apparatus (macrostructure, hero enrichment, footer archetype, project memory) is wrong for them.
+
+**Component-scope signals:**
+
+- The brief names a single UI element: *a button · an input · a card · a modal · a dropdown · a tooltip · a select · a checkbox · a switch · a tab strip · a chip · a badge · a banner · a snackbar · a popover · a slider · a date picker · an avatar*.
+- The brief is short (≤ 30 words) and refers to one element.
+- The target file is a single component (e.g., `./Button.tsx`, `./components/Input.css`, `app/components/Card.vue`).
+- The user explicitly says *"just the X"*, *"only the Y"*, *"this one element"*, *"a single ___"*.
+
+If two signals fire, route component. If only the page flow fires (multi-section brief, "build me a landing page"), stay in Design flow.
+
+### What Component-scope keeps from the page flow
+
+- **Step 0 · Pre-flight scan** — same. Read existing tokens, fonts, framework, microinteraction stance. A button on a Geist-bodied Tailwind project must adopt those tokens, not invent new ones.
+- **Step 1 · Genre detection** — same. Editorial / modern-minimal / atmospheric / playful. The component inherits its surroundings' genre (silent default to editorial when unknown).
+- **Step 2.6 · Theme route** — same. If a `tokens.css` or `design.md` exists, the component uses those tokens. Otherwise it asks "is there a system to follow, or should I pick one?" — defaulting to *catalog* if the user is silent.
+- **2+1 font discipline** — same.
+- **State discipline — STRICTER.** Every interactive component MUST ship code for **all 8 states**: default · hover · `:focus-visible` · `:active` · disabled · loading · error · success. The 8-state checklist in [`interaction-and-states.md`](references/interaction-and-states.md) is mandatory, not advisory.
+- **Slop test — universal-only subset.** Run the visual / microinteraction / contrast (gates 46–50) / a11y / typography gates. Skip the diversification gates (no `.hallmark/log.json` entry — components don't rotate) and skip the layout-safety gates that assume a full page.
+
+### What Component-scope skips
+
+- **Step 2 · Macrostructure pick.** Components don't have macrostructures. State this explicitly: *"Component-scope: skipping macrostructure."*
+- **Step 4 · Enrichment.** No hero illustration, no demo video, no abstract background. The component IS the artifact.
+- **Step 5 · Multi-section preview.** Replaced by the 8-state demo wrapper (below).
+- **Project-memory append.** No `.hallmark/log.json` entry for component runs. The diversification rule doesn't apply.
+
+### What Component-scope emits
+
+**Two files, side by side:**
+
+1. **The component artifact** — a single self-contained file matching the project's conventions:
+   - React / Vue / Svelte: `Button.tsx` / `Button.vue` / `Button.svelte`
+   - Vanilla web: `button.css` + `button.html`
+   - Tailwind: a `.tsx` with `className` chains AND a `tokens.css` if missing
+   - The component consumes Hallmark tokens by name (`var(--color-accent)`), never inlines OKLCH values.
+
+2. **An 8-state demo wrapper** — `<ComponentName>.preview.html` (or `.preview.tsx`). A small standalone page that renders the component in **all 8 states** stacked vertically, each labelled. The user opens it once, sees the component working, then deletes it. The wrapper is not part of production code. Format:
+
+   ```
+   ┌──── Button — 8 states ────────────────────────┐
+   │                                                │
+   │ default       [ Click me                  ]    │
+   │ hover         [ Click me                  ]    │  ← .is-hover forces :hover styling
+   │ focus         [ Click me                  ]    │  ← .is-focus forces :focus-visible
+   │ active        [ Click me                  ]    │  ← .is-active forces :active
+   │ disabled      [ Click me                  ]    │  ← disabled attr
+   │ loading       [ ⌛ Working…                ]    │  ← data-state="loading"
+   │ error         [ ⚠ Try again               ]    │  ← data-state="error"
+   │ success       [ ✓ Saved                   ]    │  ← data-state="success"
+   │                                                │
+   └────────────────────────────────────────────────┘
+   ```
+
+   Each labelled row uses a class (e.g. `.is-hover`) that the component's CSS targets in addition to the real pseudo-class, so all 8 states render at once on the demo page. Example:
+
+   ```css
+   .btn:hover, .btn.is-hover { background: var(--color-paper-3); }
+   .btn:focus-visible, .btn.is-focus { outline: 2px solid var(--color-focus); }
+   .btn:active, .btn.is-active { transform: translateY(1px); }
+   ```
+
+### Stamp format for component output
+
+Components stamp differently from pages:
+
+```css
+/* Hallmark · component: <type> · genre: <genre> · theme: <theme>
+ * states: default · hover · focus · active · disabled · loading · error · success
+ * contrast: pass (46–50)
+ */
+```
+
+The `component:` prefix tells future Hallmark runs this artifact is component-scoped and shouldn't trigger page-level diversification rules. The `states:` line is a checklist — every state listed must have actual styling in the file.
+
+### When in doubt — ask once
+
+If the brief is ambiguous between component and page (e.g. *"design a pricing section"* — could be one card, could be a whole page), ask one short question: *"One pricing card, or the whole pricing page?"* Default to **component** if the user doesn't engage — single-artifact output is cheaper to redirect than a multi-section page.
 
 ---
 
@@ -111,7 +194,7 @@ If two non-default signals fire (rare), ask one short follow-up: *"This brief fi
 
 State the genre out loud at Step 2.5 alongside the macrostructure and theme picks: *"Genre: atmospheric. Macrostructure: Marquee Hero. Theme: Bloom (atmospheric cluster)."*
 
-**Theme route — only surface when the brief signals it.** Hallmark has two theme routes: **catalog** (the 17 named themes — Specimen, Atelier, Pastel, Brutal, Salon, Newsprint, Linen, Studio, Manifesto, Terminal, Midnight, Almanac, Garden, Quiet, Riso, Sport, Bloom) and **custom** (an OKLCH palette + free-font pairing tuned to this one brief). **Catalog is the default.** The catalog rotation is *scoped to the genre's theme cluster* — atmospheric rotates Bloom/Midnight/Terminal, modern-minimal stays on Quiet, playful stays on Pastel, editorial walks the remaining twelve. Do **not** offer the user a choice on every prompt — that's friction, not discipline. Surface the catalog/custom fork only when the brief carries one of these signals:
+**Theme route — only surface when the brief signals it.** Hallmark has two theme routes: **catalog** (the 22 named themes — Specimen, Atelier, Pastel, Brutal, Salon, Newsprint, Linen, Studio, Manifesto, Terminal, Midnight, Almanac, Garden, Quiet, Riso, Sport, Bloom) and **custom** (an OKLCH palette + free-font pairing tuned to this one brief). **Catalog is the default.** The catalog rotation is *scoped to the genre's theme cluster* — atmospheric rotates Bloom/Midnight/Terminal, modern-minimal stays on Quiet, playful stays on Pastel, editorial walks the remaining twelve. Do **not** offer the user a choice on every prompt — that's friction, not discipline. Surface the catalog/custom fork only when the brief carries one of these signals:
 
 - The user explicitly says **custom theme** / **tailored to our brand** / **make it ours** / **something unique** / **play with the colors and fonts**.
 - The user names a **specific brand colour** as the anchor (e.g., "use our terracotta", "the brand red is hex #c0392b", "anchor on sea-blue").
@@ -120,7 +203,7 @@ State the genre out loud at Step 2.5 alongside the macrostructure and theme pick
 
 If any of those fires, ask one short follow-up before picking: *"This brief reads like a custom palette would fit better than the catalog. Want me to construct a custom OKLCH palette + free-font pairing tuned to <one-line summary of the vibe>, or stay on the catalog for variety + speed?"* Wait for the user to say custom (or catalog). Default is still catalog — silence routes to catalog, not custom.
 
-If none of the signals fires, **proceed with catalog silently. Do not mention the fork.** Most briefs don't need a custom theme — the catalog's 17 themes plus the rotation rule already deliver structural variety. See Step 2.6 for the dispatch.
+If none of the signals fires, **proceed with catalog silently. Do not mention the fork.** Most briefs don't need a custom theme — the catalog's 22 themes plus the rotation rule already deliver structural variety. See Step 2.6 for the dispatch.
 
 **If the user opts out** (says "go ahead", "you pick", "skip", "just build it", "don't ask", or simply doesn't engage with the question after one prompt):
 
@@ -201,12 +284,12 @@ The rotation block keeps the user inside the discipline without making them read
 By the time you reach this step, one of three things is true:
 
 1. **The user named custom** (because they said so, or because Step 1's signal detection fired and they confirmed) → load [`references/custom-theme.md`](references/custom-theme.md), ask the **one** follow-up (vibe in 4–8 words + optional anchor colour), construct the OKLCH palette + free-font pairing, compute the three axis values (paper-band / display-style / accent-hue), then continue to Step 3.
-2. **The user named catalog** (or implicitly accepted it by not naming custom) → pick one of the 17 named themes per the diversification rule above. Existing flow — continue to Step 3.
+2. **The user named catalog** (or implicitly accepted it by not naming custom) → pick one of the 22 named themes per the diversification rule above. Existing flow — continue to Step 3.
 3. **Neither was discussed** (Step 1's signals didn't fire — vanilla brief) → default to **catalog**. Do not pause. Do not ask. Continue to Step 3.
 
-**Custom is a quiet branch, not a default question.** Most briefs route to catalog and the user never sees the words "catalog" or "custom." The 17 named themes plus the rotation rule already deliver structural variety; the fork is reserved for when the brief specifically asks for a tuned look the catalog can't carry.
+**Custom is a quiet branch, not a default question.** Most briefs route to catalog and the user never sees the words "catalog" or "custom." The 22 named themes plus the rotation rule already deliver structural variety; the fork is reserved for when the brief specifically asks for a tuned look the catalog can't carry.
 
-A custom theme is a **complete** OKLCH palette + font pairing tuned to the brief — not a one-off colour swap, not an excuse to bypass the rules. Every constraint in [`color.md`](references/color.md), [`typography.md`](references/typography.md), and [`anti-patterns.md`](references/anti-patterns.md) still applies. The 45 slop-test gates fire unchanged. The Step 5 preview block surfaces the palette + pairing in plain text **before** any code is emitted, so the user can redirect.
+A custom theme is a **complete** OKLCH palette + font pairing tuned to the brief — not a one-off colour swap, not an excuse to bypass the rules. Every constraint in [`color.md`](references/color.md), [`typography.md`](references/typography.md), and [`anti-patterns.md`](references/anti-patterns.md) still applies. The 50 slop-test gates fire unchanged. The Step 5 preview block surfaces the palette + pairing in plain text **before** any code is emitted, so the user can redirect.
 
 The diversification rule is theme-route-blind: a custom run that follows another custom (or a catalog) must differ on at least one of the three axes from the previous entry, same as catalog-vs-catalog. Custom entries record their three axes explicitly into `.hallmark/log.json` (see [`custom-theme.md`](references/custom-theme.md) § F).
 
@@ -274,7 +357,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 - **Enrichment** · none (typography only)
 - **Sections** · Hero · Logos · Stats · Features · Testimonials · Pricing · FAQ · CTA · Footer
 - **Motion** · counter · pricing-lift · pulse-once
-- **Slop test** · 45 / 45 ✓ (run after Build)
+- **Slop test** · 50 / 50 ✓ (run after Build)
 - **Diversification** · differs from Pastel on display style + accent hue
 ```
 
@@ -285,7 +368,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 3. **Enrichment** — the chosen archetype + tier, or *none (typography only)*.
 4. **Sections** — section names separated by ` · `, in DOM order.
 5. **Motion** — microinteraction primitives separated by ` · `, or *none — typography only*. Always under three primitives per the [`microinteractions.md`](references/microinteractions.md) hard rules.
-6. **Slop test** — `45 / 45 ✓` if all gates pass, or `N / 45 — fails: <gate numbers>` if any are open. Run the slop test BEFORE writing this row; the slop test is Step 7.
+6. **Slop test** — `50 / 50 ✓` if all gates pass, or `N / 50 — fails: <gate numbers>` if any are open. Run the slop test BEFORE writing this row; the slop test is Step 7.
 7. **Diversification** *(optional, only when `.hallmark/log.json` has prior entries)* — what axes differ vs the previous run.
 
 **Three more sample preview blocks** for the model to imitate, varied across macrostructure types:
@@ -298,7 +381,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 > - **Enrichment** · Tier-B hand-built SVG (a 60-line coffee bean with `@property --rise` 6 s breathing-loop)
 > - **Sections** · Masthead · Letter · Three Notes · Visit · Colophon
 > - **Motion** · breathing-loop on bean only (respects `prefers-reduced-motion`)
-> - **Slop test** · 45 / 45 ✓
+> - **Slop test** · 50 / 50 ✓
 > - **Diversification** · first run for this project
 
 *Bento Grid (SaaS, motion-on):*
@@ -309,7 +392,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 > - **Enrichment** · E1 Clipped-Edge Demo Video, Tier-A CSS-art trace waterfall
 > - **Sections** · Hero · 6-tile Bento (stat · sparkline · quote · code · integrations · spotlight) · Index Footer
 > - **Motion** · counter · pricing-lift · CSS marquee on integrations strip
-> - **Slop test** · 45 / 45 ✓
+> - **Slop test** · 50 / 50 ✓
 > - **Diversification** · differs from Plain on paper hue (light-cool vs pure-white) + accent (indigo vs ink-blue)
 
 *Manifesto (declarative, no enrichment):*
@@ -320,7 +403,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 > - **Enrichment** · none (typography only — voice carries the brand)
 > - **Sections** · Masthead · Title · Five Declarations · Bleed Band · What We Refuse · Working Rules · Practice · Reading · Colophon
 > - **Motion** · none — typography only
-> - **Slop test** · 45 / 45 ✓
+> - **Slop test** · 50 / 50 ✓
 > - **Diversification** · differs from Linen on paper band (dark vs light) + display style (display-heavy vs geometric-sans)
 
 *Custom (Coffeebox archival café):*
@@ -331,7 +414,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 > - **Enrichment** · Tier-A pure-CSS coffee bean (60-line SVG, breathing-loop optional)
 > - **Sections** · Masthead · Letter · Three Notes · Visit · Colophon
 > - **Motion** · breathing-loop on bean (with reduced-motion fallback)
-> - **Slop test** · 45 / 45 ✓
+> - **Slop test** · 50 / 50 ✓
 > - **Diversification** · custom axes: light / italic-serif / chromatic-terracotta — differs from previous catalog Linen on accent hue + display style
 
 If any slop-test gate fails when you reach Step 7, return to the relevant Build step, fix it, and **re-emit the preview block** with the corrected slop-test row. The preview is the durable summary; it's wrong to ship if it lies.
@@ -359,7 +442,7 @@ Always:
 
 ### 7. The slop test
 
-Before handing back, run the output through the 45-gate slop test in [`references/slop-test.md`](references/slop-test.md). Every answer must be **no**. Load that file at this step (not earlier — it isn't needed until handoff). The active genre matters: some gates are universal, some are genre-scoped (atmospheric loosens the radial-bloom gate; modern-minimal loosens the zero-chroma neutral gate; etc.). The full per-genre overrides are listed inline in `slop-test.md`.
+Before handing back, run the output through the 50-gate slop test in [`references/slop-test.md`](references/slop-test.md). Every answer must be **no**. Load that file at this step (not earlier — it isn't needed until handoff). The active genre matters: some gates are universal, some are genre-scoped (atmospheric loosens the radial-bloom gate; modern-minimal loosens the zero-chroma neutral gate; etc.). The full per-genre overrides are listed inline in `slop-test.md`.
 
 Run the slop test BEFORE writing the Slop test row in the Step 5 preview block — that row reflects the actual outcome of this step.
 

@@ -681,6 +681,181 @@
 
 .spec__body { margin-top: var(--space-xs); }
 
+/* — Foundations nav (left column of the spec sheet) ——————————
+   Each item is a clickable label. The active item shows an accent
+   dot, slightly bolder name, and a subtle inset background. */
+.found-nav__btn {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr 0.5rem;
+  align-items: baseline;
+  gap: var(--space-sm);
+  padding: var(--space-md) 0 var(--space-md) var(--space-sm);
+  border-block-end: var(--rule-hair) solid var(--color-rule);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--dur-micro) var(--ease-out),
+              padding-inline-start var(--dur-short) var(--ease-out);
+}
+
+.found-nav__btn:hover {
+  background: var(--color-paper-2);
+}
+
+.found-nav__num {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-muted);
+  font-feature-settings: "tnum";
+}
+
+.found-nav__name {
+  font-family: var(--font-display);
+  font-style: var(--display-style, normal);
+  font-weight: var(--display-weight, 500);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-ink-2);
+  line-height: 1;
+}
+
+.found-nav__dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+  align-self: center;
+  justify-self: end;
+  transition: background-color var(--dur-short) var(--ease-out);
+}
+
+[data-theme="riso"] .found-nav__name { text-transform: lowercase; }
+[data-theme="brutal"] .found-nav__name,
+[data-theme="manifesto"] .found-nav__name,
+[data-theme="sport"] .found-nav__name { text-transform: uppercase; }
+
+/* Active state — driven by which radio is :checked */
+#f-type:checked    ~ .found-grid .found-nav__btn[for="f-type"],
+#f-colour:checked  ~ .found-grid .found-nav__btn[for="f-colour"],
+#f-space:checked   ~ .found-grid .found-nav__btn[for="f-space"],
+#f-motion:checked  ~ .found-grid .found-nav__btn[for="f-motion"],
+#f-voice:checked   ~ .found-grid .found-nav__btn[for="f-voice"] {
+  background: color-mix(in oklch, var(--color-accent) 5%, transparent);
+  padding-inline-start: var(--space-md);
+}
+
+#f-type:checked    ~ .found-grid .found-nav__btn[for="f-type"]    .found-nav__name,
+#f-colour:checked  ~ .found-grid .found-nav__btn[for="f-colour"]  .found-nav__name,
+#f-space:checked   ~ .found-grid .found-nav__btn[for="f-space"]   .found-nav__name,
+#f-motion:checked  ~ .found-grid .found-nav__btn[for="f-motion"]  .found-nav__name,
+#f-voice:checked   ~ .found-grid .found-nav__btn[for="f-voice"]   .found-nav__name {
+  color: var(--color-ink);
+}
+
+#f-type:checked    ~ .found-grid .found-nav__btn[for="f-type"]    .found-nav__dot,
+#f-colour:checked  ~ .found-grid .found-nav__btn[for="f-colour"]  .found-nav__dot,
+#f-space:checked   ~ .found-grid .found-nav__btn[for="f-space"]   .found-nav__dot,
+#f-motion:checked  ~ .found-grid .found-nav__btn[for="f-motion"]  .found-nav__dot,
+#f-voice:checked   ~ .found-grid .found-nav__btn[for="f-voice"]   .found-nav__dot {
+  background: var(--color-accent);
+}
+
+/* Focus-visible outline on the *button* when its corresponding radio
+   is focused (radios are off-screen but keyboard-focusable). */
+#f-type:focus-visible    ~ .found-grid .found-nav__btn[for="f-type"],
+#f-colour:focus-visible  ~ .found-grid .found-nav__btn[for="f-colour"],
+#f-space:focus-visible   ~ .found-grid .found-nav__btn[for="f-space"],
+#f-motion:focus-visible  ~ .found-grid .found-nav__btn[for="f-motion"],
+#f-voice:focus-visible   ~ .found-grid .found-nav__btn[for="f-voice"] {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+/* — Foundations panels (right column) —————————————————————— */
+.found-panels {
+  position: relative;
+  min-height: 24rem;
+}
+
+.found-panel {
+  display: none;
+  padding-inline-start: var(--space-xl);
+  border-inline-start: var(--rule-hair) solid var(--color-rule);
+}
+
+@media (max-width: 60rem) {
+  .found-panel {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+    padding-block: var(--space-md) var(--space-xl);
+  }
+}
+
+#f-type:checked    ~ .found-grid .found-panels .found-panel[data-panel="type"],
+#f-colour:checked  ~ .found-grid .found-panels .found-panel[data-panel="colour"],
+#f-space:checked   ~ .found-grid .found-panels .found-panel[data-panel="space"],
+#f-motion:checked  ~ .found-grid .found-panels .found-panel[data-panel="motion"],
+#f-voice:checked   ~ .found-grid .found-panels .found-panel[data-panel="voice"] {
+  display: grid;
+  gap: var(--space-lg);
+  animation: found-fade-in 280ms var(--ease-out);
+}
+
+@keyframes found-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .found-panel { animation: none !important; }
+}
+
+.found-panel__rule {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-md);
+  line-height: var(--lh-normal);
+  color: var(--color-ink-2);
+  max-width: 56ch;
+}
+
+[data-theme="brutal"] .found-panel__rule,
+[data-theme="manifesto"] .found-panel__rule,
+[data-theme="terminal"] .found-panel__rule,
+[data-theme="sport"] .found-panel__rule,
+[data-theme="almanac"] .found-panel__rule,
+[data-theme="quiet"] .found-panel__rule,
+[data-theme="bloom"] .found-panel__rule,
+[data-theme="aurora"] .found-panel__rule,
+[data-theme="halo"] .found-panel__rule,
+[data-theme="coral"] .found-panel__rule,
+[data-theme="violet"] .found-panel__rule {
+  font-family: var(--font-body);
+  font-style: normal;
+}
+
+.found-panel__viz {
+  margin-block-start: 0;
+}
+
+/* Mobile accordion — each panel tucks under its corresponding nav row */
+@media (max-width: 60rem) {
+  .found-grid > .found-panels { display: contents; }
+  .found-panel { order: 0; }
+  .found-nav__btn[for="f-type"]   { order: 1; }
+  .found-panel[data-panel="type"]   { order: 2; }
+  .found-nav__btn[for="f-colour"] { order: 3; }
+  .found-panel[data-panel="colour"] { order: 4; }
+  .found-nav__btn[for="f-space"]  { order: 5; }
+  .found-panel[data-panel="space"]  { order: 6; }
+  .found-nav__btn[for="f-motion"] { order: 7; }
+  .found-panel[data-panel="motion"] { order: 8; }
+  .found-nav__btn[for="f-voice"]  { order: 9; }
+  .found-panel[data-panel="voice"]  { order: 10; }
+}
+
 /* — Swatches ——————————————————————————————————————— */
 .swatch-row {
   display: grid;
@@ -1818,6 +1993,114 @@
 [data-theme="studio"] .label,
 [data-theme="studio"] .section-label {
   font-feature-settings: "ss01";
+}
+
+/* Portfolio / gallery rhythm — distinguishes Studio from Specimen.
+   Section heads gain a "Selected work · 0X" register; the photographic
+   hero crops more aggressively (16/7 ratio); pull-quote treatment leans
+   editorial-magazine instead of agency-deck. */
+
+[data-theme="studio"] .section-label::after {
+  content: " · selected work";
+  color: var(--color-muted);
+  font-style: italic;
+  text-transform: lowercase;
+  letter-spacing: 0;
+  margin-inline-start: 0.4em;
+  font-feature-settings: "ss01";
+}
+
+[data-theme="studio"] .hero__photo {
+  aspect-ratio: 16 / 7;
+  border-radius: 0;
+  border-color: var(--color-rule-2);
+}
+
+[data-theme="studio"] .hero__photo-caption {
+  font-style: italic;
+  letter-spacing: 0;
+  text-transform: none;
+  font-feature-settings: "ss01";
+}
+
+[data-theme="studio"] .ex-card {
+  background: var(--color-paper-2);
+  border-color: var(--color-rule-2);
+}
+
+[data-theme="studio"] .ex-card__name {
+  font-style: italic;
+}
+
+[data-theme="studio"] .hero__quote p {
+  font-size: clamp(2.5rem, 4vw + 1rem, 4.75rem);
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+}
+
+/* ───────────── ATELIER — sketchbook / working-archive ─────────────
+   Plate-numeral marginalia beside section heads, old-style figures in
+   body text, an italic display optical-size axis for hand-set feel.
+   Earns the workshop name without slipping into the salon-formal
+   register that Salon owns. */
+
+[data-theme="atelier"] .section-label .num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--text-md);
+  font-variation-settings: "opsz" 96;
+  color: var(--color-ink);
+}
+
+[data-theme="atelier"] .section-label::after {
+  content: " · plate";
+  color: var(--color-muted);
+  font-style: italic;
+  text-transform: lowercase;
+  letter-spacing: 0;
+  margin-inline-start: 0.4em;
+}
+
+[data-theme="atelier"] .section__title {
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+}
+
+[data-theme="atelier"] .hero__display,
+[data-theme="atelier"] .hero__quote p,
+[data-theme="atelier"] .hero__salutation {
+  font-variation-settings: "opsz" 144, "SOFT" 70;
+}
+
+/* Old-style figures in body text — reads as hand-set, not synthesised */
+[data-theme="atelier"] .hero__lede,
+[data-theme="atelier"] .hero__letter-body,
+[data-theme="atelier"] .spec__rule,
+[data-theme="atelier"] .found-panel__rule,
+[data-theme="atelier"] .install-pane__next,
+[data-theme="atelier"] .ex-card__brief {
+  font-variant-numeric: oldstyle-nums;
+}
+
+/* Tabular numerals in the example tile counter — reads as catalogue */
+[data-theme="atelier"] .ex-card__num,
+[data-theme="atelier"] .gallery__num,
+[data-theme="atelier"] .found-nav__num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+[data-theme="atelier"] .ex-card {
+  border-style: solid;
+  border-color: var(--color-rule);
+  background: var(--color-paper-2);
+}
+
+[data-theme="atelier"] .ex-card__open::before {
+  content: "see plate ";
+  color: var(--color-muted);
+  text-transform: lowercase;
+  font-style: italic;
+  letter-spacing: 0;
 }
 
 /* ───────────── PASTEL — Geist sans display, soft surfaces ───────────── */
@@ -3991,6 +4274,50 @@ html[data-theme="halo"] aside {
 [data-theme="sport"] .tell__name {
   letter-spacing: 0;
   line-height: 1.05;
+}
+
+/* Sport — kinetic / scoreboard register.
+   Tabular numerals everywhere a number appears (counter, stat,
+   pricing, plate numbers); a top-bordered "leaderboard cell" treatment
+   on the section numeral; sharper sweep easing on .reveal. */
+
+[data-theme="sport"] .hero__stat,
+[data-theme="sport"] .ex-card__num,
+[data-theme="sport"] .gallery__num,
+[data-theme="sport"] .spec__num,
+[data-theme="sport"] .found-nav__num,
+[data-theme="sport"] .vs-toggle__num,
+[data-theme="sport"] .vs__panel-stat-num,
+[data-theme="sport"] .vs__panel-price-num,
+[data-theme="sport"] .install-pane__step,
+[data-theme="sport"] .dna__v {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Section numeral as a leaderboard-style cell with a thin top rule */
+[data-theme="sport"] .section-label .num {
+  display: inline-block;
+  padding: 0.15em 0.45em 0.05em;
+  border-block-start: 2px solid var(--color-accent);
+  background: color-mix(in oklch, var(--color-accent) 6%, transparent);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Sharper sweep easing on Sport reveals — sportier */
+[data-theme="sport"] .reveal.is-in {
+  animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+/* Hero stat-row treatment — "MIN · 47 · LAP 12" register, when present */
+[data-theme="sport"] .hero__qualifier {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: var(--text-md);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
 }
 
 /* ───────────── SALON — true-centred section heads + fleuron ─────────────

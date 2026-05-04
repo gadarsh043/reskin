@@ -1,4 +1,4 @@
-# Slop test — 45 gates
+# Slop test — 50 gates
 
 Run this list before handing back any output. Every answer must be **no**. Update the Step 5 preview block's `Slop test` row to reflect the actual outcome of this run.
 
@@ -90,6 +90,28 @@ Some gates are **universal** (apply to every genre); some are **genre-scoped** (
 43. Is the input height different from the height of an adjacent button on the same form? Form inputs and the form's submit button share a single base height (44 px floor). 38 px input + 44 px button is the most common form-tuning slop and reads as un-designed.
 44. Is the helper-text container collapsed when no helper or error is shown? The helper slot must reserve `min-height: 1lh` even when empty so that an error appearing doesn't push the page down. Vertical jump on validation is a tell.
 45. Is the disabled input state signalled by *only* `opacity: 0.5`? Disabled needs three independent signals: `opacity: 0.55` AND `cursor: not-allowed` AND `aria-disabled="true"` (or the native `disabled` attribute). One channel is missable; three are not.
+
+## Contrast & readability
+
+Universal — apply to every genre. These gates catch the real-world failures the user flagged: black-text-on-black-button, dark sections with unreadable text, ink-on-ink slop where the LLM forgot to flip the text colour after flipping the surface.
+
+Contrast computation: for every `(color, background-color)` pair on the page, run **APCA Lc** OR **WCAG 2.1 ratio**. OKLCH lightness is a fast pre-check — if `|L_text − L_bg| < 50 %`, the pair likely fails 4.5:1 — confirm with a full calculation.
+
+Thresholds:
+- Body text (under 24 px regular OR under 18 px bold): **WCAG 4.5:1 / APCA Lc ≥ 60**.
+- Large text / icons / focus rings: **WCAG 3:1 / APCA Lc ≥ 45**.
+
+46. Does any **body text** have a contrast ratio below **4.5:1** against its computed background? Pair every `color` declaration with its effective `background-color` and verify. The most-missed cases are: text inside cards that inherit `color` but the card switched to `background: var(--color-paper-2)` and the text is now too close in lightness; muted text (`color: var(--color-muted)`) on `background: var(--color-paper-3)` — both are mid-lightness and fail.
+
+47. Does any **large text** (≥ 24 px regular OR ≥ 18 px bold) or **icon** or **`:focus-visible` ring** have a contrast ratio below **3:1** against its background? Same calculation, looser threshold. Specifically check focus rings — `outline: 2px solid var(--color-focus)` only passes if `--color-focus` has ≥ 3:1 contrast against *both* the element and the page surface.
+
+48. Does any **button** have `color` ≈ `background-color` on its fill? The canary check: if the computed text colour and the computed background colour are within **5 % lightness AND 0.05 chroma** in OKLCH, fail the gate. This catches the common bug where `color: var(--color-ink)` sits on `background: var(--color-ink)` (black-on-black slop) — the LLM forgot to use `--color-accent-ink` (or `--color-paper`) for text-on-fill.
+
+49. When `--color-accent` is used as a fill anywhere on the page (button, badge, surface), is `--color-accent-ink` **also defined** (in `:root` or theme tokens) AND used as the `color` for text on that fill? If `--color-accent-ink` is missing, Hallmark output is one careless `color: white` away from a low-contrast accident. The token must exist, must verify ≥ APCA Lc 60 / WCAG 4.5:1 against `--color-accent`, and must be applied wherever accent fills a surface that carries text.
+
+50. Does any **dark section** (a section or panel whose `background-color` has OKLCH lightness < 50 %) carry text that uses the page-default `color: var(--color-ink)` — i.e. ink-on-ink in a section that flipped its surface? Sections that swap to a dark surface MUST also swap their text colour (typically to `--color-paper`) and ensure nested children inherit. The fix is explicit: any class that sets `background: <dark>` must also set `color: <light>` in the same rule, OR be wrapped in a parent that does. The most common failure: a `.vs__col:first-child` painted with the accent or ink colour but the inner panels still using default ink-coloured text.
+
+The CSS stamp at Step 6 should record the result: `· contrast: pass (46–50)` if all five gates pass, or `· contrast: FAIL gates <list>` if any are open. Fix before shipping.
 
 ---
 

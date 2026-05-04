@@ -3,7 +3,7 @@
 **A design skill that studies what you admire — and rebuilds your content with it.**
 
 → Live demo: **[hallmark-murex.vercel.app](https://hallmark-murex.vercel.app)** · twenty-two themes, eight worked tests, press `T` to cycle.
-→ Current version: **v0.8.0** — adds genres (editorial · modern-minimal · atmospheric · playful), `design.md` for whole-project redesigns, lazy reference loading, the 2+1 font rule with 45-gate slop test, component-library exports (tokens.css always emitted; Tailwind / DTCG / shadcn formats inline in design.md), a Study gallery on the marketing site, and seven new themes (Quiet refreshed, plus Bloom, Coral, Violet, Aurora, Halo, Plume).
+→ Current version: **v0.8.0** — adds genres (editorial · modern-minimal · atmospheric · playful), `design.md` for whole-project redesigns, lazy reference loading, the 2+1 font rule with 50-gate slop test, component-library exports (tokens.css always emitted; Tailwind / DTCG / shadcn formats inline in design.md), a Study gallery on the marketing site, and seven new themes (Quiet refreshed, plus Bloom, Coral, Violet, Aurora, Halo, Plume).
 
 <table>
   <tr>
@@ -97,7 +97,7 @@ Each page is its own self-contained HTML + CSS — no shared theme, no shared la
 
 ## What's inside
 
-- **[`SKILL.md`](skill/SKILL.md)** — the routing file. Six-step design flow (including `Step 2.5 · Check project memory` reading `.hallmark/log.json`), 45-gate slop test, output contract, always-on `tokens.css` export.
+- **[`SKILL.md`](skill/SKILL.md)** — the routing file. Six-step design flow (including `Step 2.5 · Check project memory` reading `.hallmark/log.json`), 50-gate slop test, output contract, always-on `tokens.css` export.
 - **[`references/`](skill/references/)** — short, opinionated rule files: typography, colour, layout, motion, microinteractions, interaction-and-states (with the input-state checklist), responsive, copy, anti-patterns, the 21 named macrostructures, the 36 component archetypes with variation knobs, the 6 primitive structure axes, the vision-extraction protocol for `study`, hero enrichment, custom-craft (CSS art over Lottie), assets, the slop-test gates, four genre rule-overlays, per-verb dispatchers, and the export-formats reference (Tailwind / DTCG / shadcn / tokens.css).
 - **[`docs/`](docs/)** — human-reading content: **[`recipes.md`](docs/recipes.md)** (8 worked briefs + a canonical try-it prompt) and **[`study-examples.md`](docs/study-examples.md)** (3 worked DNA-extractions). Not auto-loaded by the skill.
 - **[`site/`](site/)** — a self-demonstrating landing page. Hand-written HTML + CSS + ES module, no framework, no build step. **Twenty-two themes** clustered into four genres: **editorial** (Specimen, Atelier, Newsprint, Salon, Linen, Almanac, Garden, Studio, Sport, Riso, Brutal, Manifesto), **modern-minimal** (Quiet, Coral, Violet), **atmospheric** (Midnight, Terminal, Bloom, Aurora, Halo), **playful** (Pastel, Plume). Switching themes literally rebuilds the page — different hero archetype, different footer archetype.
@@ -112,7 +112,7 @@ Each page is its own self-contained HTML + CSS — no shared theme, no shared la
 - **Macrostructures over axes.** Pick one of 21 named whole-page shapes wholesale; the macrostructure stamp lives in the CSS comment, so the next Hallmark run picks something different.
 - **Within-archetype variation.** Two Bento Grids should not be twins; each archetype has 2–3 picked-per-output knobs.
 - **Microinteractions as discipline.** Silent success over celebratory toasts. Optimistic update + Undo over confirm dialogs. Hover delay 800 ms, focus delay 0 ms.
-- **A 45-gate slop test** runs before every output. One yes fails the build. Recent additions: typography discipline gates (39–40: max three font families per page, outlier face used in ≤ 2 slots) and input-state gates (41–45: no border-width layout shift, focus ring via outline not border, input height matches button height, helper-text slot reserves height, disabled state needs three independent signals).
+- **A 50-gate slop test** runs before every output. One yes fails the build. Recent additions: typography discipline gates (39–40: max three font families per page, outlier face used in ≤ 2 slots) and input-state gates (41–45: no border-width layout shift, focus ring via outline not border, input height matches button height, helper-text slot reserves height, disabled state needs three independent signals).
 - **Project memory.** A per-project `.hallmark/log.json` records each run's macrostructure + theme + enrichment + brief summary. The skill reads the last 3–5 entries before picking and writes a new entry after each build, so consecutive Hallmark outputs in the same project don't repeat shapes or themes.
 - **Theme-diversification rule.** Two consecutive themes must differ on at least one of three axes: paper band (dark / mid / light), display style (italic-serif / roman-serif / geometric-sans / mono / display-heavy / system-native), accent hue (warm / cool / neutral / chromatic-other).
 - **Voice fixtures over LLM defaults.** Each of the 21 macrostructures ships with 2–3 example opening lines tuned to its tone. "Built for the modern team" is in the banned-phrases list.

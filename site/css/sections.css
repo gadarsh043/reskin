@@ -20,6 +20,7 @@
 .section {
   display: grid;
   gap: var(--space-2xl);
+  position: relative;            /* anchors absolute children (hidden radios) */
 }
 
 .section__head {
@@ -214,6 +215,14 @@
    the input at top:0 of the viewport; clicking a label far below
    would scroll the page back to the top. */
 .vs-toggle__input {
+  /* Pulled out of the section's grid (otherwise each hidden radio plus each
+     hidden .vs panel adds a `var(--space-2xl)` phantom gap between the
+     section header and the first visible child). Anchored absolute inside
+     the section (which is position: relative) so focus doesn't scroll the
+     page back to the viewport top. */
+  position: absolute;
+  top: 0;
+  left: 0;
   appearance: none;
   -webkit-appearance: none;
   width: 0;
@@ -223,7 +232,6 @@
   border: 0;
   outline: 0;
   opacity: 0;
-  flex: 0 0 0;
   pointer-events: none;
 }
 
@@ -362,6 +370,56 @@
 @media (max-width: 56rem) {
   .foundations { grid-template-columns: 1fr; gap: 0; }
   .spec--feature, .spec--strip { grid-column: auto; }
+}
+
+/* — 05 · Foundations as vertical list + active panel ———————
+   Five clickable names on the left; the active card's rule + visual
+   demo on the right. Pure CSS via :checked + sibling selectors —
+   the radios sit absolutely-positioned (out of flow, like the W/W
+   toggle radios). Fits in ~one viewport on desktop. */
+.found-toggle__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.found-grid {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+@media (max-width: 60rem) {
+  .found-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.found-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  border-block-start: var(--rule-hair) solid var(--color-rule);
+}
+
+.found-nav li { margin: 0; }
+
+@media (max-width: 60rem) {
+  .found-nav { display: contents; }
 }
 
 /* — 05 · How it works ——————————————————————————————— */

@@ -91,7 +91,7 @@
       <button class="banner__dot" type="button" data-theme-btn="studio" aria-label="Studio"
         style="--dot: oklch(96.5% 0.014 95); --dot-edge: oklch(46% 0.140 145);"></button>
       <button class="banner__dot" type="button" data-theme-btn="pastel" aria-label="Pastel"
-        style="--dot: oklch(96% 0.022 285); --dot-edge: oklch(56% 0.130 282);"></button>
+        style="--dot: oklch(98% 0.008 240); --dot-edge: oklch(54% 0.110 282);"></button>
       <button class="banner__dot" type="button" data-theme-btn="riso" aria-label="Riso"
         style="--dot: oklch(91% 0.034 30); --dot-edge: oklch(58% 0.170 220);"></button>
       <button class="banner__dot" type="button" data-theme-btn="quiet" aria-label="Quiet"
@@ -539,42 +539,67 @@
       </div>
     </section>
 
-    <!-- 05 · FOUNDATIONS — five plain-English rules -->
+    <!-- 05 · FOUNDATIONS — vertical list + active panel (CSS-only tabs) -->
     <section class="section reveal" style="--i:4" aria-labelledby="s5-foundations">
       <header class="section__head">
         <p class="section-label">
           <span class="num">05</span><span class="divider">⁄</span><span>Foundations</span>
         </p>
         <h2 class="section__title" id="s5-foundations">
-          Five things Hallmark holds the line on — explained without the jargon.
+          Five things Hallmark holds the line on.
         </h2>
       </header>
 
-      <div class="foundations">
+      <input type="radio" name="found-toggle" id="f-type" class="found-toggle__input" checked />
+      <input type="radio" name="found-toggle" id="f-colour" class="found-toggle__input" />
+      <input type="radio" name="found-toggle" id="f-space" class="found-toggle__input" />
+      <input type="radio" name="found-toggle" id="f-motion" class="found-toggle__input" />
+      <input type="radio" name="found-toggle" id="f-voice" class="found-toggle__input" />
 
-        <article class="spec spec--feature">
-          <header class="spec__head">
-            <span class="spec__name">Type</span>
-            <span class="spec__num">F / 01</span>
-          </header>
-          <p class="spec__rule">Pick fonts on purpose. Skip Inter and Geist — the defaults every site uses. Pair a display face that has a personality with a clean body face, and lean into the extreme weights, light or heavy, not the safe middle.</p>
-          <div class="spec__body">
-            <div class="spec__viz spec__viz--type">
+      <div class="found-grid">
+
+        <ol class="found-nav" role="tablist" aria-label="Foundations">
+          <li><label for="f-type" class="found-nav__btn" data-panel="type" role="tab">
+            <span class="found-nav__num">01</span>
+            <span class="found-nav__name">Type</span>
+            <span class="found-nav__dot" aria-hidden="true"></span>
+          </label></li>
+          <li><label for="f-colour" class="found-nav__btn" data-panel="colour" role="tab">
+            <span class="found-nav__num">02</span>
+            <span class="found-nav__name">Colour</span>
+            <span class="found-nav__dot" aria-hidden="true"></span>
+          </label></li>
+          <li><label for="f-space" class="found-nav__btn" data-panel="space" role="tab">
+            <span class="found-nav__num">03</span>
+            <span class="found-nav__name">Space</span>
+            <span class="found-nav__dot" aria-hidden="true"></span>
+          </label></li>
+          <li><label for="f-motion" class="found-nav__btn" data-panel="motion" role="tab">
+            <span class="found-nav__num">04</span>
+            <span class="found-nav__name">Motion</span>
+            <span class="found-nav__dot" aria-hidden="true"></span>
+          </label></li>
+          <li><label for="f-voice" class="found-nav__btn" data-panel="voice" role="tab">
+            <span class="found-nav__num">05</span>
+            <span class="found-nav__name">Voice</span>
+            <span class="found-nav__dot" aria-hidden="true"></span>
+          </label></li>
+        </ol>
+
+        <div class="found-panels">
+
+          <article class="found-panel" data-panel="type">
+            <p class="found-panel__rule">Pick fonts on purpose. Skip Inter and Geist — the defaults every site uses. Pair a display face that has a personality with a clean body face, and lean into the extreme weights, light or heavy, not the safe middle.</p>
+            <div class="found-panel__viz spec__viz spec__viz--type">
               <div class="spec__viz-row spec__viz-row--display"><span>Hallmark</span><em class="spec__viz-tag">Fraunces · 900 italic</em></div>
               <div class="spec__viz-row spec__viz-row--body"><span>Hallmark</span><em class="spec__viz-tag">Geist · 300</em></div>
               <div class="spec__viz-row spec__viz-row--mono"><span>Hallmark</span><em class="spec__viz-tag">Mono · 500</em></div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="spec spec--feature">
-          <header class="spec__head">
-            <span class="spec__name">Colour</span>
-            <span class="spec__num">F / 02</span>
-          </header>
-          <p class="spec__rule">One accent colour, used so sparingly you almost miss it — less than 3% of what's on screen. Skip pure black and pure white (they're harsher than they look). Avoid purple gradients.</p>
-          <div class="spec__body">
-            <div class="spec__viz spec__viz--colour" aria-hidden="true">
+          <article class="found-panel" data-panel="colour">
+            <p class="found-panel__rule">One accent colour, used so sparingly you almost miss it — less than 3% of what's on screen. Skip pure black and pure white (they're harsher than they look). Avoid purple gradients.</p>
+            <div class="found-panel__viz spec__viz spec__viz--colour" aria-hidden="true">
               <span class="spec__viz-dot"></span>
               <p class="spec__viz-caption">One accent. The whole field is paper. The dot is the accent.</p>
             </div>
@@ -585,17 +610,11 @@
               <div class="swatch" style="background: var(--color-ink);">Ink</div>
               <div class="swatch" style="background: var(--color-accent);">Accent</div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="spec">
-          <header class="spec__head">
-            <span class="spec__name">Space</span>
-            <span class="spec__num">F / 03</span>
-          </header>
-          <p class="spec__rule">Generous space, used unevenly. Pick one consistent scale so things feel related. Asymmetry on purpose, never by accident — centred-everything is a tell.</p>
-          <div class="spec__body">
-            <div class="spec__viz spec__viz--space" aria-hidden="true">
+          <article class="found-panel" data-panel="space">
+            <p class="found-panel__rule">Generous space, used unevenly. Pick one consistent scale so things feel related. Asymmetry on purpose, never by accident — centred-everything is a tell.</p>
+            <div class="found-panel__viz spec__viz spec__viz--space" aria-hidden="true">
               <div class="spec__viz-grid spec__viz-grid--bad">
                 <span class="vg-bar vg-bar--xl"></span>
                 <span class="vg-bar vg-bar--md"></span>
@@ -608,17 +627,11 @@
               </div>
             </div>
             <p class="spec__viz-pair"><span>Centred (a tell)</span><span>Asymmetric (designed)</span></p>
-          </div>
-        </article>
+          </article>
 
-        <article class="spec">
-          <header class="spec__head">
-            <span class="spec__name">Motion</span>
-            <span class="spec__num">F / 04</span>
-          </header>
-          <p class="spec__rule">Keep motion quiet. One smooth entrance feels designed; ten little bounces feel busy. Animate fade and slide — never size, colour, or layout.</p>
-          <div class="spec__body">
-            <div class="spec__viz spec__viz--motion">
+          <article class="found-panel" data-panel="motion">
+            <p class="found-panel__rule">Keep motion quiet. One smooth entrance feels designed; ten little bounces feel busy. Animate fade and slide — never size, colour, or layout.</p>
+            <div class="found-panel__viz spec__viz spec__viz--motion">
               <button class="spec__viz-play" type="button" data-motion-demo aria-label="Play motion demo">
                 <span class="spec__viz-play-icon" aria-hidden="true"></span>
                 Play
@@ -627,17 +640,11 @@
                 <span class="spec__viz-block" data-motion-block></span>
               </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="spec spec--strip">
-          <header class="spec__head">
-            <span class="spec__name">Voice</span>
-            <span class="spec__num">F / 05</span>
-          </header>
-          <p class="spec__rule">Write like a person. Specific verbs over vague ones. Link text that makes sense out of context. Real apostrophes, not straight quotes. No "seamless," no "unleash," no "built for the modern team."</p>
-          <div class="spec__body">
-            <div class="spec__viz spec__viz--copy">
+          <article class="found-panel" data-panel="voice">
+            <p class="found-panel__rule">Write like a person. Specific verbs over vague ones. Link text that makes sense out of context. Real apostrophes, not straight quotes. No "seamless," no "unleash," no "built for the modern team."</p>
+            <div class="found-panel__viz spec__viz spec__viz--copy">
               <div class="spec__viz-copy-col" data-variant="bad">
                 <p class="spec__viz-copy-label">Vague</p>
                 <p class="spec__viz-copy-line">Click here</p>
@@ -653,8 +660,9 @@
                 <p class="spec__viz-copy-line">Notes that think with you</p>
               </div>
             </div>
-          </div>
-        </article>
+          </article>
+
+        </div>
 
       </div>
     </section>
@@ -963,7 +971,7 @@
           <li>22 themes</li>
           <li>21 macrostructures</li>
           <li>32 archetypes</li>
-          <li>45 slop-test gates</li>
+          <li>50 slop-test gates</li>
         </ul>
       </div>
       <div class="foot__col">

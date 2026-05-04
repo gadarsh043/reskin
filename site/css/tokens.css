@@ -687,18 +687,21 @@
    ────────────────────────────────────────────────────────────── */
 
 [data-theme="pastel"] {
-  --color-paper:    oklch(96%    0.022 285);
-  --color-paper-2:  oklch(93.5%  0.026 285);
-  --color-paper-3:  oklch(90%    0.030 285);
-  --color-rule:     oklch(82%    0.024 280);
-  --color-rule-2:   oklch(72%    0.030 275);
-  --color-muted:    oklch(50%    0.030 275);
-  --color-neutral:  oklch(38%    0.038 270);
-  --color-ink-2:    oklch(28%    0.040 270);
-  --color-ink:      oklch(22%    0.040 270);
-  --color-accent:   oklch(56%    0.130 282);
-  --color-accent-ink: oklch(56%  0.130 282);
-  --color-focus:    oklch(56%    0.130 282);
+  /* Cool near-white paper — distinguishes from Plume's warm cream.
+     The "design-tool" register: cool ground, low-chroma indigo, soft
+     surfaces. No more overlap with the warm-soft register. */
+  --color-paper:    oklch(98%    0.008 240);
+  --color-paper-2:  oklch(96%    0.010 240);
+  --color-paper-3:  oklch(93%    0.012 240);
+  --color-rule:     oklch(88%    0.012 240);
+  --color-rule-2:   oklch(76%    0.014 240);
+  --color-muted:    oklch(52%    0.018 250);
+  --color-neutral:  oklch(40%    0.022 255);
+  --color-ink-2:    oklch(28%    0.025 260);
+  --color-ink:      oklch(20%    0.028 265);
+  --color-accent:   oklch(54%    0.110 282);    /* slightly lower chroma indigo */
+  --color-accent-ink: oklch(98%  0.008 240);
+  --color-focus:    oklch(54%    0.110 282);
 
   --font-display: "Geist", "Söhne", ui-sans-serif, system-ui, sans-serif;
   --font-body:    "Geist", "Söhne", ui-sans-serif, system-ui, sans-serif;

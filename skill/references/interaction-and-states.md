@@ -164,3 +164,44 @@ The outline starts transparent at 2 px so when the focus ring appears, the box g
 - Disabled elements with no explanation of why they're disabled.
 - Colour-only error states.
 - Spinners where a skeleton would show layout.
+
+---
+
+## Contrast discipline
+
+Hallmark output must pass slop-test gates 46–50 before shipping. Compute contrast for every `(color, background-color)` pair on the page. The common failures Hallmark output trips on:
+
+1. **Text on a flipped surface.** `.section--ink { background: var(--color-ink); }` flips the surface dark; nested text still inherits `color: var(--color-ink)` → ink-on-ink. Fix: any rule that sets a dark `background` must *also* set `color: var(--color-paper)` in the same rule.
+2. **Button text on accent fill.** `background: var(--color-accent); color: white;` — but white is 4.5:1 against this accent only if `--color-accent` is dark enough. Use `var(--color-accent-ink)` instead, which the theme guarantees passes ≥ APCA Lc 60.
+3. **Muted text on tinted paper.** `color: var(--color-muted); background: var(--color-paper-3);` — both mid-lightness, often falls below 4.5:1. Use `--color-neutral` (darker) or lift the background to `--color-paper`.
+4. **Focus ring on accent-coloured button.** `outline: 2px solid var(--color-focus);` on a button whose fill is `--color-accent` — if `--color-focus = --color-accent`, the ring vanishes. Use the contrast pair: `--color-focus` set to a colour with ≥ 3:1 against both the element and the page.
+
+### Computation
+
+For each `(text-colour, background-colour)` pair the page actually renders:
+
+- Run **APCA Lc** (preferred — perceptual) or **WCAG 2.1 ratio**.
+- Pre-check: if both are in OKLCH with `|L_a − L_b| < 50 %`, flag for full check.
+- Body text passes at **APCA Lc ≥ 60** ≈ WCAG 4.5:1.
+- Large text / focus rings / icons pass at **APCA Lc ≥ 45** ≈ WCAG 3:1.
+
+### Token contract
+
+Every theme MUST define `--color-accent-ink` — the text colour to use whenever `--color-accent` fills a surface that carries text. The accent-ink colour is verified ≥ APCA Lc 60 against the accent at the time the theme is built. Hallmark code that uses `background: var(--color-accent)` must also set `color: var(--color-accent-ink)`. Falling back to hardcoded `color: white` is a tell — the theme's accent could be a light colour, and white-on-light is the bug.
+
+### When the surface flips
+
+The rule: **any rule that overrides `background-color` must also state the appropriate `color`.** Don't rely on inheritance for surface-flipping classes. Example:
+
+```css
+/* WRONG — text inherits color: var(--color-ink); section is now dark; ink-on-ink */
+.section--manifesto { background: var(--color-ink); }
+
+/* RIGHT */
+.section--manifesto {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+```
+
+Same applies to per-theme overrides like `[data-theme="manifesto"] .vs__col:first-child { background: var(--color-ink); }` — set `color: var(--color-paper)` at the same time, OR declare the rule on a parent and let descendants inherit explicitly.

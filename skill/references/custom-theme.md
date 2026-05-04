@@ -2,7 +2,7 @@
 
 Loaded only when the user has opted into the **custom** theme route in Step 1 of the Design flow. Custom produces a **complete OKLCH palette + free-font pairing tuned to this brief** — a one-off theme written inline into the page's `:root`, not a permanent catalog entry.
 
-**The freedom is the combination, not the rules.** Every constraint in [`color.md`](color.md), [`typography.md`](typography.md), and [`anti-patterns.md`](anti-patterns.md) still applies. The 45 slop-test gates fire unchanged. The Step 5 preview block surfaces the palette + pairing in plain text *before* any code is emitted, so the user can redirect.
+**The freedom is the combination, not the rules.** Every constraint in [`color.md`](color.md), [`typography.md`](typography.md), and [`anti-patterns.md`](anti-patterns.md) still applies. The 50 slop-test gates fire unchanged. The Step 5 preview block surfaces the palette + pairing in plain text *before* any code is emitted, so the user can redirect.
 
 ## Two words, plain English
 
