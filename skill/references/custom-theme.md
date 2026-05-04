@@ -6,8 +6,8 @@ Loaded only when the user has opted into the **custom** theme route in Step 1 of
 
 ## Two words, plain English
 
-- **catalog** — the named-theme catalogue. Hallmark's 16 themes (Specimen, Atelier, Pastel, Brutal, Salon, Newsprint, Linen, Studio, Manifesto, Plain, Terminal, Midnight, Almanac, Garden, Quiet, Riso). Each one is a fixed combination of paper-band, display-style, and accent-hue. The rotation rule cycles through them so two consecutive runs don't read alike. **This is the default.** Most briefs use it.
-- **custom** — made-to-measure. A one-off palette + font pairing constructed specifically for one brief. The skill builds the OKLCH values, picks fonts, and stamps the page — but does **not** add a 17th theme to the catalog. The rules behind the catalog (paper L bands, accent chroma caps, font ban list, slop-test gates) all still apply; only the *combination* is per-brief.
+- **catalog** — the named-theme catalogue. Hallmark's 22 themes (Specimen, Atelier, Pastel, Brutal, Salon, Newsprint, Linen, Studio, Manifesto, Terminal, Midnight, Almanac, Garden, Quiet, Riso, Sport, Bloom, Coral, Violet, Aurora, Halo, Plume). Each one is a fixed combination of paper-band, display-style, and accent-hue. The rotation rule cycles through them so two consecutive runs don't read alike. **This is the default.** Most briefs use it.
+- **custom** — made-to-measure. A one-off palette + font pairing constructed specifically for one brief. The skill builds the OKLCH values, picks fonts, and stamps the page — but does **not** add a 23rd theme to the catalog. The rules behind the catalog (paper L bands, accent chroma caps, font ban list, slop-test gates) all still apply; only the *combination* is per-brief.
 
 ## When to surface this fork — Step 1 trigger signals
 
@@ -15,12 +15,12 @@ Hallmark must **not** offer catalog-vs-custom on every prompt. That's friction, 
 
 1. **Explicit ask** — the user types `custom`, "custom theme", "tailored to our brand", "make it ours", "something unique", "play around with the colors and fonts", "I want my own palette".
 2. **Named brand colour** — the user gives a specific anchor colour as a hex / OKLCH / brand name. Example: "use our terracotta", "the brand red is hex #c0392b", "anchor on sea-blue".
-3. **Multi-attribute aesthetic the catalog can't carry** — three or more vibe words pointing at a specific, off-catalog feel. Examples: "moss, lichen, soft pink, herbal" / "sun-drenched, market-day, carbon-black" / "late-night, neon, brutalist deli". Compare against the 16 catalog themes; if no single catalog theme is within one axis-step of the vibe, fire the fork. **One adjective ("warm", "technical", "playful") is not a signal — that's a tone, the catalog already carries it.**
+3. **Multi-attribute aesthetic the catalog can't carry** — three or more vibe words pointing at a specific, off-catalog feel. Examples: "moss, lichen, soft pink, herbal" / "sun-drenched, market-day, carbon-black" / "late-night, neon, brutalist deli". Compare against the 22 catalog themes; if no single catalog theme is within one axis-step of the vibe, fire the fork. **One adjective ("warm", "technical", "playful") is not a signal — that's a tone, the catalog already carries it.**
 4. **Brand-mood reference attached** — the user attaches a colour swatch, a moodboard, a Pantone chip. (If they attach a *page* screenshot, route to `study` instead; custom is for brand colour / mood, study is for design DNA.)
 
 If any signal fires, ask one short follow-up before picking a theme:
 
-> *"This brief reads like a custom palette would fit better than the 16 named themes. Want me to construct a custom OKLCH palette + free-font pairing tuned to <one-line summary of the vibe>, or stay on the catalog for variety + speed?"*
+> *"This brief reads like a custom palette would fit better than the 22 named themes. Want me to construct a custom OKLCH palette + free-font pairing tuned to <one-line summary of the vibe>, or stay on the catalog for variety + speed?"*
 
 Wait for the user to answer. If they say custom (or yes / go) → continue this protocol from § A. If they say catalog (or no / stay catalog) → drop the fork and proceed with the catalog route. **Default to catalog** — silence routes to catalog, not custom.
 

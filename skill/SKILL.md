@@ -196,7 +196,7 @@ If two non-default signals fire (rare), ask one short follow-up: *"This brief fi
 
 State the genre out loud at Step 2.5 alongside the macrostructure and theme picks: *"Genre: atmospheric. Macrostructure: Marquee Hero. Theme: Bloom (atmospheric cluster)."*
 
-**Theme route — only surface when the brief signals it.** Hallmark has two theme routes: **catalog** (the 22 named themes — Specimen, Atelier, Pastel, Brutal, Salon, Newsprint, Linen, Studio, Manifesto, Terminal, Midnight, Almanac, Garden, Quiet, Riso, Sport, Bloom) and **custom** (an OKLCH palette + free-font pairing tuned to this one brief). **Catalog is the default.** The catalog rotation is *scoped to the genre's theme cluster* — atmospheric rotates Bloom/Midnight/Terminal, modern-minimal stays on Quiet, playful stays on Pastel, editorial walks the remaining twelve. Do **not** offer the user a choice on every prompt — that's friction, not discipline. Surface the catalog/custom fork only when the brief carries one of these signals:
+**Theme route — only surface when the brief signals it.** Hallmark has two theme routes: **catalog** (the 22 named themes — Specimen, Atelier, Pastel, Brutal, Salon, Newsprint, Linen, Studio, Manifesto, Terminal, Midnight, Almanac, Garden, Quiet, Riso, Sport, Bloom, Coral, Violet, Aurora, Halo, Plume) and **custom** (an OKLCH palette + free-font pairing tuned to this one brief). **Catalog is the default.** The catalog rotation is *scoped to the genre's theme cluster* — atmospheric rotates Bloom/Midnight/Terminal, modern-minimal stays on Quiet, playful stays on Pastel, editorial walks the remaining twelve. Do **not** offer the user a choice on every prompt — that's friction, not discipline. Surface the catalog/custom fork only when the brief carries one of these signals:
 
 - The user explicitly says **custom theme** / **tailored to our brand** / **make it ours** / **something unique** / **play with the colors and fonts**.
 - The user names a **specific brand colour** as the anchor (e.g., "use our terracotta", "the brand red is hex #c0392b", "anchor on sea-blue").
@@ -308,7 +308,7 @@ The non-negotiables live in [`references/`](references/). **Be precise about wha
 **Always-load (the eager bundle, ~3 files):**
 - The genre file picked in Step 1 — [`genres/editorial.md`](references/genres/editorial.md), [`genres/modern-minimal.md`](references/genres/modern-minimal.md), [`genres/atmospheric.md`](references/genres/atmospheric.md), or [`genres/playful.md`](references/genres/playful.md). Scopes everything downstream.
 - [`macrostructures.md`](references/macrostructures.md) — 21 named whole-page shapes; you must pick one before writing code (Step 2 already required this).
-- [`component-cookbook.md`](references/component-cookbook.md) — 32 component archetypes (hero shapes, section heads, feature blocks, CTA shapes, testimonials, footers, navigations) composable into any macrostructure.
+- [`component-cookbook.md`](references/component-cookbook.md) — 40 component archetypes (9 hero shapes, 6 feature blocks, 4 CTA shapes, 4 testimonials, **8 footer archetypes**, **9 nav archetypes**) composable into any macrostructure. Per-genre routing tables for nav and footer live at the bottom of the file.
 
 **Load-per-build (universal rules — load every build):**
 - [`typography.md`](references/typography.md) — fonts, scale, pairing, weights, measure
