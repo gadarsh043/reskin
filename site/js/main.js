@@ -614,24 +614,9 @@ function interpolate(node, copy) {
   }
 }
 
-function buildDenseColophon(themeName) {
-  // Pre-formatted dense block for the dense footer. Generated rather than
-  // template-string'd so it stays monospace-aligned.
-  const today = "2026-05-01";
-  return [
-    `# hallmark · v1.0.0 · ${themeName.toLowerCase()}`,
-    `# build: ${today} · MIT · powered by together ai`,
-    `#`,
-    `# stats:  21 macros · 40 archetypes · 9 navs · 8 footers · 23 themes · 55 gates`,
-    `#         catalog (22 named) + custom (per-brand, opt-in)`,
-    `#`,
-    `# repo:   github.com/Luffixos/hallmark`,
-  ].join("\n");
-}
-
 function swapArchetypes(theme) {
   const tuple = ARCHETYPES[theme] || ARCHETYPES.specimen;
-  const copy = { ...COPY[theme], denseColophon: buildDenseColophon(THEMES[theme] || theme) };
+  const copy = COPY[theme];
 
   for (const slot of ["hero", "footer"]) {
     const region = slotEls[slot];

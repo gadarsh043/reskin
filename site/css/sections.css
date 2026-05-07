@@ -1181,24 +1181,7 @@
 }
 
 /* — 07 · Footer ————————————————————————————————————— */
-.foot {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--space-lg);
-  padding-top: var(--space-xl);
-  border-top: var(--rule-fine) solid var(--color-ink);
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: 0.04em;
-  color: var(--color-muted);
-  align-items: end;
-}
-
-.foot__credits { max-width: 64ch; line-height: 1.7; }
-.foot__credits a { color: var(--color-ink); }
-
-.foot__powered { text-align: right; }
-
+/* The "Powered by" accent dot — used by the editorial colophon. */
 .foot__powered-mark {
   display: inline-flex;
   align-items: center;

@@ -2218,21 +2218,7 @@ body:not(.easter-open) > footer {
   font-feature-settings: "ss01";
 }
 
-/* Portfolio / gallery rhythm — distinguishes Studio from Specimen.
-   Section heads gain a "Selected work · 0X" register; the photographic
-   hero crops more aggressively (16/7 ratio); pull-quote treatment leans
-   editorial-magazine instead of agency-deck. */
-
-[data-theme="studio"] .hero__photo {
-  border-radius: 0;
-  border-color: var(--color-rule-2);
-}
-
-[data-theme="studio"] .hero__photo-caption {
-  letter-spacing: 0;
-  text-transform: none;
-  font-feature-settings: "ss01";
-}
+/* Portfolio / gallery rhythm — Studio's editorial-magazine register. */
 
 [data-theme="studio"] .ex-card {
   background: var(--color-paper-2);
@@ -2424,10 +2410,6 @@ body:not(.easter-open) > footer {
 
 @media (prefers-reduced-data: reduce) {
   [data-theme="riso"] body::before { display: none; }
-}
-
-[data-theme="riso"] .hero__photo-grid > span {
-  filter: contrast(1.05) saturate(1.4);
 }
 
 /* ───────────── HERO ARCHETYPES ─────────────
@@ -2912,350 +2894,6 @@ body:not(.easter-open) > footer {
   letter-spacing: var(--tracking-display);
 }
 
-/* H6 — Photographic. Image area + small caption + text below.
-   minmax(0, 1fr) on the grid tracks lets columns shrink below the
-   intrinsic min-content (image natural width = 1600px); without it
-   the grid would force the page wider than the mobile viewport. */
-.hero--photo {
-  padding-block: var(--space-xl) var(--space-xl);
-  gap: var(--space-xl);
-  grid-template-columns: minmax(0, 1fr);
-}
-
-.hero__photo {
-  position: relative;
-  aspect-ratio: 16 / 7;
-  background: var(--color-paper-2);
-  border: var(--rule-hair) solid var(--color-rule);
-  overflow: hidden;
-  min-width: 0;
-}
-
-@media (max-width: 40rem) {
-  .hero__photo { aspect-ratio: 4 / 3; }
-}
-
-.hero__photo-grid {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--color-rule);
-}
-
-@media (max-width: 40rem) {
-  .hero__photo-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.hero__photo-grid > span {
-  position: relative;
-  overflow: hidden;
-  background: var(--color-paper-2);
-}
-
-.hero__photo-grid > span > img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-}
-
-.hero__photo-caption {
-  position: absolute;
-  left: var(--space-md);
-  bottom: var(--space-md);
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-paper);
-  background: color-mix(in oklch, var(--color-ink) 78%, transparent);
-  padding: 0.35rem 0.65rem;
-}
-
-.hero__photo-text { display: grid; gap: 0; }
-
-/* H7 — Demo Video Clipped-by-viewport-edge.
-   Pure-CSS dashboard mockup that extends past the right page edge.
-   No real video — this is a custom-craft demonstration of the clip layout. */
-.hero--clipped {
-  display: grid;
-  grid-template-columns: minmax(20rem, 1fr) 1.4fr;
-  gap: var(--space-2xl);
-  padding-block: var(--space-2xl) var(--space-xl);
-  align-items: center;
-  position: relative;
-}
-
-.hero--clipped .hero__copy { display: grid; gap: 0; }
-.hero--clipped .hero__display { max-width: 16ch; margin: 0; }
-.hero--clipped .hero__lede { max-width: 42ch; }
-.hero--clipped .hero__cta { margin-top: var(--space-xl); }
-
-.hero__mock {
-  width: calc(100% + 12vw);                  /* the clip — 12% spills past viewport */
-  max-width: none;
-  aspect-ratio: 16 / 10;
-  margin: 0;
-  border-radius: max(var(--radius-card, 0), 8px);   /* always slightly rounded — it's a browser-frame mockup */
-  overflow: hidden;
-  box-shadow: 0 30px 60px -28px oklch(20% 0.02 260 / 0.28),
-              0 1px 2px oklch(20% 0.02 260 / 0.06);
-  background: var(--color-paper-2);
-  border: var(--rule-hair) solid var(--color-rule);
-  display: flex;
-  flex-direction: column;
-  transform: rotate(-0.4deg) translateY(-2px);
-  transform-origin: left center;
-}
-
-.hero__mock-chrome {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 14px;
-  background: color-mix(in oklch, var(--color-paper-2) 100%, var(--color-rule) 12%);
-  border-block-end: var(--rule-hair) solid var(--color-rule);
-}
-
-.hero__mock-dot {
-  width: 9px; height: 9px;
-  border-radius: 50%;
-  background: color-mix(in oklch, var(--color-rule-2) 80%, transparent);
-}
-
-.hero__mock-url {
-  margin-inline-start: 12px;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--color-muted);
-  letter-spacing: 0.02em;
-}
-
-.hero__mock-body {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 56px 1fr;
-  background: var(--color-paper);
-  min-height: 0;
-}
-
-.hero__mock-rail {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 16px 12px;
-  background: color-mix(in oklch, var(--color-paper) 100%, var(--color-paper-2) 60%);
-  border-inline-end: var(--rule-hair) solid var(--color-rule);
-}
-
-.hero__mock-rail-item {
-  width: 28px; height: 28px;
-  border-radius: 6px;
-  background: color-mix(in oklch, var(--color-rule) 100%, transparent);
-}
-
-.hero__mock-rail-item.is-active {
-  background: var(--color-accent);
-  opacity: 0.85;
-}
-
-.hero__mock-main {
-  padding: 18px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  min-height: 0;
-}
-
-.hero__mock-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.hero__mock-row--head { padding-block-end: 4px; }
-
-.hero__mock-bar {
-  height: 8px;
-  border-radius: 2px;
-  background: color-mix(in oklch, var(--color-rule) 80%, transparent);
-  flex: 1;
-}
-.hero__mock-bar--lg { height: 12px; max-width: 180px; }
-.hero__mock-bar--sm { max-width: 80px; }
-.hero__mock-bar--xs { height: 6px; max-width: 56px; }
-.hero__mock-bar--short { max-width: 50%; }
-
-.hero__mock-pill {
-  display: inline-block;
-  width: 64px; height: 22px;
-  border-radius: 999px;
-  background: var(--color-accent);
-  opacity: 0.18;
-}
-
-.hero__mock-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1.4fr;
-  grid-template-rows: 1fr;
-  gap: 12px;
-  flex: 1;
-  min-height: 0;
-}
-
-.hero__mock-card {
-  background: color-mix(in oklch, var(--color-paper) 100%, var(--color-paper-2) 60%);
-  border: var(--rule-hair) solid var(--color-rule);
-  border-radius: 8px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-height: 0;
-}
-
-.hero__mock-card--accent {
-  background: color-mix(in oklch, var(--color-paper) 100%, var(--color-accent) 8%);
-  border-color: color-mix(in oklch, var(--color-accent) 40%, var(--color-rule));
-}
-
-.hero__mock-card--wide {
-  /* spans larger column already */
-}
-
-.hero__mock-stat {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.75rem;
-  letter-spacing: -0.02em;
-  color: var(--color-ink);
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-}
-
-.hero__mock-spark {
-  flex: 1;
-  background:
-    linear-gradient(95deg,
-      transparent 0 6%,
-      var(--color-accent) 6% 7%,
-      transparent 7% 14%,
-      var(--color-accent) 14% 15%,
-      transparent 15% 28%,
-      var(--color-accent) 28% 29%,
-      transparent 29% 42%,
-      var(--color-accent) 42% 43%,
-      transparent 43% 60%,
-      var(--color-accent) 60% 61%,
-      transparent 61% 80%,
-      var(--color-accent) 80% 81%,
-      transparent 81% 100%);
-  opacity: 0.55;
-  border-radius: 4px;
-  min-height: 36px;
-  align-self: stretch;
-}
-
-.hero__mock-rows { display: flex; flex-direction: column; gap: 8px; }
-
-@media (max-width: 60rem) {
-  .hero--clipped { grid-template-columns: 1fr; gap: var(--space-xl); }
-  .hero__mock { width: 100%; transform: none; aspect-ratio: 16 / 11; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__mock { transform: none; }
-}
-
-/* H8 — Specimen card hero. Foundry-style typographic plate on the
-   right: an oversized italic Fraunces "ℋ" (Script Capital H, U+210B)
-   sitting on a bordered card with a thin rule + a small spec strip.
-   Editorial signature instead of SaaS chrome. */
-.hero--specimen {
-  display: grid;
-  grid-template-columns: minmax(20rem, 1fr) minmax(0, 1fr);
-  gap: var(--space-2xl);
-  padding-block: var(--space-2xl) var(--space-xl);
-  align-items: center;
-}
-
-.hero--specimen .hero__copy { display: grid; gap: 0; }
-.hero--specimen .hero__display { max-width: 16ch; margin: 0; }
-.hero--specimen .hero__lede { max-width: 42ch; }
-
-.hero__specimen {
-  position: relative;
-  margin: 0;
-  display: grid;
-  align-content: end;
-  gap: var(--space-md);
-  padding: var(--space-xl) var(--space-lg) var(--space-lg);
-  background: var(--color-paper-2);
-  border: var(--rule-card, 1px) solid var(--color-rule-2);
-  border-radius: var(--radius-card, 0);
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-}
-
-.hero__specimen-plate {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
-  font-feature-settings: "tnum";
-  align-self: start;
-}
-
-.hero__specimen-glyph {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-family: "Fraunces", "Tiempos", ui-serif, Georgia, serif;
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(12rem, 24vw, 22rem);
-  line-height: 0.85;
-  color: var(--color-ink);
-  opacity: 0.92;
-  letter-spacing: -0.05em;
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 144;
-  pointer-events: none;
-  user-select: none;
-  /* Asymmetric placement — break the card frame slightly. */
-  transform: translate(0.05em, 0.05em);
-}
-
-.hero__specimen-rule {
-  position: relative;
-  z-index: 1;
-  height: 1px;
-  background: var(--color-rule-2);
-  margin-block-start: auto;
-}
-
-.hero__specimen-spec {
-  position: relative;
-  z-index: 1;
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  line-height: 1.55;
-  color: var(--color-ink-2);
-  letter-spacing: 0;
-  font-feature-settings: "tnum";
-}
-
-@media (max-width: 60rem) {
-  .hero--specimen { grid-template-columns: 1fr; gap: var(--space-xl); }
-  .hero__specimen { aspect-ratio: 5 / 4; }
-  .hero__specimen-glyph { font-size: clamp(8rem, 32vw, 16rem); }
-}
-
 /* H9 — Bloom hero. Layered watercolor wash + oversized italic
    wordmark + small geometric accents. Painterly composition for
    warm-rose / playful themes (Plume). */
@@ -3457,149 +3095,10 @@ body:not(.easter-open) > footer {
   .hero__orbit-stage { aspect-ratio: 1.4 / 1; max-width: 24rem; margin: 0 auto; }
 }
 
-/* ───────────── FOOTER ARCHETYPES ───────────── */
-
-.foot { display: grid; gap: var(--space-md); padding-block: var(--space-2xl) var(--space-xl); border-block-start: var(--rule-hair) solid var(--color-rule); }
-
-/* Ft1 — Masthead. Wordmark + tagline + links + powered. */
-.foot--masthead {
-  grid-template-columns: 1fr;
-  gap: var(--space-md);
-  align-items: start;
-}
-
-.foot__wordmark {
-  font-family: var(--font-display);
-  font-weight: var(--display-weight, 400);
-  font-style: var(--display-style, normal);
-  font-size: var(--text-3xl);
-  letter-spacing: var(--tracking-display);
-  color: var(--color-ink);
-  font-optical-sizing: auto;
-  line-height: 1;
-}
-
-[data-theme="manifesto"] .foot__wordmark,
-[data-theme="brutal"] .foot__wordmark,
-[data-theme="sport"] .foot__wordmark { text-transform: uppercase; }
-
-.foot__tagline {
-  font-family: var(--font-serif);
-  font-size: var(--text-md);
-  color: var(--color-ink-2);
-  max-width: 50ch;
-  margin: 0;
-  line-height: var(--lh-snug);
-}
-
-[data-theme="brutal"] .foot__tagline,
-[data-theme="manifesto"] .foot__tagline,
-[data-theme="terminal"] .foot__tagline,
-[data-theme="sport"] .foot__tagline,
-[data-theme="almanac"] .foot__tagline {
-  font-style: normal;
-  font-family: var(--font-body);
-}
-
-.foot__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-md);
-  margin-block-start: var(--space-md);
-  font-family: var(--font-label);
-  font-size: var(--text-sm);
-  letter-spacing: 0.04em;
-}
-
-.foot__powered {
-  margin-block-start: var(--space-lg);
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
-.foot__powered-mark {
-  color: var(--color-ink);
-  font-weight: 500;
-}
-
-/* Ft2 — Inline. Single dense line. */
-.foot--inline {
-  grid-template-columns: 1fr;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-md);
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
-.foot__wordmark-small {
-  color: var(--color-ink);
-  font-weight: 500;
-  letter-spacing: 0.22em;
-}
-
-.foot__sep {
-  width: 1px; height: 12px; background: var(--color-rule-2);
-}
-
-/* Ft3 — Index columns. */
-.foot--index {
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-xl);
-}
-
-@media (max-width: 60rem) {
-  .foot--index { grid-template-columns: repeat(2, 1fr); }
-}
-
-.foot__col-head {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
-  margin-block-end: var(--space-sm);
-  padding-block-end: var(--space-xs);
-  border-block-end: var(--rule-hair) solid var(--color-rule);
-}
-
-.foot--index ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--space-2xs);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  color: var(--color-ink-2);
-}
-
-/* Ft4 — Dense colophon (monospace). */
-.foot--dense {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  line-height: 1.7;
-  color: var(--color-ink-2);
-  white-space: pre-wrap;
-  margin: 0;
-  padding-block: var(--space-md);
-}
-
-/* ───────── Ft5 — Editorial colophon (the unified footer) ────────
+/* ───────────── FOOTER — editorial colophon ─────────────
    The publisher's signature page. Same shape across every theme;
    theme variation comes from typography rendering, not layout.
-
-   Layout: 3-column grid on desktop — wordmark left, prose centre,
-   links + year right. Stacks single-column on mobile. Spans full
-   page width. */
-/* Editorial colophon footer — composed of three rhythms:
+   Composed of three rhythms:
    1. masthead: oversized wordmark + tiny version stamp on a baseline
    2. grid:     three meta blocks separated by hairline dividers
    3. base:     thin centered credit line below a hairline
@@ -3779,11 +3278,6 @@ body:not(.easter-open) > footer {
   width: 100%;
 }
 
-.foot__powered-mark {
-  font-weight: 500;
-  color: var(--color-ink);
-}
-
 /* Mobile collapse — single column, generous gaps. */
 @media (max-width: 60rem) {
   .foot--colophon { gap: var(--space-2xl); padding-block: var(--space-2xl) var(--space-xl); }
@@ -3932,10 +3426,6 @@ body:not(.easter-open) > footer {
   animation: none !important;
 }
 
-/* Quiet's hero never shows the clipped mockup — even if forced. */
-[data-theme="quiet"] .hero--clipped .hero__mock { display: none; }
-[data-theme="quiet"] .hero--clipped { grid-template-columns: 1fr; }
-
 /* ───────────── BLOOM — atmospheric dark, warm bloom ─────────────
    Suno-school: dark canvas with two soft radial colour blooms behind
    the content, confident sans display, single warm accent on small
@@ -4007,22 +3497,19 @@ html[data-theme="bloom"] body {
 }
 
 /* Bloom's hero — centered, generous, with a glow behind the type. */
-[data-theme="bloom"] .hero--marquee,
-[data-theme="bloom"] .hero--clipped {
+[data-theme="bloom"] .hero--marquee {
   text-align: center;
   align-items: center;
   justify-items: center;
   padding-block: var(--space-3xl) var(--space-2xl);
 }
 
-[data-theme="bloom"] .hero--marquee .hero__display,
-[data-theme="bloom"] .hero--clipped .hero__display {
+[data-theme="bloom"] .hero--marquee .hero__display {
   margin-inline: auto;
   max-width: 22ch;
 }
 
-[data-theme="bloom"] .hero--marquee .hero__lede,
-[data-theme="bloom"] .hero--clipped .hero__lede {
+[data-theme="bloom"] .hero--marquee .hero__lede {
   margin-inline: auto;
   text-align: center;
   max-width: 52ch;
@@ -4033,14 +3520,10 @@ html[data-theme="bloom"] body {
   justify-content: center;
 }
 
-[data-theme="bloom"] .hero--marquee .hero__cta,
-[data-theme="bloom"] .hero--clipped .hero__cta {
+[data-theme="bloom"] .hero--marquee .hero__cta {
   margin-inline: auto;
   justify-self: center;
 }
-
-[data-theme="bloom"] .hero--clipped .hero__mock { display: none; }
-[data-theme="bloom"] .hero--clipped { grid-template-columns: 1fr; }
 
 /* Bloom's section heads — also centered for atmosphere. */
 [data-theme="bloom"] .section__head {
@@ -5280,9 +4763,7 @@ html[data-theme="halo"] aside {
 
 [data-theme="newsprint"] .opening__sub,
 [data-theme="newsprint"] .vs__caption,
-[data-theme="newsprint"] .step__sub,
-[data-theme="newsprint"] .foot__credits,
-[data-theme="newsprint"] .foot__tagline {
+[data-theme="newsprint"] .step__sub {
   text-align: justify;
   hyphens: auto;
 }
