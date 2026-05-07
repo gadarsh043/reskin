@@ -1105,14 +1105,17 @@
 
   <template id="hero-marquee">
     <div class="hero hero--marquee">
-      <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
-      <h1 class="hero__display" data-text="{{title}}">{{title}}</h1>
-      <p class="hero__lede">{{lede}}</p>
-      <div class="hero__cta">
-        <p class="label">{{ctaLabel}}</p>
-        <pre class="code"
-          data-copy-source><span class="prompt">$</span><span data-copy-text>npx skills add hallmark</span><button class="code__copy" type="button" data-copy-btn aria-label="Copy install command"><span class="code__copy-default">Copy</span><span class="code__copy-done">Copied</span></button></pre>
+      <div class="hero__main">
+        <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+        <h1 class="hero__display" data-text="{{title}}">{{title}}</h1>
+        <p class="hero__lede">{{lede}}</p>
+        <div class="hero__cta">
+          <p class="label">{{ctaLabel}}</p>
+          <pre class="code"
+            data-copy-source><span class="prompt">$</span><span data-copy-text>npx skills add hallmark</span><button class="code__copy" type="button" data-copy-btn aria-label="Copy install command"><span class="code__copy-default">Copy</span><span class="code__copy-done">Copied</span></button></pre>
+        </div>
       </div>
+      <aside class="hero__moment" aria-hidden="true"></aside>
     </div>
   </template>
 
@@ -1135,32 +1138,41 @@
 
   <template id="hero-stat-led">
     <div class="hero hero--stat">
-      <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
-      <span class="hero__stat tabular-nums">{{stat}}</span>
-      <p class="hero__qualifier">{{qualifier}}</p>
-      <p class="hero__lede">{{lede}}</p>
-      <a href="#install" class="link hero__link">{{cta}} &rarr;</a>
+      <div class="hero__main">
+        <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+        <span class="hero__stat tabular-nums">{{stat}}</span>
+        <p class="hero__qualifier">{{qualifier}}</p>
+        <p class="hero__lede">{{lede}}</p>
+        <a href="#install" class="link hero__link">{{cta}} &rarr;</a>
+      </div>
+      <aside class="hero__moment" aria-hidden="true"></aside>
     </div>
   </template>
 
   <template id="hero-quote-led">
     <div class="hero hero--quote">
-      <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
-      <blockquote class="hero__quote">
-        <p>&ldquo;{{quote}}&rdquo;</p>
-        <footer class="hero__attrib">— {{attrib}}</footer>
-      </blockquote>
-      <p class="hero__lede">{{lede}}</p>
-      <a href="#install" class="link hero__link">{{cta}} &rarr;</a>
+      <div class="hero__main">
+        <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+        <blockquote class="hero__quote">
+          <p>&ldquo;{{quote}}&rdquo;</p>
+          <footer class="hero__attrib">— {{attrib}}</footer>
+        </blockquote>
+        <p class="hero__lede">{{lede}}</p>
+        <a href="#install" class="link hero__link">{{cta}} &rarr;</a>
+      </div>
+      <aside class="hero__moment" aria-hidden="true"></aside>
     </div>
   </template>
 
   <template id="hero-letter">
     <div class="hero hero--letter">
-      <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
-      <p class="hero__salutation">{{salutation}}</p>
-      <p class="hero__letter-body">{{letterBody}}</p>
-      <p class="hero__signoff">{{signoff}}<br><span class="hero__sign">— Hallmark</span></p>
+      <div class="hero__main">
+        <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+        <p class="hero__salutation">{{salutation}}</p>
+        <p class="hero__letter-body">{{letterBody}}</p>
+        <p class="hero__signoff">{{signoff}}<br><span class="hero__sign">— Hallmark</span></p>
+      </div>
+      <aside class="hero__moment" aria-hidden="true"></aside>
     </div>
   </template>
 

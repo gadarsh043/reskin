@@ -2427,6 +2427,268 @@ body:not(.easter-open) > footer {
 
 .hero { display: grid; }
 
+/* — Hero moment slot —————————————————————————————————————————
+   Marquee / letter / quote / stat archetypes get an optional right-side
+   "moment" — a small per-theme typographic or geometric accent that
+   stops the right column from reading as dead space at desktop. Hidden
+   by default (most themes don't need it); shown via per-theme opt-in. */
+.hero__main { display: contents; }
+.hero__moment { display: none; }
+
+@media (min-width: 60rem) {
+  /* Themes that opt in: 2-column grid, moment in column 2. */
+  [data-theme="specimen"] .hero--marquee,
+  [data-theme="terminal"] .hero--marquee,
+  [data-theme="manifesto"] .hero--marquee,
+  [data-theme="aurora"] .hero--marquee,
+  [data-theme="garden"] .hero--letter,
+  [data-theme="linen"] .hero--letter,
+  [data-theme="atelier"] .hero--quote,
+  [data-theme="salon"] .hero--quote,
+  [data-theme="riso"] .hero--quote,
+  [data-theme="midnight"] .hero--stat,
+  [data-theme="almanac"] .hero--stat,
+  [data-theme="sport"] .hero--stat {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    column-gap: var(--space-2xl);
+    align-items: center;
+  }
+  [data-theme="specimen"] .hero--marquee .hero__main,
+  [data-theme="terminal"] .hero--marquee .hero__main,
+  [data-theme="manifesto"] .hero--marquee .hero__main,
+  [data-theme="aurora"] .hero--marquee .hero__main,
+  [data-theme="garden"] .hero--letter .hero__main,
+  [data-theme="linen"] .hero--letter .hero__main,
+  [data-theme="atelier"] .hero--quote .hero__main,
+  [data-theme="salon"] .hero--quote .hero__main,
+  [data-theme="riso"] .hero--quote .hero__main,
+  [data-theme="midnight"] .hero--stat .hero__main,
+  [data-theme="almanac"] .hero--stat .hero__main,
+  [data-theme="sport"] .hero--stat .hero__main {
+    display: grid;
+    gap: var(--space-lg);
+    grid-column: 1;
+  }
+  [data-theme="specimen"] .hero__moment,
+  [data-theme="terminal"] .hero__moment,
+  [data-theme="manifesto"] .hero__moment,
+  [data-theme="aurora"] .hero__moment,
+  [data-theme="garden"] .hero__moment,
+  [data-theme="linen"] .hero__moment,
+  [data-theme="atelier"] .hero__moment,
+  [data-theme="salon"] .hero__moment,
+  [data-theme="riso"] .hero__moment,
+  [data-theme="midnight"] .hero__moment,
+  [data-theme="almanac"] .hero__moment,
+  [data-theme="sport"] .hero__moment {
+    display: grid;
+    place-items: center;
+    grid-column: 2;
+    align-self: center;
+    justify-self: end;
+    color: var(--color-ink-2);
+  }
+}
+
+/* Per-theme moment content — a typographic glyph or simple geometric
+   accent. CSS-only (no extra HTML), pure ::before content + a few
+   shapes. Each moment is small + restrained — punctuation, not focus. */
+
+/* SPECIMEN — italic ℋ glyph, foundry-plate style with hairline border. */
+[data-theme="specimen"] .hero__moment::before {
+  content: "ℋ";
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(8rem, 14vw, 14rem);
+  line-height: 0.85;
+  color: var(--color-ink);
+  padding: var(--space-2xl) var(--space-xl);
+  border: 1px solid var(--color-rule);
+  background: var(--color-paper-2);
+  display: block;
+}
+
+/* TERMINAL — ASCII prompt block in phosphor green. */
+[data-theme="terminal"] .hero__moment::before {
+  content: "[\A  █  \A]";
+  white-space: pre;
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.2;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+}
+
+/* MANIFESTO — single uppercase declarative phrase. */
+[data-theme="manifesto"] .hero__moment::before {
+  content: "NO\ASLOP.";
+  white-space: pre;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--color-accent);
+}
+
+/* AURORA — soft secondary radial accent. */
+[data-theme="aurora"] .hero__moment {
+  width: clamp(14rem, 24vw, 22rem);
+  aspect-ratio: 1 / 1;
+  background:
+    radial-gradient(circle at 50% 50%,
+      color-mix(in oklch, var(--color-accent) 28%, transparent) 0%,
+      transparent 65%);
+  filter: blur(4px);
+  opacity: 0.85;
+}
+
+/* GARDEN — small leaf SVG accent. */
+[data-theme="garden"] .hero__moment::before {
+  content: "";
+  width: clamp(4rem, 6vw, 6rem);
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-accent);
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>') center/contain no-repeat;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>') center/contain no-repeat;
+  display: block;
+}
+
+/* LINEN — small woven-texture rectangle (4×4 muted dots). */
+[data-theme="linen"] .hero__moment::before {
+  content: "";
+  width: clamp(8rem, 12vw, 12rem);
+  aspect-ratio: 1 / 1;
+  background-image:
+    radial-gradient(circle at center, var(--color-rule-2) 1px, transparent 1.5px);
+  background-size: 18px 18px;
+  border: 1px solid var(--color-rule);
+  display: block;
+}
+
+/* ATELIER — italic Roman numeral plate. */
+[data-theme="atelier"] .hero__moment::before {
+  content: "I";
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(6rem, 10vw, 10rem);
+  line-height: 1;
+  color: var(--color-ink);
+  padding: var(--space-2xl) var(--space-3xl);
+  border: 1px solid var(--color-rule);
+  display: block;
+}
+[data-theme="atelier"] .hero__moment::after {
+  content: "Plate I";
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-block-start: var(--space-xs);
+}
+
+/* SALON — fleuron + rule + label. */
+[data-theme="salon"] .hero__moment::before {
+  content: "❦";
+  font-family: var(--font-serif);
+  font-size: clamp(4rem, 8vw, 7rem);
+  line-height: 1;
+  color: var(--color-accent);
+  display: block;
+}
+[data-theme="salon"] .hero__moment::after {
+  content: "À table";
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-md);
+  color: var(--color-muted);
+  margin-block-start: var(--space-md);
+  padding-block-start: var(--space-md);
+  border-block-start: var(--rule-hair) solid var(--color-rule);
+  width: 8rem;
+  text-align: center;
+}
+
+/* RISO — two overlapping circles in duotone (off-register). */
+[data-theme="riso"] .hero__moment {
+  position: relative;
+  width: clamp(10rem, 16vw, 16rem);
+  aspect-ratio: 1 / 1;
+}
+[data-theme="riso"] .hero__moment::before,
+[data-theme="riso"] .hero__moment::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+}
+[data-theme="riso"] .hero__moment::before {
+  background: var(--color-accent);
+  transform: translate(-8%, -6%);
+}
+[data-theme="riso"] .hero__moment::after {
+  background: var(--color-accent-2, oklch(78% 0.18 95));
+  transform: translate(8%, 6%);
+}
+
+/* MIDNIGHT — three concentric rings + centre dot. */
+[data-theme="midnight"] .hero__moment {
+  position: relative;
+  width: clamp(10rem, 14vw, 14rem);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklch, var(--color-accent) 35%, transparent);
+  box-shadow:
+    inset 0 0 0 1px transparent,
+    0 0 0 12px transparent,
+    0 0 0 13px color-mix(in oklch, var(--color-accent) 22%, transparent),
+    0 0 0 28px transparent,
+    0 0 0 29px color-mix(in oklch, var(--color-accent) 12%, transparent);
+}
+[data-theme="midnight"] .hero__moment::before {
+  content: "";
+  position: absolute;
+  inset: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 12px 3px color-mix(in oklch, var(--color-accent) 50%, transparent);
+}
+
+/* ALMANAC — date stamp box. */
+[data-theme="almanac"] .hero__moment::before {
+  content: "MMVI \A ed. 02 \A no. 23";
+  white-space: pre-line;
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--color-ink-2);
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--color-rule);
+  display: block;
+  text-align: center;
+}
+
+/* SPORT — three-bar lap chart (horizontal bars in accent). */
+[data-theme="sport"] .hero__moment {
+  width: clamp(8rem, 12vw, 12rem);
+  display: grid;
+  gap: var(--space-xs);
+}
+[data-theme="sport"] .hero__moment::before,
+[data-theme="sport"] .hero__moment::after {
+  content: "";
+  height: 0.55rem;
+  background: var(--color-accent);
+}
+[data-theme="sport"] .hero__moment::before { width: 90%; }
+[data-theme="sport"] .hero__moment::after { width: 55%; }
+
 .hero__eyebrow {
   display: inline-flex;
   align-items: center;
@@ -2566,12 +2828,50 @@ body:not(.easter-open) > footer {
 
 .hero--split .hero__proof a { margin-top: var(--space-sm); }
 
-/* Editorial: the proof block reads cleaner with just the CTA. */
+/* Editorial: the proof block reads cleaner with just the CTA + a giant
+   Roman numeral set above it as the visual anchor for the right column. */
 [data-theme="editorial"] .hero--split .hero__proof .label,
 [data-theme="editorial"] .hero--split .hero__proof .hero__proof-line { display: none; }
 [data-theme="editorial"] .hero--split .hero__proof {
   padding-block-start: 0;
   border-block-start: 0;
+  display: grid;
+  gap: var(--space-md);
+  align-content: end;
+}
+[data-theme="editorial"] .hero--split .hero__proof::before {
+  content: "XXIII";
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(5rem, 9vw, 8rem);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+/* Quiet: collapse the proof-block down to one italic note + the CTA, so
+   the right column reads as a quiet annotation instead of a sign-up form. */
+[data-theme="quiet"] .hero--split .hero__proof .label,
+[data-theme="quiet"] .hero--split .hero__proof .hero__proof-line:nth-child(3),
+[data-theme="quiet"] .hero--split .hero__proof .hero__proof-line:nth-child(4) { display: none; }
+[data-theme="quiet"] .hero--split .hero__proof {
+  padding-block-start: var(--space-md);
+  border-block-start: var(--rule-hair) solid var(--color-rule);
+}
+[data-theme="quiet"] .hero--split .hero__proof .hero__proof-line {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-muted);
+  max-width: 24ch;
+}
+
+/* Brutal: trim the photographic gallery from 6 images to 2 — the original
+   six-up grid was busier than the hero's job needs. */
+[data-theme="brutal"] .hero__photo-grid > span:nth-child(n+3) { display: none; }
+[data-theme="brutal"] .hero__photo-grid {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+  grid-template-rows: 1fr;
 }
 
 /* H3 — Stat-Led. Giant number + qualifier. */
@@ -3068,6 +3368,23 @@ body:not(.easter-open) > footer {
   overflow: visible;
 }
 
+/* Plume — feather glyph bottom-right of the bloom hero. Reinforces the
+   "plume" name without being twee. SVG via mask, low opacity. */
+[data-theme="plume"] .hero__bloom-stage::after {
+  content: "";
+  position: absolute;
+  right: 4%;
+  bottom: 8%;
+  width: clamp(3rem, 5vw, 5rem);
+  aspect-ratio: 1 / 3;
+  background-color: var(--color-accent);
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 72" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><path d="M12 4 C8 18 8 38 12 68"/><path d="M12 12 L6 16"/><path d="M12 18 L6 22"/><path d="M12 24 L6 28"/><path d="M12 30 L6 34"/><path d="M12 36 L6 40"/><path d="M12 42 L6 46"/><path d="M12 12 L18 16"/><path d="M12 18 L18 22"/><path d="M12 24 L18 28"/><path d="M12 30 L18 34"/><path d="M12 36 L18 40"/><path d="M12 42 L18 46"/></svg>') center/contain no-repeat;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 72" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><path d="M12 4 C8 18 8 38 12 68"/><path d="M12 12 L6 16"/><path d="M12 18 L6 22"/><path d="M12 24 L6 28"/><path d="M12 30 L6 34"/><path d="M12 36 L6 40"/><path d="M12 42 L6 46"/><path d="M12 12 L18 16"/><path d="M12 18 L18 22"/><path d="M12 24 L18 28"/><path d="M12 30 L18 34"/><path d="M12 36 L18 40"/><path d="M12 42 L18 46"/></svg>') center/contain no-repeat;
+  opacity: 0.55;
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
 .hero__bloom-wash {
   position: absolute;
   inset: -8% -12% -8% -8%;
@@ -3141,8 +3458,8 @@ body:not(.easter-open) > footer {
    slow-rotate via @keyframes; reduced-motion stops them. */
 .hero--orbit {
   display: grid;
-  grid-template-columns: minmax(20rem, 1fr) minmax(0, 1fr);
-  gap: var(--space-2xl);
+  grid-template-columns: minmax(20rem, 1fr) minmax(0, 0.7fr);
+  gap: var(--space-xl);
   padding-block: var(--space-2xl) var(--space-xl);
   align-items: center;
 }
@@ -3695,10 +4012,10 @@ html[data-theme="bloom"] {
 html[data-theme="bloom"] body {
   background:
     radial-gradient(ellipse 80% 60% at 90% 0%,
-                    color-mix(in oklch, var(--color-accent) 28%, transparent) 0%,
+                    color-mix(in oklch, var(--color-accent) 18%, transparent) 0%,
                     transparent 55%),
     radial-gradient(ellipse 70% 55% at 5% 95%,
-                    color-mix(in oklch, var(--color-accent-2) 26%, transparent) 0%,
+                    color-mix(in oklch, var(--color-accent-2) 16%, transparent) 0%,
                     transparent 55%),
     var(--color-paper);
   background-attachment: fixed;
@@ -3875,6 +4192,24 @@ html[data-theme="bloom"] body {
   letter-spacing: -0.025em;
 }
 
+/* Coral — solid accent block bottom-left of the hero, behind copy.
+   Distinguishes Coral from Bloom (which uses radial washes only). */
+[data-theme="coral"] .hero {
+  position: relative;
+}
+[data-theme="coral"] .hero::before {
+  content: "";
+  position: absolute;
+  left: -2vw;
+  bottom: -1rem;
+  width: clamp(8rem, 14vw, 14rem);
+  aspect-ratio: 1 / 1;
+  background: var(--color-accent);
+  border-radius: 0;
+  z-index: -1;
+  opacity: 0.85;
+}
+
 [data-theme="coral"] .install-pane__copy {
   background: var(--color-ink);
   color: var(--color-paper);
@@ -3892,6 +4227,12 @@ html[data-theme="bloom"] body {
   opacity: 1;
   transform: none;
   animation: none;
+}
+
+/* Violet — alternate sections get a faint violet tint background so the
+   accent shows up across the whole page, not just in 1–2 spots. */
+[data-theme="violet"] .page > .section:nth-of-type(2n) {
+  background: color-mix(in oklch, var(--color-accent) 4%, var(--color-paper));
 }
 
 [data-theme="violet"] .hero__display,
@@ -3934,6 +4275,27 @@ html[data-theme="aurora"] body {
     var(--color-paper);
   background-attachment: fixed;
   min-height: 100dvh;
+}
+
+/* Aurora — soft accent bloom punctuates each section title (not just the
+   hero). Adds rhythm without competing with the hero's bigger glow. */
+[data-theme="aurora"] .section {
+  position: relative;
+}
+[data-theme="aurora"] .section > .section__head::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: -8%;
+  inset-block-start: -2rem;
+  width: 22rem;
+  height: 22rem;
+  background:
+    radial-gradient(circle at 50% 50%,
+      color-mix(in oklch, var(--color-accent) 14%, transparent) 0%,
+      transparent 65%);
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(6px);
 }
 
 [data-theme="aurora"] .hero__display,

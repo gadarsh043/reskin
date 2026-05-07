@@ -1488,6 +1488,28 @@
 }
 [data-theme="manifesto"] .step { border-top: 3px solid var(--color-ink); }
 
+/* Manifesto — oversized declarative phrases punctuate the rhythm
+   between sections. Cycles through 3 statements via :nth-of-type. */
+[data-theme="manifesto"] .section + .section::before {
+  display: block;
+  margin: var(--space-3xl) 0 var(--space-2xl);
+  padding-block: var(--space-md);
+  border-block: 4px solid var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  text-align: center;
+}
+[data-theme="manifesto"] .section:nth-of-type(3)::before { content: "WE DO NOT REPEAT."; }
+[data-theme="manifesto"] .section:nth-of-type(4)::before { content: "TYPE FIRST."; }
+[data-theme="manifesto"] .section:nth-of-type(5)::before { content: "NO GRADIENTS."; }
+[data-theme="manifesto"] .section:nth-of-type(6)::before { content: "DEFAULT IS THE ENEMY."; }
+[data-theme="manifesto"] .section:nth-of-type(7)::before { content: "EVERY DECISION VISIBLE."; }
+[data-theme="manifesto"] .section:nth-of-type(8)::before { content: "THE PAGE IS A POSITION."; }
+
 /* ── SALON — italic display, fleuron divider, left-aligned ───── */
 [data-theme="salon"] .opening {
   grid-template-columns: 1fr;

@@ -840,19 +840,19 @@
    ────────────────────────────────────────────────────────────── */
 
 [data-theme="bloom"] {
-  --color-paper:    oklch(8%    0.012  35);    /* near-black, hint warm */
-  --color-paper-2:  oklch(11%   0.014  35);    /* elevated surface */
-  --color-paper-3:  oklch(14%   0.018  38);    /* hover / inset */
-  --color-rule:     oklch(22%   0.018  38);
-  --color-rule-2:   oklch(34%   0.022  40);
-  --color-muted:    oklch(58%   0.018  40);
-  --color-neutral:  oklch(74%   0.012  40);
-  --color-ink-2:    oklch(86%   0.008  40);
-  --color-ink:      oklch(98%   0.005  40);
-  --color-accent:   oklch(72%   0.190  45);    /* warm orange/amber */
-  --color-accent-ink: oklch(72% 0.190  45);
-  --color-accent-2:   oklch(64% 0.220  18);    /* secondary pink/red bloom */
-  --color-focus:    oklch(72%   0.190  45);
+  --color-paper:    oklch(96%   0.018  35);    /* warm cream — wash reads bright */
+  --color-paper-2:  oklch(93%   0.022  35);
+  --color-paper-3:  oklch(89%   0.026  38);
+  --color-rule:     oklch(80%   0.020  40);
+  --color-rule-2:   oklch(64%   0.020  40);
+  --color-muted:    oklch(48%   0.020  40);
+  --color-neutral:  oklch(34%   0.018  40);
+  --color-ink-2:    oklch(22%   0.014  38);
+  --color-ink:      oklch(14%   0.012  35);
+  --color-accent:   oklch(64%   0.180  18);    /* warm pink/coral wash */
+  --color-accent-ink: oklch(54% 0.190  18);
+  --color-accent-2:   oklch(72% 0.190  45);    /* secondary warm orange */
+  --color-focus:    oklch(64%   0.180  18);
 
   --font-display: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-body:    "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
