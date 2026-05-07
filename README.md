@@ -121,7 +121,7 @@ Each page is its own self-contained HTML + CSS — no shared theme, no shared la
 ## Install
 
 ```
-npx skills add hallmark
+npx skills add nutlope/hallmark
 ```
 
 Or copy [`skill/`](skill/) into `~/.claude/skills/hallmark/` (Claude Code) or `.cursor/rules/hallmark.mdc` (Cursor — body of `SKILL.md`, no frontmatter).

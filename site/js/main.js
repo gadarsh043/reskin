@@ -714,7 +714,7 @@ attachCopyButtons();
   const starEl = document.querySelector("[data-star-count]");
   if (!starEl) return;
 
-  const REPO = "Luffixos/hallmark";
+  const REPO = "nutlope/hallmark";
   const CACHE_KEY = "hallmark-star-count";
   const TTL = 60 * 60 * 1000; // 1h
 
