@@ -136,6 +136,14 @@ Headline centred, body centred, button centred, section after section of centred
 
 **Fix.** Bias the layout. Wide left margin, narrow right. Or the reverse. Breaking symmetry once is enough.
 
+### Eyebrow on every section
+
+Every section starts with an uppercase mono-cap eyebrow — `01 / EXAMPLES`, `02 / WHAT'S INSIDE`, `03 / INSTALL` — above its heading. The labels look like editorial chapters but read as a tic. The page becomes a list of *labelled lists.*
+
+Section eyebrows are an *occasional* device, not a default. Used everywhere they erase the hierarchy they were meant to create — when every section is "chaptered," none of them are.
+
+**Fix.** Default to no eyebrow. Only use one when the section is genuinely ordinal (a numbered manifesto, a multi-step process, a chaptered long document) or when the section name is too short to read as a heading on its own. At most 1–2 eyebrows per page. If the macrostructure is not Long Document, Manifesto, or Catalogue, ship the page without any.
+
 ### Shadow-glow on dark
 
 A card on a dark background with a `box-shadow` that leaves a soft coloured halo around it.
