@@ -3555,18 +3555,21 @@ html[data-theme="bloom"] body {
   justify-self: center;
 }
 
-/* Bloom's section heads — also centered for atmosphere. */
+/* Bloom — left-aligned section heads (hero stays centered above). The
+   atmospheric glow does the centering work — re-centering section heads
+   reads as a templated AI fingerprint. Tag stays above the title in the
+   same column (matches slop-test gate 66). */
 [data-theme="bloom"] .section__head {
   grid-template-columns: 1fr;
-  text-align: center;
+  text-align: left;
   border-bottom: 0;
   padding-bottom: var(--space-md);
 }
 [data-theme="bloom"] .section-label {
-  justify-content: center;
+  justify-content: flex-start;
 }
 [data-theme="bloom"] .section__title {
-  margin-inline: auto;
+  margin-inline: 0;
   max-width: 26ch;
 }
 
