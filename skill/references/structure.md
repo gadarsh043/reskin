@@ -14,13 +14,13 @@ Where does a section's title live in space? Pick one per page.
 
 | Pattern | Description | Real-world reference |
 | --- | --- | --- |
-| **Left-margin** | Eyebrow / number / label sits in a narrow left column; heading and body to the right. Editorial / specimen. | The New York Times Magazine; our Specimen theme. |
+| **Left-margin** | ⚠️ **Opt-in only — never default.** Eyebrow / number / label in a narrow left column with heading + body to the right. Reads as a templated-editorial AI tell when applied to SaaS / dev-tool / consumer pages. Permitted ONLY when the user explicitly asks for an editorial / specimen layout AND no eyebrow is paired with the heading (label may sit beside body copy; heading must stay in its own row above). The eyebrow-left / heading-right variant is banned outright by slop-test gate 66. | The New York Times Magazine; our Specimen theme — when the user explicitly requests that voice. |
 | **Hanging** | Heading floats in negative space *above* the section, with generous breathing room. | David Airey's portfolio; minimal modernist. |
 | **Centered display** | Heading dominates centre stage, symmetrical. Formal, welcoming, can feel static if used everywhere. | Apple product pages; Atelier-style runway invitations. |
 | **Bottom-aligned** | Heading anchors the *base* of a section, content flows above. Inverts hierarchy. | Swiss editorial; Newsprint masthead-below pattern. |
 | **Overlapping image** | Heading layered atop photography or colour block. Demands strong contrast. | Pentagram project pages; Manifesto posters. |
 | **Sticky / pinned** | Heading remains visible while content scrolls beneath. Orientation aid. | GSAP ScrollTrigger docs; Almanac-style references. |
-| **Numbered display** | "01." with a rule line and the heading right beside it. Procedural, sequenced. | Rauno Freiberg's portfolio. |
+| **Numbered display** | ⚠️ **Opt-in only — never default.** "01." with a rule line and the heading right beside it. Procedural, sequenced. Banned for default SaaS / consumer / dev-tool pages by slop-test gate 66 (the tag-beside-heading pattern is a templated tell). Permitted only when the user explicitly asks for ordinal / chaptered numbering AND the macrostructure is Long Document, Manifesto, or Catalogue numbered. Even then, prefer the stacked variant: number on its own line above the heading. | Rauno Freiberg's portfolio — when the user explicitly invokes that voice. |
 | **Inline with body** | No section break — the heading emerges from the paragraph flow. Conversational. | Medium articles; long-form essays. |
 
 ### 2. Body composition

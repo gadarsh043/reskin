@@ -138,11 +138,13 @@ Headline centred, body centred, button centred, section after section of centred
 
 ### Eyebrow on every section
 
-Every section starts with an uppercase mono-cap eyebrow — `01 / EXAMPLES`, `02 / WHAT'S INSIDE`, `03 / INSTALL` — above its heading. The labels look like editorial chapters but read as a tic. The page becomes a list of *labelled lists.*
+Every section starts with an uppercase mono-cap eyebrow — `01 / EXAMPLES`, `02 / WHAT'S INSIDE`, `03 / INSTALL`, `01 · THE TOUR` — above (or worse, *beside*) its heading. The labels look like editorial chapters but read as a tic. The page becomes a list of *labelled lists.*
 
-Section eyebrows are an *occasional* device, not a default. Used everywhere they erase the hierarchy they were meant to create — when every section is "chaptered," none of them are.
+Eyebrows are **default OFF**. They are not a stylistic flourish you reach for to look editorial — they are an ordinal device, valid only when the section is genuinely numbered or chaptered. Used as decoration they erase the hierarchy they were meant to create; when every section is "chaptered," none of them are.
 
-**Fix.** Default to no eyebrow. Only use one when the section is genuinely ordinal (a numbered manifesto, a multi-step process, a chaptered long document) or when the section name is too short to read as a heading on its own. At most 1–2 eyebrows per page. If the macrostructure is not Long Document, Manifesto, or Catalogue, ship the page without any.
+**Fix.** Ship the page with **zero eyebrows** unless either (a) the user explicitly asked for chapter / step / section numbering, OR (b) the macrostructure is **Long Document, Manifesto, or Catalogue numbered** AND the content is genuinely ordinal (steps you must do in order, chapters that build, items in a deliberate sequence). Even then: cap at 1–2 per page.
+
+**Hard ban: tag-left / header-right two-column section heads.** Patterns like `01 · THE TOUR` in a narrow left column with the section title to its right (a.k.a. *hanging header*, *left-margin label*) are the single most reliable AI-templated tell for editorial-style SaaS pages. When an eyebrow IS used, **the heading goes directly underneath it, in the same column** — vertical stack only. Never a two-column section-head grid. Gate 66 enforces this.
 
 ### Shadow-glow on dark
 

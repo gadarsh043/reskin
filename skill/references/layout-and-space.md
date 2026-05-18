@@ -41,8 +41,8 @@ Layout is where "AI-generated" gets caught. Equal columns, everything centred, e
 
 ## Asymmetry techniques
 
-- **Wide left margin.** Treat the left as a permanent negative space — narrow column of labels, wide column of content.
-- **Hanging headers.** Section labels sit in the left margin; content flows to the right.
+- **Wide left margin.** Treat the left as a permanent negative space — narrow column of labels, wide column of content. **Labels must NOT be section eyebrows / numbers paired with the heading** — that's gate-66-banned. Reserve this technique for body-level micro-labels (caption, footnote, date) alongside body copy.
+- **Hanging headers.** ⚠️ **Opt-in only.** Section labels sit in the left margin; content flows to the right. Permitted only when the user explicitly asks for an editorial / hanging-header layout AND no eyebrow / number / chapter tag sits in the left margin. The eyebrow-left / heading-right pattern is banned by slop-test gate 66 — it's the most reliable templated-editorial AI tell. Default to a stacked single-column section head.
 - **Offset grids.** Odd columns wider than even. Or the other way.
 - **Grid-breaks.** One element that deliberately extends past a column boundary: a pull-quote, a photograph, a rule, a number.
 - **Generous top, tight bottom** (or vice-versa). Sections don't need to be evenly padded.

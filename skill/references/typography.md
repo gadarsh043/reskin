@@ -189,6 +189,19 @@ Pick a ratio. The default for Hallmark work is **1.25** (major third). Build the
 
 **Display max — keep it ≤ 5.5rem (88 px).** Above that, hero headlines crowd themselves on 1280–1440 px viewports and require multi-line wrapping that almost always reads as drama, not gravity. Even on Manifesto / Brutal display-heavy themes, cap at 6rem (96 px). The exception is a single-line, single-word display (e.g. a stat) that occupies ≤ 12 ch — it can grow to 7rem. **Default emit format is `clamp(2.75rem, 5vw + 1rem, 5.25rem)`.**
 
+### Hero headline sizing — match size to copy length
+
+Count characters in the rendered hero `h1`. Pick the cap by bucket — the rule applies on top of any per-theme `--text-display` clamp:
+
+| Headline length | Size cap | Notes |
+| --- | --- | --- |
+| **≤ 20 chars** (e.g. *"Limitless"*, *"Made not generated"*) | full `--text-display`; single-word can grow to 7rem | Display-heavy themes only |
+| **21–50 chars** (the default sweet spot) | `--text-display` | If it wraps past 2 lines at 414 px, step down to `--text-display-s` |
+| **51–90 chars** | cap at `--text-display-s` | Strongly consider splitting into eyebrow + headline |
+| **> 90 chars** | rewrite shorter, or cap at `--text-4xl` with tighter leading | A 100-char headline at display size is the single most reliable AI tell |
+
+**Aggressive-display themes step down one rung when headline > 50 chars.** Brutal, Riso, and Manifesto clamp `--text-display` at 6.5–9rem — that ceiling is for ≤ 50-char statements only. Past 50 chars, route them to `--text-display-s` automatically. **When you write the headline yourself (no user-supplied copy), aim for ≤ 7 words and ≤ 50 chars from the start** — imperative or nominal phrase, never a gerund opener.
+
 Use no more than five sizes on a single page. If you need more hierarchy, use weight and colour, not another size.
 
 ## Weights

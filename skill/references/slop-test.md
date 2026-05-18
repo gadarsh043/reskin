@@ -190,7 +190,9 @@ Universal. Every emitted page must render flawlessly at 320 px, 375 px, 414 px, 
 
 65. **CSS-only radio tab pattern that scroll-jumps.** When implementing tab toggles via `<input type="radio">` siblings + `:checked` selectors, does the artifact either (a) keep the radios in normal document flow with zero size + opacity 0 (no `position: absolute; top: 0`), OR (b) ship a JS handler that intercepts label clicks, calls `e.preventDefault()`, manually sets `radio.checked = true`, dispatches `change`, and focuses with `{ preventScroll: true }`? If the radios are at `position: absolute; top: 0` with no JS guard, fail. Default-position radios cause the page to jump to the section's top on every tab click — visible on every viewport but most disruptive on mobile.
 
-The CSS stamp at Step 6 records mobile pass alongside contrast: `· mobile: pass (36, 59, 61–65)`.
+66. **Section eyebrow / tag beside the heading (tag-left, header-right).** Does any section render an eyebrow / number / mono-cap label (`01 · THE TOUR`, `02 / FEATURES`, `Chapter Three`) in a column to the left of, or to the right of, the section heading on the same horizontal row? Auto-fail. The pattern reads as a templated editorial-SaaS tell within seconds. When an eyebrow is used at all (see [`anti-patterns.md § Eyebrow on every section`](anti-patterns.md) — default OFF), the heading goes **directly underneath it in the same column**, vertical stack only. Concretely: any `.section__head`, `.section__intro`, or equivalent wrapper that contains both an eyebrow element and a heading element MUST have `display: block` or `display: flex; flex-direction: column` (or `grid-template-columns: 1fr` with the eyebrow + heading as separate rows). Multi-column section heads with an eyebrow in one column are banned regardless of macrostructure, theme, or viewport. This supersedes the "Left-margin" axis in [`structure.md`](structure.md) and the "Hanging headers" pattern in [`layout-and-space.md`](layout-and-space.md) for any head that carries an eyebrow.
+
+The CSS stamp at Step 6 records mobile pass alongside contrast: `· mobile: pass (36, 59, 61–66)`.
 
 ---
 
