@@ -24,15 +24,18 @@
 }
 
 /* — Banner (sticky top, thin, theme picker inline) ————————— */
+/* Uses --z-sticky-nav (above --z-sticky) so in-page sticky elements
+   like Almanac's .section__head dock BELOW the banner instead of
+   bleeding over it. Height stays in sync with --banner-height. */
 .banner {
   position: sticky;
   top: 0;
-  z-index: var(--z-sticky);
+  z-index: var(--z-sticky-nav);
   display: flex;
   align-items: center;
   gap: var(--space-lg);
   padding: 0 var(--page-gutter);
-  height: 44px;
+  height: var(--banner-height);
   background: color-mix(in oklch, var(--color-paper) 88%, transparent);
   backdrop-filter: blur(14px) saturate(1.2);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);

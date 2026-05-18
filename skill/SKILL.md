@@ -403,7 +403,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 - **Enrichment** · none (typography only)
 - **Sections** · Hero · Logos · Stats · Features · Testimonials · Pricing · FAQ · CTA · Footer
 - **Motion** · counter · pricing-lift · pulse-once
-- **Slop test** · 67 / 67 ✓ (run after Build)
+- **Slop test** · 68 / 68 ✓ (run after Build)
 - **Diversification** · differs from Linen on display style + accent hue
 ```
 
@@ -414,7 +414,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 3. **Enrichment** — the chosen archetype + tier, or *none (typography only)*.
 4. **Sections** — section names separated by ` · `, in DOM order.
 5. **Motion** — microinteraction primitives separated by ` · `, or *none — typography only*. Always under three primitives per the [`microinteractions.md`](references/microinteractions.md) hard rules.
-6. **Slop test** — `67 / 67 ✓` if all gates pass, or `N / 67 — fails: <gate numbers>` if any are open. Run the slop test BEFORE writing this row; the slop test is Step 7.
+6. **Slop test** — `68 / 68 ✓` if all gates pass, or `N / 68 — fails: <gate numbers>` if any are open. Run the slop test BEFORE writing this row; the slop test is Step 7.
 7. **Diversification** *(optional, only when `.hallmark/log.json` has prior entries)* — what axes differ vs the previous run.
 
 **Then one quiet CTA line, italicised, after the bullets:**
@@ -453,7 +453,7 @@ Always:
 
 ### 7. The slop test
 
-Before handing back, run the output through the 67-gate slop test in [`references/slop-test.md`](references/slop-test.md). Every answer must be **no**. Load that file at this step (not earlier — it isn't needed until handoff). The active genre matters: some gates are universal, some are genre-scoped (atmospheric loosens the radial-bloom gate; modern-minimal loosens the zero-chroma neutral gate; etc.). The full per-genre overrides are listed inline in `slop-test.md`.
+Before handing back, run the output through the 68-gate slop test in [`references/slop-test.md`](references/slop-test.md). Every answer must be **no**. Load that file at this step (not earlier — it isn't needed until handoff). The active genre matters: some gates are universal, some are genre-scoped (atmospheric loosens the radial-bloom gate; modern-minimal loosens the zero-chroma neutral gate; etc.). The full per-genre overrides are listed inline in `slop-test.md`.
 
 Run the slop test BEFORE writing the Slop test row in the Step 5 preview block — that row reflects the actual outcome of this step.
 

@@ -13,5 +13,8 @@ Sticky left pane, scrolling right pane that cycles through related screenshots.
 ```
 ```css
 .sticky-stack { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2xl); }
-.pane-sticky { position: sticky; top: var(--space-xl); align-self: start; }
+/* `calc(--banner-height + --space-xl)` so the sticky pane docks below the
+   nav with breathing room. Falls back to --space-xl alone when no sticky
+   nav is on the page (slop-test gate 68). */
+.pane-sticky { position: sticky; top: calc(var(--banner-height, 0px) + var(--space-xl)); align-self: start; z-index: var(--z-sticky); }
 ```

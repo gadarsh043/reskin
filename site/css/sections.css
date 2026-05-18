@@ -1594,9 +1594,16 @@ html[data-theme="almanac"] body {
 
 [data-theme="almanac"] .section__head {
   position: sticky;
-  top: 0;
+  /* Dock BELOW the .banner (sticky top:0, height: var(--banner-height)).
+     Both elements are sticky; without this offset, the section head bleeds
+     over the banner because both start at top:0. */
+  top: var(--banner-height);
+  /* --z-sticky (200) sits beneath --z-sticky-nav (300) so the banner
+     out-paints the section head even when their boxes overlap mid-scroll. */
   z-index: var(--z-sticky);
   background: var(--color-paper);
+  /* Solid paper background (no transparency) so the 12-column body grid
+     visible behind doesn't show through during the scroll transition. */
   padding-block: var(--space-sm);
   border-bottom: 1px solid var(--color-ink);
   grid-template-columns: 1fr;
