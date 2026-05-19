@@ -4,7 +4,7 @@
 
 [Live demo →](https://hallmark-murex.vercel.app) &nbsp;·&nbsp; twenty-two themes &nbsp;·&nbsp; four verbs &nbsp;·&nbsp; press `T` to cycle.
 
-Powered by Together AI.
+Made by Together AI.
 
 <p align="center">
   <img src="site/OG-hallmark.png" alt="Hallmark — A design skill that refuses to look AI-generated" />
