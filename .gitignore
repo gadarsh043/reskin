@@ -35,6 +35,11 @@ build/
 # Runtime state from Hallmark's own runs (per-project log, never publish)
 .hallmark/
 
+# `skills` CLI install lockfile — generated whenever 'skills add' runs in this
+# directory, not part of the skill source.
+skills-lock.json
+.agents/
+
 # Launch-day Hallmark vs Impeccable vs no-skills comparison — one-off artifact,
 # not referenced from the marketing site or README. Kept locally if useful.
 site/_launch-comparison/
