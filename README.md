@@ -12,11 +12,11 @@ Twenty-two catalog themes live in [`references/tokens.css`](references/tokens.cs
 
 | Verb | What it does |
 | --- | --- |
-| *(default)* | Build new UI. Pre-flight scan → macrostructure + theme → rules → slop test. |
+| *(default)* | Build new UI. Pre-flight → macrostructure + theme → rules → 69-gate slop test. |
 | `reskin audit <target>` | Score existing code against anti-patterns. Punch list, no edits. |
-| `reskin redesign <target>` | New visual structure inside existing routes and data boundaries. |
+| `reskin redesign <target>` | Wired-up: comprehension → optional concept → change-plan → macrostructure/theme → build → slop → verify. Static/greenfield: optional concept, then default build path. |
 | `reskin study <screenshot \| URL>` | Extract design DNA (macrostructure, type, colour anchor). No pixel clones. |
-| `reskin verify` | Re-check build, routes, data flow, and wiring after a redesign (wired-up apps). |
+| `reskin verify` | Re-run post-redesign verification on a wired-up codebase (build, routes, data, wiring). No redesign. |
 
 Verb fixtures (before/after examples): [`references/verb-examples/`](references/verb-examples/).
 
@@ -28,11 +28,15 @@ Verb fixtures (before/after examples): [`references/verb-examples/`](references/
 npx skills add adarshgella/reskin
 ```
 
-Or copy [`SKILL.md`](SKILL.md) and [`references/`](references/) into:
+Or copy into a `reskin/` folder in your skills directory:
 
-- **Claude Code** — `~/.claude/skills/reskin/`
-- **Cursor** — `.cursor/rules/reskin.mdc` (body of `SKILL.md`, no frontmatter)
-- **Codex** — `~/.codex/skills/reskin/` (personal or project-scoped)
+| Harness | Path |
+| --- | --- |
+| **Claude Code** | `~/.claude/skills/reskin/SKILL.md` + `~/.claude/skills/reskin/references/` |
+| **Cursor** | `.cursor/rules/reskin.mdc` (body of `SKILL.md`, no frontmatter) + project `references/` or symlink |
+| **Codex** | `~/.codex/skills/reskin/SKILL.md` + `~/.codex/skills/reskin/references/` (personal or repo-scoped) |
+
+Copy [`docs/`](docs/) alongside if you want recipes and study walkthroughs locally.
 
 Worked prompts: [`docs/recipes.md`](docs/recipes.md) · study walkthroughs: [`docs/study-examples.md`](docs/study-examples.md).
 

@@ -1,7 +1,7 @@
 {
   "name": "@adarshgella/reskin",
   "version": "1.0.0",
-  "description": "A design skill for AI coding assistants. Makes the UIs they generate look made, not generated.",
+  "description": "Design skill for AI coding assistants — redesign real codebases without slop or backend breakage. Concept-driven optional vision, comprehension + change-plan control on wired-up apps, 69-gate slop test, post-build verify.",
   "keywords": [
     "claude",
     "claude-code",
@@ -12,13 +12,15 @@
     "ui",
     "anti-ai-slop",
     "typography",
-    "oklch"
+    "oklch",
+    "redesign"
   ],
   "license": "MIT",
   "type": "module",
   "files": [
     "SKILL.md",
-    "references"
+    "references",
+    "docs"
   ],
   "skill": {
     "entry": "SKILL.md",

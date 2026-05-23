@@ -10,12 +10,12 @@ Load [`comprehension.md`](comprehension.md) (map + intents), optional [`concept.
 
 ## When to run
 
-**Always** on `reskin redesign` once:
+**Run** on **wired-up** `reskin redesign` (`package.json` + `src/` / `app/` / `components/`) once:
 
-1. Comprehension is confirmed (or scoped for static targets), and  
+1. Comprehension is confirmed, and  
 2. Concept is confirmed or explicitly skipped (`concept: null`).
 
-**Do not** run on greenfield default builds, `reskin audit`, or `reskin study` unless the user is explicitly entering a redesign with a plan.
+**Skip** on greenfield, static single-file HTML, `reskin audit`, `reskin study`, and default Design flow — emit *"Change plan skipped — not a wired-up codebase."* and proceed to macrostructure/theme. Same skip table: [`SKILL.md` § `reskin redesign`](../SKILL.md#reskin-redesign).
 
 ---
 
@@ -148,40 +148,7 @@ Produce **one** Change Plan. Show in chat **before** macrostructure pick or code
 
 **Human:** `.reskin/change-plan.md`
 
-**Machine:** `.reskin/preflight.json` → `changePlan` object:
-
-```json
-{
-  "changePlan": {
-    "structure": {
-      "mode": "multi-page",
-      "proposal": null,
-      "collapseMap": []
-    },
-    "units": [
-      {
-        "id": "home",
-        "scope": "page",
-        "route": "/",
-        "dialLevel": "Full",
-        "intentCap": "Full",
-        "intentCapWarned": false,
-        "seededFrom": "concept:home-hero-full"
-      },
-      {
-        "id": "resume",
-        "scope": "page",
-        "route": "/resume",
-        "dialLevel": "Light",
-        "intentCap": "Moderate",
-        "intentCapWarned": false,
-        "seededFrom": "concept:none + intent:legibility"
-      }
-    ],
-    "confirmed": false
-  }
-}
-```
+**Machine:** `.reskin/preflight.json` → `changePlan` object. **Canonical JSON shape:** [`SKILL.md` § Preflight JSON schema](../SKILL.md#preflight-json-schema) (`changePlan` key).
 
 **Field rules:**
 

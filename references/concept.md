@@ -6,6 +6,8 @@ Reskin's signature capability. The user supplies **one line of creative vision**
 
 Load this file during **`reskin redesign`** after comprehension is confirmed (wired-up codebases) or after the redesign target is clear (static / single-file). Load **before** macrostructure selection.
 
+**Skip matrix (with comprehension / change-plan / verify):** on **greenfield or static HTML**, comprehension, change-plan, and verification are skipped; concept stays **optional** here. On **wired-up** apps, concept is optional; if declined (`concept: null`), continue to change-plan. See [`SKILL.md` § `reskin redesign`](../SKILL.md#reskin-redesign).
+
 ---
 
 ## 1. Concept prompt (elicitation)
@@ -22,7 +24,7 @@ After **comprehension confirmation** (or, if comprehension was skipped, once you
 
 - Set `concept: null` in `.reskin/preflight.json`.
 - Emit one line: *"Concept skipped — proceeding with catalog genre/theme."*
-- **Do not** load the rest of this file for this run. Proceed to scope detection and macrostructure pick.
+- **Do not** load the rest of this file for this run. On **wired-up** redesign → proceed to **change plan**. On **static/greenfield** → proceed to scope detection and macrostructure pick (change plan and verification skipped).
 
 **If they supply a concept line** → continue to §2 Concept expansion.
 
@@ -167,22 +169,7 @@ If `concept: null`, **do not** create this file.
 
 ### `.reskin/preflight.json` — `concept` object
 
-```json
-{
-  "concept": {
-    "name": "harry-potter-spellbook",
-    "input": "my portfolio as a Harry Potter spellbook",
-    "metaphor": "The site is a living spellbook the visitor opens and turns through.",
-    "vocabulary": [
-      { "id": "home-hero", "treatment": "framed Hogwarts-style portraits in wax-seal mat" },
-      { "id": "project-cards", "treatment": "illuminated manuscript pages with gilt corners" }
-    ],
-    "confirmed": false
-  }
-}
-```
-
-When skipped: `"concept": null` (key present, value null).
+**Canonical JSON shape:** [`SKILL.md` § Preflight JSON schema](../SKILL.md#preflight-json-schema) (`concept` key). When skipped: `"concept": null` (key present, value null).
 
 **Field rules:**
 

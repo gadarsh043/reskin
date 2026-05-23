@@ -9,7 +9,7 @@ Verification closes the loop that [`comprehension.md`](comprehension.md) opened:
 - **Mandatory** at the end of **`reskin redesign`** on **wired-up codebases** (`package.json` + `src/` / `app/` / `components/`) — after build (Step 6) and slop test (Step 7).
 - **Optional standalone** via **`reskin verify`** — re-run checks without redesigning. See [`verbs/verify.md`](verbs/verify.md).
 
-**Skip** for static single-file HTML, greenfield scratch pages with no app shell, or when the user says *"skip verification"*.
+**Skip** for greenfield, static single-file HTML, or when the user says *"skip verification"*. Same skip table: [`SKILL.md` § `reskin redesign`](../SKILL.md#reskin-redesign).
 
 **Source of truth:** `.reskin/preflight.json` → `comprehension` (pages, `dataSources`, `dataBoundComponents`, `protectedPaths`). If missing, run a minimal comprehension read first or refuse: *"No comprehension map — run `reskin redesign` comprehension or point me at `.reskin/preflight.json`."*
 
@@ -18,7 +18,7 @@ Verification closes the loop that [`comprehension.md`](comprehension.md) opened:
 ## Redesign flow position
 
 ```
-comprehension → concept → change-plan → macrostructure / theme / build → slop test → VERIFY → handoff
+comprehension → concept → change-plan → macrostructure / theme / build → 69-gate slop test → VERIFY → present to user
 ```
 
 If **Tier 1 (build) fails**, **stop**. Do not present the redesign as done. Report build errors as top-priority fixes; later tiers may be skipped or marked *not run*.
@@ -126,46 +126,7 @@ Write **`.reskin/verify-report.md`** and summarize in chat. Use this shape:
 
 ## Persistence · `.reskin/preflight.json`
 
-Merge `verification` object (do not wipe other keys):
-
-```json
-{
-  "verification": {
-    "ranAt": "2026-05-23T15:00:00Z",
-    "trigger": "redesign | standalone-verify",
-    "build": {
-      "command": "npm run build",
-      "passed": true,
-      "errors": []
-    },
-    "routes": {
-      "checked": 4,
-      "passed": 4,
-      "headlessAvailable": false,
-      "degraded": true
-    },
-    "data": {
-      "sourcesChecked": 2,
-      "sourcesPassed": 2,
-      "boundComponentsChecked": 3,
-      "boundComponentsPassed": 3,
-      "protectedPathsIntact": true,
-      "violations": []
-    },
-    "interactions": {
-      "checked": 12,
-      "wired": 12,
-      "failed": []
-    },
-    "manualChecks": [
-      "Load site locally — headless unavailable (Tier 2)",
-      "Confirm contact form sends real email — submit not tested (Tier 3)"
-    ],
-    "overallPassed": false,
-    "confirmed": false
-  }
-}
-```
+Merge `verification` object (do not wipe other keys). **Canonical JSON shape:** [`SKILL.md` § Preflight JSON schema](../SKILL.md#preflight-json-schema) (`verification` key).
 
 - `overallPassed` — `true` only when build passed, no FAILED tier results, no protected-path violations. Manual items don't block `overallPassed` but must still be listed.
 - `confirmed` — user acknowledged report (optional; set when user says *"verification noted"*).

@@ -1,6 +1,6 @@
 ---
 name: reskin
-description: "Anti-AI-slop design skill for greenfield pages, audits, redesigns, verification, and design extraction from URLs or screenshots. Use when the user asks to build a new app or landing page, wants to redesign something, invokes Reskin by name, or uses audit/redesign/study/verify."
+description: "Anti-AI-slop design skill: greenfield builds, audits, redesigns (comprehension → optional concept → change-plan → build → 69-gate slop test → verify on wired-up apps), study from URLs/screenshots, and standalone verify. Backend-safe on real codebases. Invoke via reskin or audit/redesign/study/verify."
 version: 1.0.0
 ---
 
@@ -176,80 +176,7 @@ If you want Reskin to override any preserved item, say so.
 - the user says "refresh pre-flight" (or "scan again", "re-scan"), or
 - `package.json` / `tailwind.config.*` mtimes are newer than `preflight.json`.
 
-**`preflight.json` shape** — design-token fields from this step plus, when a wired-up codebase was comprehended during `reskin redesign`, a `comprehension` object:
-
-```json
-{
-  "scannedAt": "2026-05-23",
-  "framework": "Next.js 15",
-  "fontStack": "…",
-  "palette": "…",
-  "motion": "…",
-  "spacing": "…",
-  "comprehension": {
-    "scannedAt": "2026-05-23T12:00:00Z",
-    "target": "./app",
-    "confirmed": false,
-    "pages": [{ "path": "/", "file": "app/page.tsx", "purpose": "…", "visitorAction": "…" }],
-    "components": [{ "id": "home-hero", "label": "the box with two photos at the top", "route": "/", "file": "…", "does": "…", "copy": "…", "intent": "…" }],
-    "dataSources": [{ "id": "…", "kind": "hook", "file": "…", "returns": "…", "consumers": ["…"] }],
-    "dataBoundComponents": ["home-hero"],
-    "protectedPaths": ["lib/firebase/**", "app/api/**"],
-    "navigation": { "summary": "…", "layoutFile": "…", "navComponentId": "…" }
-  },
-  "concept": null,
-  "changePlan": null,
-  "verification": null
-}
-```
-
-When the user supplies a creative one-liner during redesign, `concept` becomes an object — see [`concept.md`](references/concept.md):
-
-```json
-"concept": {
-  "name": "harry-potter-spellbook",
-  "input": "my portfolio as a Harry Potter spellbook",
-  "metaphor": "The site is a living spellbook the visitor opens and turns through.",
-  "vocabulary": [{ "id": "home-hero", "treatment": "Hogwarts-style framed portraits" }],
-  "confirmed": false
-}
-```
-
-Human-readable mirror: `.reskin/concept.md` (only when concept is active).
-
-After concept, redesign runs the change plan — see [`change-plan.md`](references/change-plan.md):
-
-```json
-"changePlan": {
-  "structure": { "mode": "multi-page", "proposal": null, "collapseMap": [] },
-  "units": [
-    { "id": "home", "scope": "page", "route": "/", "dialLevel": "Full", "intentCap": "Moderate", "intentCapWarned": false }
-  ],
-  "confirmed": false
-}
-```
-
-Human-readable mirror: `.reskin/change-plan.md`. Dial levels: `Full` | `Heavy` | `Moderate` | `Light` | `Leave`.
-
-After redesign on wired-up codebases, run verification — see [`verify.md`](references/verify.md):
-
-```json
-"verification": {
-  "ranAt": "2026-05-23T15:00:00Z",
-  "trigger": "redesign",
-  "build": { "command": "npm run build", "passed": true, "errors": [] },
-  "routes": { "checked": 4, "passed": 4, "headlessAvailable": false, "degraded": true },
-  "data": { "sourcesChecked": 2, "sourcesPassed": 2, "protectedPathsIntact": true, "violations": [] },
-  "interactions": { "checked": 12, "wired": 12, "failed": [] },
-  "manualChecks": ["Click through locally — headless unavailable"],
-  "overallPassed": true,
-  "confirmed": false
-}
-```
-
-Human-readable mirror: `.reskin/verify-report.md`.
-
-Full protocol: [`comprehension.md`](references/comprehension.md). Human-readable mirror: `.reskin/understanding.md`.
+**`preflight.json`** — canonical schema is **only** in [§ Preflight JSON schema](#preflight-json-schema) below. Merge keys in place; never wipe prior scans. Human-readable mirrors: `.reskin/understanding.md` (comprehension), `.reskin/concept.md` (concept active), `.reskin/change-plan.md`, `.reskin/verify-report.md`. Protocol detail: [`comprehension.md`](references/comprehension.md), [`concept.md`](references/concept.md), [`change-plan.md`](references/change-plan.md), [`verify.md`](references/verify.md).
 
 If the cache is re-used, emit a one-line note instead of the full block: *"Pre-flight cached (last scan: 2026-04-30). Say 'refresh pre-flight' to re-scan."*
 
@@ -272,6 +199,135 @@ If the cache is re-used, emit a one-line note instead of the full block: *"Pre-f
 > *Reskin will preserve: Tailwind tokens, the `tokens.json` file (won't overwrite). Reskin will introduce: macrostructure, microinteraction discipline, slop-test gates. Motion stance: motion-cut (no framer-motion / motion / gsap detected).*
 
 The pre-flight block is the user's accountability line: *"here's what I noticed about your project before I touched anything."* Skipping it is the fastest way to lose the user's trust.
+
+### Preflight JSON schema
+
+**Single source of truth** for `.reskin/preflight.json`. All other reference files point here. **Merge** keys on each pass; never delete `fontStack` / `palette` / `motion` / `spacing` when adding redesign keys.
+
+```json
+{
+  "scannedAt": "2026-05-23",
+  "framework": "Next.js 15 (app router)",
+  "fontStack": "…",
+  "palette": "…",
+  "motion": "…",
+  "spacing": "…",
+  "comprehension": null,
+  "concept": null,
+  "changePlan": null,
+  "verification": null
+}
+```
+
+**Design-token fields** (Step 0 pre-flight): `scannedAt`, `framework`, `fontStack`, `palette`, `motion`, `spacing` — strings summarizing what Reskin detected and will preserve or override.
+
+**`comprehension`** — `null` until a wired-up `reskin redesign` comprehension pass. When set:
+
+```json
+"comprehension": {
+  "scannedAt": "2026-05-23T12:00:00Z",
+  "target": "./app",
+  "confirmed": false,
+  "pages": [
+    { "path": "/", "file": "app/page.tsx", "purpose": "…", "visitorAction": "…" }
+  ],
+  "components": [
+    {
+      "id": "home-hero",
+      "label": "the box with two photos at the top",
+      "route": "/",
+      "file": "components/Hero.tsx",
+      "does": "…",
+      "copy": "…",
+      "intent": "…"
+    }
+  ],
+  "dataSources": [
+    { "id": "…", "kind": "hook|sdk|api", "file": "…", "returns": "…", "consumers": ["…"] }
+  ],
+  "dataBoundComponents": ["home-hero"],
+  "protectedPaths": ["lib/firebase/**", "app/api/**"],
+  "navigation": { "summary": "…", "layoutFile": "…", "navComponentId": "…" }
+}
+```
+
+- `confirmed` — `true` only after user says **comprehension confirmed**; blocks all visual work until then.
+- `components[]` — `id`, `label`, `intent` required; `route`, `file`, `does`, `copy` when known.
+- `protectedPaths[]` — read-only globs for the redesign pass.
+
+**`concept`** — `null` when skipped (*no concept*, *clean and professional*, *skip*). When set:
+
+```json
+"concept": {
+  "name": "harry-potter-spellbook",
+  "input": "my portfolio as a Harry Potter spellbook",
+  "metaphor": "The site is a living spellbook the visitor opens and turns through.",
+  "vocabulary": [
+    { "id": "home-hero", "treatment": "Hogwarts-style framed portraits", "label": "optional echo" }
+  ],
+  "confirmed": false
+}
+```
+
+- `confirmed` — `true` only after **concept confirmed**; blocks macrostructure until then when concept is active.
+
+**`changePlan`** — `null` when change-plan was skipped (greenfield / static HTML). When set:
+
+```json
+"changePlan": {
+  "structure": {
+    "mode": "multi-page",
+    "proposal": null,
+    "collapseMap": []
+  },
+  "units": [
+    {
+      "id": "home",
+      "scope": "page",
+      "route": "/",
+      "dialLevel": "Full",
+      "intentCap": "Moderate",
+      "intentCapWarned": false,
+      "seededFrom": "concept:home-hero-full"
+    }
+  ],
+  "confirmed": false
+}
+```
+
+- `structure.mode` — `multi-page` | `single-page` | `proposed` (resolve before build).
+- `units[].dialLevel` — `Full` | `Heavy` | `Moderate` | `Light` | `Leave`.
+- `confirmed` — `true` only after **plan confirmed**.
+
+**`verification`** — `null` until post-build verify on a wired-up redesign or `reskin verify`:
+
+```json
+"verification": {
+  "ranAt": "2026-05-23T15:00:00Z",
+  "trigger": "redesign",
+  "build": { "command": "npm run build", "passed": true, "errors": [] },
+  "routes": {
+    "checked": 4,
+    "passed": 4,
+    "headlessAvailable": false,
+    "degraded": true
+  },
+  "data": {
+    "sourcesChecked": 2,
+    "sourcesPassed": 2,
+    "boundComponentsChecked": 3,
+    "boundComponentsPassed": 3,
+    "protectedPathsIntact": true,
+    "violations": []
+  },
+  "interactions": { "checked": 12, "wired": 12, "failed": [] },
+  "manualChecks": ["Load site locally — headless unavailable"],
+  "overallPassed": true,
+  "confirmed": false
+}
+```
+
+- `trigger` — `redesign` | `standalone-verify`.
 
 ### 1. Design-context gate
 
@@ -448,7 +504,7 @@ The non-negotiables live in [`references/`](references/). **Be precise about wha
 - [`preview-examples.md`](references/preview-examples.md) — load only if you need a worked example of the Step 5 preview block format. The bullet list in Step 5 itself is normally enough; reach for the file only when picking unusual macrostructures / custom themes.
 
 **Load-at-the-end (Step 7 only):**
-- [`slop-test.md`](references/slop-test.md) — **strictly Step 7, after Build.** The 66 gates are a post-emit check, not a pre-emit reference. Pre-loading slop-test.md costs ~7K tokens for nothing — the gates inform fixes, not generation. If a gate fails at Step 7, fix and re-test; do not consult the file earlier "to know what to avoid" — that's what `anti-patterns.md` is for.
+- [`slop-test.md`](references/slop-test.md) — **strictly Step 7, after Build.** The 69 gates are a post-emit check, not a pre-emit reference. Pre-loading slop-test.md costs ~7K tokens for nothing — the gates inform fixes, not generation. If a gate fails at Step 7, fix and re-test; do not consult the file earlier "to know what to avoid" — that's what `anti-patterns.md` is for.
 - [`contract.md`](references/contract.md) — load at handoff time for output-contract + scope rules.
 - [`export-formats.md`](references/export-formats.md) — load at Step 6 only when the project warrants multi-format exports (i.e. has a `design.md`). Single-page builds emit `tokens.css` from the in-memory token state and don't need this file.
 
@@ -456,7 +512,7 @@ The non-negotiables live in [`references/`](references/). **Be precise about wha
 - [`verbs/audit.md`](references/verbs/audit.md), [`verbs/redesign.md`](references/verbs/redesign.md) — load only when that verb runs.
 - [`comprehension.md`](references/comprehension.md) — load when `reskin redesign` targets a wired-up codebase (`package.json` + `src/` / `app/` / `components/`).
 - [`concept.md`](references/concept.md) — load during `reskin redesign` after comprehension confirmation (or after target is scoped if comprehension skipped); skip expansion when user declines concept.
-- [`change-plan.md`](references/change-plan.md) — load during `reskin redesign` after concept step; mandatory before macrostructure selection.
+- [`change-plan.md`](references/change-plan.md) — load during **wired-up** `reskin redesign` after concept step (set or skipped); **skip** on greenfield or static single-file HTML. Mandatory before macrostructure selection when it runs.
 - [`verify.md`](references/verify.md) — load after build + slop test on wired-up `reskin redesign`, or for `reskin verify`.
 - [`verbs/verify.md`](references/verbs/verify.md) — load when `reskin verify` runs.
 - [`study.md`](references/study.md) — load only when `reskin study` runs.
@@ -570,17 +626,27 @@ Load [`references/verbs/audit.md`](references/verbs/audit.md) and follow it.
 
 Load [`references/verbs/redesign.md`](references/verbs/redesign.md) and follow it.
 
-**Wired-up codebase (mandatory comprehension).** When the target has `package.json` and `src/`, `app/`, or `components/`, also load [`references/comprehension.md`](references/comprehension.md) and run the comprehension pass **before** any visual redesign:
+**Canonical pipeline (wired-up codebase)** — word-for-order; each **PAUSE** is a hard checkpoint:
 
-1. Produce the Site Understanding report (routing, component inventory with user-facing **labels** and inferred **intent**, data layer, **protected paths**, navigation).
-2. Write `.reskin/understanding.md` and merge `comprehension` into `.reskin/preflight.json`.
-3. **Hard checkpoint** — ask the user to confirm or correct (especially intent). Do not redesign until they say comprehension is confirmed.
-4. **Concept injection (optional)** — load [`references/concept.md`](references/concept.md). Ask the one-line concept prompt. If the user declines → `concept: null`, proceed with genre/theme as normal. If they supply a vision → expand Concept Brief from comprehension `id`s, write `.reskin/concept.md`, **checkpoint for `concept confirmed`**, then continue.
-5. **Change plan (control layer)** — load [`references/change-plan.md`](references/change-plan.md). Tier 1 structure → Tier 2 dials per unit (seeded from concept restraint + intent caps). Write `.reskin/change-plan.md`, **checkpoint for `plan confirmed`**. Leave units are not edited; Light = theming only; Full may reimagine macrostructure on that unit.
-6. Then continue per `redesign.md` (scope, `design.md` for multi-page, macrostructure, build, slop test, **verification**). Plan + concept constrain choices; slop gates and protected paths still win.
-7. **Verification** (wired-up only) — after build + slop test, run [`verify.md`](references/verify.md). If build fails in verification, stop; present FAILED + manual list honestly.
+1. **Comprehension** — Site Understanding → `.reskin/understanding.md` → **PAUSE** (`comprehension confirmed`)
+2. **Concept** (optional) — one-line prompt → brief or `concept: null` → **PAUSE** if a creative concept was set (`concept confirmed`)
+3. **Change plan** — Tier 1 structure → Tier 2 dials → `.reskin/change-plan.md` → **PAUSE** (`plan confirmed`)
+4. **Macrostructure / theme** — picks constrained by plan + concept
+5. **Build** (Step 6)
+6. **69-gate slop test** (Step 7)
+7. **Verify** — four-tier pass → `.reskin/verify-report.md` → **present** PASSED / FAILED / NEEDS YOUR EYES to the user
 
-Skip comprehension for greenfield or static-HTML-only targets (concept prompt may still run once the target page is scoped). The Non-destructive implementation rule and Implementation safety rail apply throughout; `protectedPaths` is the enforceable allowlist.
+**Skip rules** (same everywhere):
+
+| Target | Comprehension | Concept | Change plan | Verification |
+| --- | --- | --- | --- | --- |
+| **Wired-up** (`package.json` + `src/` / `app/` / `components/`) | Run + checkpoint | Optional + checkpoint if set | Run + checkpoint | Run after build + slop |
+| **Greenfield / static single-file HTML** | Skip | Optional (after target scoped) | Skip | Skip — default Design flow (macrostructure → theme → build → slop) |
+
+- **`no concept` / `skip` / `clean and professional`** → `concept: null`; pipeline continues.
+- On static/greenfield, after optional concept go straight to macrostructure/theme (no change-plan).
+
+Load [`references/comprehension.md`](references/comprehension.md), [`references/concept.md`](references/concept.md), [`references/change-plan.md`](references/change-plan.md), and [`references/verify.md`](references/verify.md) per the skip table. Persist to [`preflight.json`](#preflight-json-schema). The Non-destructive implementation rule and Implementation safety rail apply throughout; `protectedPaths` is the enforceable allowlist on wired-up targets.
 
 ---
 

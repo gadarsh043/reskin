@@ -2,6 +2,29 @@
 
 The user wants a different page from the same content. They are not happy with the current visual structure — typically because it reads as templated, generic, or AI-shaped. Your job is to redesign the page's structure, rhythm, and component voice while respecting the existing implementation boundaries unless the user explicitly confirms a full rebuild.
 
+## Canonical pipeline (wired-up codebase)
+
+Word-for-order; each **PAUSE** is a hard checkpoint:
+
+1. **Comprehension** → **PAUSE** (`comprehension confirmed`)
+2. **Concept** (optional) → **PAUSE** if a creative concept was set (`concept confirmed`)
+3. **Change plan** → **PAUSE** (`plan confirmed`)
+4. **Macrostructure / theme**
+5. **Build** (Step 6)
+6. **69-gate slop test** (Step 7)
+7. **Verify** → **present** to user
+
+**Skip rules:**
+
+| Target | Comprehension | Concept | Change plan | Verification |
+| --- | --- | --- | --- | --- |
+| **Wired-up** (`package.json` + `src/` / `app/` / `components/`) | Run + checkpoint | Optional + checkpoint if set | Run + checkpoint | Run after build + slop |
+| **Greenfield / static single-file HTML** | Skip | Optional (after target scoped) | Skip | Skip — macrostructure → theme → build → slop |
+
+`no concept` / `skip` / `clean and professional` → `concept: null`; continue. On static/greenfield, after optional concept go straight to macrostructure/theme.
+
+**`preflight.json`:** canonical schema only in [`SKILL.md` § Preflight JSON schema](../../SKILL.md#preflight-json-schema).
+
 ## Non-destructive implementation rule
 
 Reskin redesigns visual and interaction layers. It does not delete production files by default.
@@ -20,13 +43,13 @@ Before scope detection or any visual work, check whether the target is a **wired
 - **`package.json`** exists at the project (or package) root, **and**
 - at least one of **`src/`**, **`app/`**, or **`components/`** exists.
 
-If both are true → load [`comprehension.md`](../comprehension.md) and run the full comprehension pass. Produce `.reskin/understanding.md`, extend `.reskin/preflight.json` with the `comprehension` object (see that file for schema), present the Site Understanding report, and **hard-stop for user confirmation** (`comprehension confirmed` or corrections) before continuing.
+If both are true → load [`comprehension.md`](../comprehension.md) and run the full comprehension pass. Produce `.reskin/understanding.md`, merge `comprehension` into `.reskin/preflight.json` ([`SKILL.md` § Preflight JSON schema](../../SKILL.md#preflight-json-schema)), present the Site Understanding report, and **hard-stop for user confirmation** (`comprehension confirmed` or corrections) before continuing.
 
 If the target is static HTML, a single file with no app shell, or greenfield → **skip** comprehension; one line: *"Comprehension skipped — not a wired-up codebase."*
 
 If `.reskin/understanding.md` exists and `comprehension.confirmed` is already `true` in `preflight.json`, you may reuse the map unless the user asked to refresh or routes/data changed — still state which component **labels** and **protected paths** govern this run.
 
-**Do not** pick a macrostructure, write `design.md`, or edit UI until comprehension is confirmed.
+**Do not** pick a macrostructure, write `design.md`, or edit UI until comprehension is confirmed (or skipped for static/greenfield).
 
 ## Concept injection · optional (after comprehension)
 
@@ -35,7 +58,7 @@ If `.reskin/understanding.md` exists and `comprehension.confirmed` is already `t
 Load [`concept.md`](../concept.md).
 
 1. Ask the **concept prompt** (one message). User may supply a one-line vision or decline (*no concept*, *clean and professional*, *skip*).
-2. If declined → set `concept: null` in `.reskin/preflight.json`, skip `concept.md`, proceed to Step 0. Genre / theme / macrostructure run unchanged.
+2. If declined → set `concept: null` in `.reskin/preflight.json`, skip `concept.md`, proceed to **Change plan** (wired-up) or **Step 0** (static/greenfield). Genre / theme / macrostructure run unchanged.
 3. If supplied → expand a **Concept Brief** using component `id`s from `.reskin/understanding.md` (§ Concept × intent rule is mandatory). Write `.reskin/concept.md`, merge `concept` into `preflight.json`, present the brief, and **hard-stop for `concept confirmed`** before continuing.
 4. Approved concept **constrains** macrostructure, type, colour, motion, and enrichment — it does **not** disable slop-test gates, protected paths, or data-bound contracts.
 
@@ -44,6 +67,8 @@ Load [`concept.md`](../concept.md).
 ## Change plan · structure + dial (after concept)
 
 **When:** After comprehension is confirmed **and** after the concept step (set or skipped). **Before** macrostructure selection, Step 0 scope branching, or any UI edits.
+
+**Skip** on greenfield or static single-file HTML (no `package.json` app shell) — one line: *"Change plan skipped — not a wired-up codebase."* Then proceed to Step 0 / macrostructure.
 
 Load [`change-plan.md`](../change-plan.md).
 
@@ -316,13 +341,13 @@ After **Step 6 (build)** and **Step 7 (slop test)** — not before.
 
 Load [`verify.md`](../verify.md) and run the four-tier verification pass. Use `comprehension` + `changePlan` from `.reskin/preflight.json` as the checklist source.
 
-**Order (full redesign):** comprehension → concept → change-plan → macrostructure / theme / build → slop test → **VERIFY** → handoff.
+**Order (wired-up redesign):** comprehension → concept → change-plan → macrostructure / theme / build → 69-gate slop test → **VERIFY** → present to user.
 
 - If **Tier 1 (build) fails** during verification, **stop** — report errors; do not present the redesign as complete.
 - Write `.reskin/verify-report.md` and merge `verification` into `preflight.json`.
 - Present PASSED / FAILED / NEEDS YOUR EYES in chat — honest and specific (see verify.md core principle).
 
-**Skip** for static single-file HTML or when user says *"skip verification"*.
+**Skip** for greenfield, static single-file HTML, or when user says *"skip verification"*.
 
 User may re-run anytime with **`reskin verify`** ([`verbs/verify.md`](verify.md)) without redesigning.
 

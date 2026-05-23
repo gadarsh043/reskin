@@ -18,8 +18,10 @@ This file works **with** the Implementation safety rail and Non-destructive impl
 **Skip the comprehension pass** when:
 
 - The target is a single static `.html` / `.css` file with no `package.json`.
-- The project is an empty or scratch directory with no framework layout.
+- The project is greenfield, empty, or scratch with no framework layout.
 - The user explicitly says *"skip comprehension"* or *"ignore the codebase map"* — then emit one line and proceed, but warn that data-bound components may break.
+
+On skip: also skip **change plan** and **verification**; **concept** remains optional after the redesign target is scoped. See skip table in [`SKILL.md` § `reskin redesign`](../SKILL.md#reskin-redesign) and [`verbs/redesign.md`](verbs/redesign.md).
 
 **Re-run** (full pass, not cache-only) when:
 
@@ -188,64 +190,9 @@ Target: <path user asked to redesign>
 
 ---
 
-## `.reskin/preflight.json` — schema extensions
+## `.reskin/preflight.json` — `comprehension` object
 
-Merge into the existing pre-flight object. **Do not wipe** font/palette/motion fields from a prior scan — extend them.
-
-```json
-{
-  "scannedAt": "2026-05-23",
-  "framework": "Next.js 15 (app router)",
-  "fontStack": "…",
-  "palette": "…",
-  "motion": "…",
-  "spacing": "…",
-  "comprehension": {
-    "scannedAt": "2026-05-23T12:00:00Z",
-    "target": "./app",
-    "confirmed": false,
-    "pages": [
-      {
-        "path": "/",
-        "file": "app/page.tsx",
-        "purpose": "Portfolio home",
-        "visitorAction": "Browse featured work and open project detail"
-      }
-    ],
-    "components": [
-      {
-        "id": "home-hero",
-        "label": "the box with two photos at the top",
-        "route": "/",
-        "file": "components/Hero.tsx",
-        "does": "Two-up photo strip with name and role",
-        "copy": "…",
-        "intent": "Establish personality before the project grid"
-      }
-    ],
-    "dataSources": [
-      {
-        "id": "firebase-projects",
-        "kind": "sdk",
-        "file": "lib/firebase/projects.ts",
-        "returns": "Project[]",
-        "consumers": ["project-cards", "project-detail-modal"]
-      }
-    ],
-    "dataBoundComponents": ["project-cards", "project-detail-modal"],
-    "protectedPaths": [
-      "lib/firebase/**",
-      "app/api/**",
-      ".env.local"
-    ],
-    "navigation": {
-      "summary": "Single layout; sticky header; /work and /about in nav",
-      "layoutFile": "app/layout.tsx",
-      "navComponentId": "site-header"
-    }
-  }
-}
-```
+Merge into the existing pre-flight object. **Do not wipe** font/palette/motion fields from a prior scan — extend them. **Canonical JSON shape:** [`SKILL.md` § Preflight JSON schema](../SKILL.md#preflight-json-schema) (`comprehension` key).
 
 **Field rules:**
 

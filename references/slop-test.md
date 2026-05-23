@@ -1,4 +1,4 @@
-# Slop test — 60 gates + pre-emit self-critique
+# Slop test — 69 gates + pre-emit self-critique
 
 Run this list before handing back any output. Every answer must be **no**. Update the Step 5 preview block's `Slop test` row to reflect the actual outcome of this run.
 
