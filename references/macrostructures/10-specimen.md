@@ -17,7 +17,7 @@ Reference: type foundry homepages (Klim, Pangram Pangram, Production Type), some
 
 **Sample opening lines** (imitate the *specificity* — Specimen openings are foundry-voice, treating type as material culture):
 > *"A thing well made."* — klim.co.nz — refusal of the verb, treats design as material
-> *"Type, set with care."* — Hallmark Specimen — three words, a colon implied
+> *"Type, set with care."* — Reskin Specimen — three words, a colon implied
 > *"Creative direction, design and type for culture since 2003."* — apracticeforeverydaylife.com — date-anchored, names verticals
 
 ```html

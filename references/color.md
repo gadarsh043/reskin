@@ -11,7 +11,7 @@ Most AI-generated UI fails on colour. It picks blue. It uses pure black. It draw
 
 ## Palette construction
 
-A complete Hallmark palette has four layers.
+A complete Reskin palette has four layers.
 
 1. **Paper** — the base surface. `oklch(96–98% 0.005–0.015 <anchor hue>)` for light mode, `oklch(12–16% 0.008–0.015 <anchor hue>)` for dark.
 2. **Ink** — the primary text. `oklch(16–22% 0.005–0.015 <anchor hue>)` for light mode, `oklch(92–96% 0.005–0.01 <anchor hue>)` for dark.

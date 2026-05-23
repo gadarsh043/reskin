@@ -69,7 +69,7 @@ The 2026 canon is set by Lynn Fisher (*A Single Div*), Diana Smith (*Pure CSS Fr
 }
 ```
 
-That's a hand-built bakery centerpiece in about 25 lines, no asset, animated, accessible. The next bakery brief Hallmark touches gets a *different* loaf because the variation knobs change (rise distance, loaf curvature, crust-ridge spacing, colour stop).
+That's a hand-built bakery centerpiece in about 25 lines, no asset, animated, accessible. The next bakery brief Reskin touches gets a *different* loaf because the variation knobs change (rise distance, loaf curvature, crust-ridge spacing, colour stop).
 
 ### Anti-patterns of CSS art
 
@@ -211,7 +211,7 @@ If the browser supports it, the element animates as it enters the viewport. If n
 
 ### View Transitions API
 
-Production-ready in 2026 (Baseline October 2025 for same-document; Chromium 126+, Safari 18.2+ for cross-document). The Hallmark landing page already uses it for theme transitions:
+Production-ready in 2026 (Baseline October 2025 for same-document; Chromium 126+, Safari 18.2+ for cross-document). The Reskin landing page already uses it for theme transitions:
 
 ```js
 function applyTheme(theme) {
@@ -358,7 +358,7 @@ The Lottie Tell, version 2026: a generic LottieFiles pull where pure CSS would h
 A 60-line SVG of a single loaf, three paths (crust + crumb + scoring marks), positioned to the right of the headline at 40 % column width. Animation: `@property --rise` interpolates a 4 px vertical lift over 6 s, ease-in-out, alternate. The score-marks draw themselves on first paint via `stroke-dasharray`. Reduced-motion: static loaf, no animation.
 
 ```css
-/* Hallmark · macrostructure: Long Document
+/* Reskin · macrostructure: Long Document
  * H5 hero: Letter (intimate salutation + 2-paragraph body)
  * enrichment: E5 Custom Illustration · craft: tier-B SVG (60 lines)
  * animation: @property --rise (6s, alternate) + stroke-dasharray draw-on
@@ -366,7 +366,7 @@ A 60-line SVG of a single loaf, three paths (crust + crumb + scoring marks), pos
  */
 ```
 
-The next bakery brief Hallmark touches gets a *different* loaf — different curvature, different rise distance, different score pattern, possibly a different illustration entirely (a sourdough boule vs. a baguette vs. a flatbread). The variation knobs in [`hero-enrichment.md`](hero-enrichment.md) make sure of it.
+The next bakery brief Reskin touches gets a *different* loaf — different curvature, different rise distance, different score pattern, possibly a different illustration entirely (a sourdough boule vs. a baguette vs. a flatbread). The variation knobs in [`hero-enrichment.md`](hero-enrichment.md) make sure of it.
 
 ---
 
@@ -445,7 +445,7 @@ Three labelled boxes connected by curved arrows. Slight asymmetric rotation (-1�
 A small SVG character — face only, ~120 × 120 px — that has personality without anthropomorphic uncanny-valley risk. Two ellipse eyes (with `@keyframes blink` 3s loop), a single quadratic-curve mouth, and two stem accents (hair / hat / horns / antennae). Pairs beside text.
 
 ```html
-<figure class="mascot" aria-label="The Hallmark mascot — a face with two eyes and a small smile">
+<figure class="mascot" aria-label="The Reskin mascot — a face with two eyes and a small smile">
   <svg viewBox="0 0 120 130" class="mascot__svg">
     <circle class="mascot__head" cx="60" cy="60" r="42" />
 
@@ -615,7 +615,7 @@ What all four recipes share — the four habits of hand-built CSS/SVG illustrati
 3. **Opacity layering for pencil/secondary detail.** The workflow's reverse arrow is `var(--color-muted)`; the architectural sub-labels are 60% opacity; the sprig veins are 0.6 opacity. The hierarchy of opacity is the hierarchy of attention.
 4. **Mono labels grounding decorative work in function.** The architectural diagram's `arch__sub` text uses `var(--font-mono)` at 8 px. The workflow's "small predicate language" uses mono. Decorative work earns its place by being legible and accurate; mono signals that.
 
-Use these recipes verbatim when they fit, or strip them for technique when the brief calls for something different. The point is that *every illustration on a Hallmark page is built, not picked.*
+Use these recipes verbatim when they fit, or strip them for technique when the brief calls for something different. The point is that *every illustration on a Reskin page is built, not picked.*
 
 - **Reaching for Lottie when CSS would do.** The new tell. Build the loaf in pure CSS or hand-built SVG; the Lottie is the shortcut that costs you.
 - **Importing 50 KB of GSAP for a single fade-in.** Use `transition: opacity 400ms var(--ease-out)`. Zero bytes.

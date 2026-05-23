@@ -1,16 +1,32 @@
-# `hallmark redesign`
+# `reskin redesign`
 
 The user wants a different page from the same content. They are not happy with the current visual structure — typically because it reads as templated, generic, or AI-shaped. Your job is to redesign the page's structure, rhythm, and component voice while respecting the existing implementation boundaries unless the user explicitly confirms a full rebuild.
 
 ## Non-destructive implementation rule
 
-Hallmark redesigns visual and interaction layers. It does not delete production files by default.
+Reskin redesigns visual and interaction layers. It does not delete production files by default.
 
 - Never delete existing route files, component directories, page trees, or the old website unless the user explicitly asks for deletion or approves a file-level plan that lists the deletions.
 - Default to in-place edits of the named page/component files, or additive new components/tokens wired through the existing route.
 - If the redesign would require removing multiple components, replacing a route tree, or collapsing the app into a single new page, stop and ask for confirmation first.
 - Treat PDFs, README files, `.md` briefs, docs, transcripts, and pitch decks as source material for understanding the product. They are not page copy by default. Summarize and adapt them unless the user explicitly says to use their wording verbatim.
 - Before editing, state the files you expect to modify, create, and delete. Any deletion needs explicit confirmation.
+- During redesign of a wired-up codebase, **never modify** paths listed in `.reskin/preflight.json` → `comprehension.protectedPaths` (or §4 of `.reskin/understanding.md`). Those paths are read-only; the allowlist enforces this rule concretely.
+
+## Comprehension pass · mandatory first step (wired-up codebases)
+
+Before scope detection or any visual work, check whether the target is a **wired-up codebase**:
+
+- **`package.json`** exists at the project (or package) root, **and**
+- at least one of **`src/`**, **`app/`**, or **`components/`** exists.
+
+If both are true → load [`comprehension.md`](../comprehension.md) and run the full comprehension pass. Produce `.reskin/understanding.md`, extend `.reskin/preflight.json` with the `comprehension` object (see that file for schema), present the Site Understanding report, and **hard-stop for user confirmation** (`comprehension confirmed` or corrections) before continuing.
+
+If the target is static HTML, a single file with no app shell, or greenfield → **skip** comprehension; one line: *"Comprehension skipped — not a wired-up codebase."*
+
+If `.reskin/understanding.md` exists and `comprehension.confirmed` is already `true` in `preflight.json`, you may reuse the map unless the user asked to refresh or routes/data changed — still state which component **labels** and **protected paths** govern this run.
+
+**Do not** pick a macrostructure, write `design.md`, or edit UI until comprehension is confirmed.
 
 ## Step 0 · Detect scope first
 
@@ -30,7 +46,7 @@ If none fires → **single-page redesign**. Go to § Single-page flow.
 
 ## § Multi-page flow — design.md first, then redesign
 
-A web app needs a *design system*, not seventeen unrelated theme pickings. Hallmark's diversification rule is wrong here: across pages of the same product, **consistency is the goal, not variety**. If you redesign every page with a different macrostructure / theme / accent, you've shipped a slop split-personality app, even if each individual page is fine.
+A web app needs a *design system*, not seventeen unrelated theme pickings. Reskin's diversification rule is wrong here: across pages of the same product, **consistency is the goal, not variety**. If you redesign every page with a different macrostructure / theme / accent, you've shipped a slop split-personality app, even if each individual page is fine.
 
 The flow is:
 
@@ -38,9 +54,10 @@ The flow is:
 
 Before redesigning a single file:
 
+- **Comprehension must be complete** for wired-up codebases (see § Comprehension pass). Use `.reskin/understanding.md` as the route/component/data map — do not re-guess from scratch.
 - Walk the target directory. List every page-level file you found, with a one-line description of what it does. (Hero / pricing / docs / dashboard / etc.)
 - Note any existing design assets: a `tokens.css`, a tailwind config with brand values, a logo, brand colours mentioned in `README`, a marketing screenshot.
-- Check for an existing `.hallmark/log.json` — if it has prior runs, read the most recent stamp; if all those entries are different macrostructures / themes, it confirms the user's complaint.
+- Check for an existing `.reskin/log.json` — if it has prior runs, read the most recent stamp; if all those entries are different macrostructures / themes, it confirms the user's complaint.
 
 ### 2. Produce `design.md` at the project root
 
@@ -214,12 +231,12 @@ For each target page:
 - Pick the macrostructure from the family declared in `design.md` for this page's type (marketing / app / content). Within the family, you may vary archetypes — but only those `design.md` allows.
 - Apply the locked theme. Do **not** swap to a different theme to "add variety". The variety lives in macrostructure / archetype choice, not theme.
 - Apply the locked typography, spacing, motion, microinteractions stance.
-- Stamp every page's CSS with: `/* Hallmark · genre: <genre> · macrostructure: <name> · design-system: design.md · designed-as-app */`. The `designed-as-app` flag tells future Hallmark runs to read `design.md`, not invent a new system.
-- Write a single combined `.hallmark/log.json` entry for the multi-page redesign, with `"scope": "app"` instead of one entry per page.
+- Stamp every page's CSS with: `/* Reskin · genre: <genre> · macrostructure: <name> · design-system: design.md · designed-as-app */`. The `designed-as-app` flag tells future Reskin runs to read `design.md`, not invent a new system.
+- Write a single combined `.reskin/log.json` entry for the multi-page redesign, with `"scope": "app"` instead of one entry per page.
 
 ### 4. Diversification rule — INVERTED for multi-page
 
-Across pages of the same app, the diversification rule is *inverted*: consecutive pages MUST share theme, accent, type pairing. They may differ on macrostructure within the family. The 55 slop-test gates that check "differs from previous Hallmark run" are skipped for `designed-as-app` outputs — the system overrides the catalog rotation here.
+Across pages of the same app, the diversification rule is *inverted*: consecutive pages MUST share theme, accent, type pairing. They may differ on macrostructure within the family. The 55 slop-test gates that check "differs from previous Reskin run" are skipped for `designed-as-app` outputs — the system overrides the catalog rotation here.
 
 Pages that drift from `design.md` are slop. The audit verb flags `design.md` drift as a critical structural finding (`stamp-vs-design.md disagreement`).
 
@@ -231,7 +248,9 @@ If a page genuinely needs something `design.md` doesn't allow (e.g. a marketing 
 
 ## § Single-page flow
 
-(The classic redesign behaviour — unchanged.)
+(The classic redesign behaviour — plus comprehension when wired-up.)
+
+**Comprehension gate.** If the project is wired-up (`package.json` + `src/` / `app/` / `components/`), the comprehension pass (§ above) must finish and the user must confirm `.reskin/understanding.md` before you redesign — even when only one page file is in scope. Shared nav, layout, and data hooks still matter.
 
 **What to preserve:**
 - The copy intent, factual claims, product names, and primary message. Preserve exact wording only when it already lives in the target UI or the user explicitly asks for verbatim copy.
@@ -248,12 +267,12 @@ If a page genuinely needs something `design.md` doesn't allow (e.g. a marketing 
 
 **What not to replace without confirmation:**
 - Route trees, production component directories, or the old website's file structure.
-- Working app logic, data fetching, auth, forms, analytics, or integration code.
+- Working app logic, data fetching, auth, forms, analytics, or integration code — especially every **data-bound component** and every path in `comprehension.protectedPaths` / `.reskin/understanding.md` §4.
 - Existing copy with pasted text from PDFs, docs, or markdown files unless the user requested verbatim copy.
 
 **Optional `--mood <name>` argument:**
 
-If the user specifies a mood (`hallmark redesign ./hero.tsx --mood luxury`), pick a tone aligned to that mood and let it drive the structural fingerprint. Mood names map to tones from [`typography.md`](../typography.md) and [`structure.md`](../structure.md). If no mood is given, ask the user what *feeling* they want — one word — and proceed.
+If the user specifies a mood (`reskin redesign ./hero.tsx --mood luxury`), pick a tone aligned to that mood and let it drive the structural fingerprint. Mood names map to tones from [`typography.md`](../typography.md) and [`structure.md`](../structure.md). If no mood is given, ask the user what *feeling* they want — one word — and proceed.
 
 **Genre escape hatch.** If the user explicitly asks for a *kind* of design that the current genre doesn't fit (e.g. "redesign this editorial page as a modern SaaS hero"), switch genre too. Load [`genres/<new-genre>.md`](../genres/) and apply its rule overlay. Stamp the new genre into the output so future runs respect it.
 

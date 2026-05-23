@@ -4,7 +4,7 @@ Thirty-six component archetypes you can compose into any macrostructure. Every e
 
 The same macrostructure (e.g., Bento Grid) can be built from many different combinations of these archetypes. The macrostructure picks the *page shape*; this file picks the *components inside it*.
 
-**Diversification rule:** within a single page, no two sections should use the same archetype. A Bento Grid might pair *Bento feature block* with *Inline form CTA* with *Logo wall (hairline)*. The next page Hallmark builds should pick different archetypes from the same categories.
+**Diversification rule:** within a single page, no two sections should use the same archetype. A Bento Grid might pair *Bento feature block* with *Inline form CTA* with *Logo wall (hairline)*. The next page Reskin builds should pick different archetypes from the same categories.
 
 ---
 
@@ -91,7 +91,7 @@ Picking an archetype is the first axis of variety. The second is *how you build 
 When you pick an archetype, **state the knob values you chose** in the macrostructure stamp comment, e.g.:
 
 ```css
-/* Hallmark · macrostructure: Bento Grid · F1 Bento knobs: tiles=6, spans=irregular, accent=corner-only · ... */
+/* Reskin · macrostructure: Bento Grid · F1 Bento knobs: tiles=6, spans=irregular, accent=corner-only · ... */
 ```
 
 | Archetype | Knob A | Knob B | Knob C |
@@ -153,7 +153,7 @@ When you pick an archetype, **state the knob values you chose** in the macrostru
 | terminal | **Ft4 Dense colophon** | Ft2 |
 | docs / reference | **Ft3 Index columns** | Ft1 |
 
-**Diversification.** Same rule as nav — across consecutive Hallmark runs in the same session, no two outputs should share the same footer archetype.
+**Diversification.** Same rule as nav — across consecutive Reskin runs in the same session, no two outputs should share the same footer archetype.
 
 **Default away from Ft3.** The 4-column index footer is the AI fingerprint when used reflexively (Product · Company · Resources · Legal + social row + tiny copyright). Reach for Ft3 only when the page is a hub or docs-root with a genuine sitemap; default to Ft1, Ft2, Ft4, Ft5, Ft6, Ft7, or Ft8 otherwise.
 
@@ -171,7 +171,7 @@ When you pick an archetype, **state the knob values you chose** in the macrostru
 | terminal / CLI (Terminal) | **N8 Terminal command** | N4 ⌘K-only |
 | docs / reference (Almanac) | **N3 Side-rail** | N1, N4 |
 
-**Diversification.** Across consecutive Hallmark runs in the same project session, no two outputs should share the same nav archetype — even when they share a genre. If the previous run used N5 on a modern-minimal page, the next modern-minimal page picks N1 or N9 from the routing table's "also" column.
+**Diversification.** Across consecutive Reskin runs in the same project session, no two outputs should share the same nav archetype — even when they share a genre. If the previous run used N5 on a modern-minimal page, the next modern-minimal page picks N1 or N9 from the routing table's "also" column.
 
 **Default away from N1.** The most-recognised AI fingerprint is N1 (wordmark + inline link row + button-right) used reflexively. Reach for N5–N9 first; reach for N1 only when the page genuinely has only 2 destinations *and* the genre's routing table allows it.
 
@@ -188,7 +188,7 @@ When building a section:
 4. Make sure no two sections in the same page use the same archetype.
 5. If the macrostructure suggests a default (e.g., Bento Grid → F1 Bento), use it; if it doesn't suggest, vary deliberately.
 
-The goal is composed variety — within a page, sections feel different from each other; across pages Hallmark builds, sections feel different from the last.
+The goal is composed variety — within a page, sections feel different from each other; across pages Reskin builds, sections feel different from the last.
 
 ---
 

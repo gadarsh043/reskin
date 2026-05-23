@@ -1,6 +1,6 @@
 # design.md — opt-in portable design system
 
-Loaded by [`SKILL.md`](../SKILL.md) Step 6 ONLY when the user explicitly asks Hallmark to lock the current build's design system into a portable file. The default verb does NOT auto-emit `design.md`. The user iterates freely until they say the system is settled, then asks for it.
+Loaded by [`SKILL.md`](../SKILL.md) Step 6 ONLY when the user explicitly asks Reskin to lock the current build's design system into a portable file. The default verb does NOT auto-emit `design.md`. The user iterates freely until they say the system is settled, then asks for it.
 
 This file is **also** loaded by [`study.md`](study.md) when the user — after a successful `study` diagnosis — asks for the DNA to be emitted as a portable system. The format below is shared between the two paths; the only differences are spelled out in § Two emission paths (default vs study) and in [`study.md`](study.md) § Emitting a `design.md` from `study`.
 
@@ -28,12 +28,12 @@ The same `design.md` format is emitted from two different entry points. They dif
 | **`## Provenance` block** | Omitted (the system is the user's own work) | Required — records source mode, URL or "image", date, attestation answer, confidence note |
 | **`## Notes` block** | Optional — covers any decisions worth remembering | Required — carries the diagnosis's "anti-patterns to NOT carry over" list |
 
-Both paths produce a `design.md` Hallmark can read on subsequent runs; the file format is uniform once written.
+Both paths produce a `design.md` Reskin can read on subsequent runs; the file format is uniform once written.
 
 ## Scope
 
 - **Page-builds only.** Skip on component-scope — a single component is too small to be a system.
-- **Multi-page redesign keeps existing behaviour.** `hallmark redesign --multi-page` produces the heavyweight `design.md` per [`verbs/redesign.md`](verbs/redesign.md) § Multi-page flow. That flow already implies a locked system, so the rule there is unchanged.
+- **Multi-page redesign keeps existing behaviour.** `reskin redesign --multi-page` produces the heavyweight `design.md` per [`verbs/redesign.md`](verbs/redesign.md) § Multi-page flow. That flow already implies a locked system, so the rule there is unchanged.
 - **No-overwrite policy.** If `design.md` already exists at the project root, do NOT overwrite. Refresh its `## Exports` section instead and emit one line: *"design.md detected — refreshed Exports, system unchanged."*
 
 ## CTA — surface the offer in the Step 5 preview
@@ -51,7 +51,7 @@ Write the file at the project root. Match the project's case convention (`design
 ````markdown
 # Design — <Project name>
 
-Locked design system. Future Hallmark runs read this file first; pages defer
+Locked design system. Future Reskin runs read this file first; pages defer
 to it. Amend intentionally — the file is the rule.
 
 ## System
@@ -97,7 +97,7 @@ to it. Amend intentionally — the file is the rule.
 ## Exports
 `tokens.css` (in this project) is the source of truth. For Tailwind v4
 `@theme`, DTCG `tokens.json`, or shadcn/ui CSS variables, ask *"extend
-design.md with Tailwind exports"* (or the format you want) — Hallmark will
+design.md with Tailwind exports"* (or the format you want) — Reskin will
 append them per [`export-formats.md`](export-formats.md).
 ````
 
@@ -107,7 +107,7 @@ State the picks aloud BEFORE writing the file. *"Genre: editorial. Macrostructur
 
 Once `design.md` exists, [`SKILL.md`](../SKILL.md) Step 0's pre-flight scan detects it on every subsequent run. From that point on:
 
-- All future Hallmark runs READ `design.md` first; subsequent picks (genre / theme / typography / motion / CTA voice) defer to it.
+- All future Reskin runs READ `design.md` first; subsequent picks (genre / theme / typography / motion / CTA voice) defer to it.
 - The diversification rule INVERTS — pages must SHARE the system, not differ from each other.
 - If a future page genuinely needs a different system, AMEND `design.md` with a `## Variants` section rather than overriding locally — the file evolves; per-page overrides do not.
 

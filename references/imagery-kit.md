@@ -1,9 +1,9 @@
 # Imagery kit — curated abstract assets, hosted, ready
 
-A small set of pre-generated abstract / decorative imagery that any Hallmark output can pull from when a brief allows non-photographic imagery. The kit lives at:
+A small set of pre-generated abstract / decorative imagery that any Reskin output can pull from when a brief allows non-photographic imagery. The kit lives at:
 
 ```
-https://www.usehallmark.com/imagery/<category>/<file>
+<your-repo-url>imagery/<category>/<file>
 ```
 
 The skill doesn't ship the binaries — it ships the manifest. References are absolute URLs. If the asset is missing (404), the skill falls back to source canon #2 in [`assets.md` § Placeholder strategy](assets.md) (hand-built SVG) without erroring.
@@ -29,7 +29,7 @@ The skill doesn't ship the binaries — it ships the manifest. References are ab
 
 ## Manifest (placeholder until generation pass ships)
 
-When images land in `site/public/imagery/<category>/`, list them here as a key/value catalogue:
+When images land in `public/imagery/<category>/`, list them here as a key/value catalogue:
 
 ```
 watercolor-warm-01.webp     1600×900   warm orange · cream paper      hero half-flood, atmospheric
@@ -87,7 +87,7 @@ A watercolor file as a full-bleed section accent. One section per page, never gl
   content: "";
   position: absolute;
   inset: 0;
-  background: url("https://www.usehallmark.com/imagery/watercolor/watercolor-warm-01.webp") center / cover no-repeat;
+  background: url("<your-repo-url>imagery/watercolor/watercolor-warm-01.webp") center / cover no-repeat;
   opacity: 0.6;
   z-index: -1;
   pointer-events: none;
@@ -152,7 +152,7 @@ Generic silhouette in unfilled data slots, greyscale-tinted, with a "Replace wit
 The kit is generated once per palette family, post-processed, and committed to the marketing site's public folder:
 
 ```
-site/public/imagery/
+public/imagery/
   ├── watercolor/        ~6 files × 4 palette families = 24 WebPs
   ├── transparent/       ~6 files × 4 palette families = 24 PNGs
   ├── ornament/          ~8 SVGs (palette-agnostic, use currentColor)
@@ -163,7 +163,7 @@ site/public/imagery/
 
 **Tooling.** Nanobanana 2 / Recraft V4 with reference images. Prompt seed-list per category lives at the top of each file's directory in a `prompts.md` (one-line prompts, results pinned by seed for reproducibility).
 
-**Post-processing.** Trim, transparent-background where applicable, colour-balance against Hallmark's OKLCH palette tokens, save as WebP for size + PNG where alpha matters. Ornaments as inline SVG so they inherit `currentColor`.
+**Post-processing.** Trim, transparent-background where applicable, colour-balance against Reskin's OKLCH palette tokens, save as WebP for size + PNG where alpha matters. Ornaments as inline SVG so they inherit `currentColor`.
 
 **Total target weight.** ≤ 5 MB across all categories. Each individual file ≤ 200 KB. Lossy WebP at q=80 unless the image needs lossless (ornaments → SVG; transparents → PNG with `pngquant`).
 

@@ -1,8 +1,8 @@
-# `hallmark study` — three worked examples
+# `reskin study` — three worked examples
 
 How `study` reads a screenshot the user admires, returns a diagnosis, and (optionally) rebuilds the user's content with the extracted DNA. Each worked example below shows: what the user pasted · what the skill names · what it refuses to do · what it produces.
 
-The whole point of `study`: extract **structural DNA** (macrostructure + archetypes + type-pairing role + colour anchor + rhythm), **never pixels**. If the user wants a 1:1 copy, they want a different tool. Hallmark hands them a diagnosis and lets them keep the bones.
+The whole point of `study`: extract **structural DNA** (macrostructure + archetypes + type-pairing role + colour anchor + rhythm), **never pixels**. If the user wants a 1:1 copy, they want a different tool. Reskin hands them a diagnosis and lets them keep the bones.
 
 ---
 
@@ -47,7 +47,7 @@ Public reference for inspiration → proceed. (Refusal heuristics fire on: paid-
 
 Macrostructure stamp:
 ```css
-/* Hallmark · macrostructure: Specimen · H4 hero knobs: number-column=margin, alignment=left-bias
+/* Reskin · macrostructure: Specimen · H4 hero knobs: number-column=margin, alignment=left-bias
  * theme: Specimen · accent: warm-orange ~3% · enrichment: none
  * studied: yes · DNA-source: user reference · paid-fonts: not confirmed (free pairing applied)
  */
@@ -98,7 +98,7 @@ Type specimens are typically published references; proceed. (If the screenshot w
 
 Macrostructure stamp:
 ```css
-/* Hallmark · macrostructure: Type Specimen · H9 hero knobs: glyph=user-mark, tilt=-2deg, grid=1px-soft
+/* Reskin · macrostructure: Type Specimen · H9 hero knobs: glyph=user-mark, tilt=-2deg, grid=1px-soft
  * theme: Manifesto · accent: hot-orange ~3% · enrichment: none
  * studied: yes · DNA-source: user reference · paid-fonts: not confirmed (Bricolage 800 free)
  */
@@ -156,7 +156,7 @@ User confirms: public reference for inspiration → proceed with DNA extraction 
 
 Macrostructure stamp:
 ```css
-/* Hallmark · macrostructure: Long Document · H5 hero knobs: demo=centered, size=24rem
+/* Reskin · macrostructure: Long Document · H5 hero knobs: demo=centered, size=24rem
  * theme: Midnight · accent: forest-green ~3% · enrichment: Tier-A custom-craft (user-supplied recipe)
  * studied: yes · DNA-source: user reference · with reduced-motion fallback
  */

@@ -1,7 +1,7 @@
 {
-  "name": "hallmark",
+  "name": "@adarshgella/reskin",
   "version": "1.0.0",
-  "description": "A design skill for AI coding assistants. Makes the UIs they generate look made, not generated. Powered by Together AI.",
+  "description": "A design skill for AI coding assistants. Makes the UIs they generate look made, not generated.",
   "keywords": [
     "claude",
     "claude-code",
@@ -12,8 +12,7 @@
     "ui",
     "anti-ai-slop",
     "typography",
-    "oklch",
-    "together-ai"
+    "oklch"
   ],
   "license": "MIT",
   "type": "module",
@@ -29,8 +28,5 @@
       "cursor",
       "codex"
     ]
-  },
-  "scripts": {
-    "serve": "python3 -m http.server --directory site 4173"
   }
 }

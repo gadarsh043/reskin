@@ -10,7 +10,7 @@
 *.swo
 *~
 
-# Node (in case future tooling lands)
+# Node
 node_modules/
 npm-debug.log*
 yarn-debug.log*
@@ -22,7 +22,6 @@ dist/
 build/
 .cache/
 *.log
-.vercel
 
 # Environment + secrets
 .env
@@ -32,14 +31,12 @@ build/
 # Generation pipeline artifacts (raw outputs before commit)
 .image-cache/
 
-# Runtime state from Hallmark's own runs (per-project log, never publish)
-.hallmark/
+# Reskin runtime state (written in projects where the skill runs — do not commit)
+#   .reskin/preflight.json      — design-token scan + comprehension cache
+#   .reskin/understanding.md    — Site Understanding report (user-reviewed)
+#   .reskin/log.json            — macrostructure / theme rotation history
+.reskin/
 
-# `skills` CLI install lockfile — generated whenever 'skills add' runs in this
-# directory, not part of the skill source.
+# `skills` CLI install lockfile — generated when `skills add` runs in this directory
 skills-lock.json
 .agents/
-
-# Launch-day Hallmark vs Impeccable vs no-skills comparison — one-off artifact,
-# not referenced from the marketing site or README. Kept locally if useful.
-site/_launch-comparison/

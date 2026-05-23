@@ -1,6 +1,6 @@
 # Structure
 
-Most AI-generated UIs are visually distinct but structurally identical: hero → three features → CTA → footer. Same heading positions, same column counts, same component vocabulary. **Structural sameness is the AI fingerprint, not visual sameness.** Hallmark's job is to break it.
+Most AI-generated UIs are visually distinct but structurally identical: hero → three features → CTA → footer. Same heading positions, same column counts, same component vocabulary. **Structural sameness is the AI fingerprint, not visual sameness.** Reskin's job is to break it.
 
 This file catalogues the **primitive axes** of structural variety. For most builds you should NOT compose a fingerprint axis-by-axis from this file — instead pick a named whole-page shape from [`macrostructures.md`](macrostructures.md), which is faster and prevents default-attractor sameness. Use this file when you need to deviate from a macrostructure's defaults on one or two axes, or when you're auditing an existing page and need vocabulary for what you see.
 
@@ -41,7 +41,7 @@ How does long-form content lay out beyond "single column at 65ch"?
 
 How do sections separate?
 
-- **Hairline rule.** 0.5–1px line, inset or full-bleed. Hallmark's default; modernist.
+- **Hairline rule.** 0.5–1px line, inset or full-bleed. Reskin's default; modernist.
 - **Ornament.** Fleuron (`❦`), centered dot, geometric mark. Salon, editorial classic.
 - **Negative space.** No rule at all — the gap *is* the divider. Apple, Linen, modern minimalism.
 - **Bleed-color block.** Section background colour shifts; the colour edge is the divider. Manifesto, Brutal.
@@ -51,7 +51,7 @@ How do sections separate?
 
 How do CTAs happen?
 
-- **Outlined.** Border, no fill. Secondary or quiet primary. Hallmark default.
+- **Outlined.** Border, no fill. Secondary or quiet primary. Reskin default.
 - **Unstyled link.** Underlined word, no box. Trust the typography. Editorial / craft sites.
 - **Oversized solid.** Big block of accent colour, full padding. Manifesto, Sport, statement-CTA.
 - **Typographic-only.** A word in a specific weight/size/colour, no rule, no box. Looks like a headline that happens to be clickable. Atelier, Salon.
@@ -89,7 +89,7 @@ Two rules govern choices:
 
 ## Theme-suggested fingerprints
 
-Each Hallmark theme has a default structural fingerprint. Use them as starting points only when the brief specifies a theme. **For most builds, pick a macrostructure from [`macrostructures.md`](macrostructures.md) instead** — themes describe *visual surface*, macrostructures describe *page shape*; the latter drives variety more.
+Each Reskin theme has a default structural fingerprint. Use them as starting points only when the brief specifies a theme. **For most builds, pick a macrostructure from [`macrostructures.md`](macrostructures.md) instead** — themes describe *visual surface*, macrostructures describe *page shape*; the latter drives variety more.
 
 The table below is alphabetical by theme to neutralise any "first row = default" attractor. No theme is the default. The **Nav** and **Footer** columns name the default archetype from [`component-cookbook.md`](component-cookbook.md); the routing tables in that file list the acceptable alternates.
 
@@ -157,7 +157,7 @@ If you can't infer the domain, ask one question — "what does this thing do?" �
 
 **Note on splits.** Some domains split on intent. *Developer-tool docs* and *developer-tool marketing* both have "developer" in them, but the docs page wants a Workbench walkthrough; the marketing page wants Bento Grid + Stat-Led so the SRE can read the value prop in 30 seconds. Same for *personal*: a one-pager about-me and a multi-project portfolio of case studies are *different briefs* — the one-pager wants prose (Long Doc / Letter); the portfolio wants Portfolio Grid / Split Studio. If the brief is ambiguous, **ask one question** to disambiguate ("docs walkthrough or marketing landing?", "one-pager or case studies?") before picking the trio.
 
-If the user shrugs and says "you pick", read the project's CSS for a `/* Hallmark · macrostructure: ... */` stamp; whichever of the trio is most categorically distant from the stamped family is the right pick. Two consecutive outputs should never be from the same family — never two editorial macrostructures, never two grid-led macrostructures.
+If the user shrugs and says "you pick", read the project's CSS for a `/* Reskin · macrostructure: ... */` stamp; whichever of the trio is most categorically distant from the stamped family is the right pick. Two consecutive outputs should never be from the same family — never two editorial macrostructures, never two grid-led macrostructures.
 
 If the user answers a vague tone word ("modern", "clean", "professional"), that is not a feeling. Re-ask with the domain trio.
 

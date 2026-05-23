@@ -6,7 +6,7 @@ The Specimen macrostructure (left-margin numbered labels + huge serif + asymmetr
 
 ## Diversification rule (mandatory)
 
-Before picking, check the target codebase for a `/* Hallmark · macrostructure: <name> · ... */` comment in any existing CSS file. If you find one, **your pick must be a different macrostructure.** No two consecutive Hallmark outputs in the same project share a macrostructure.
+Before picking, check the target codebase for a `/* Reskin · macrostructure: <name> · ... */` comment in any existing CSS file. If you find one, **your pick must be a different macrostructure.** No two consecutive Reskin outputs in the same project share a macrostructure.
 
 When the brief is vague (no theme, no tone), pick from the *first ten* below before reaching for anything in 11–21. The first ten are deliberately the strongest non-Specimen shapes; they cover ~80% of briefs.
 
@@ -24,7 +24,7 @@ Each macrostructure also implies a **nav archetype** (N1–N9) and a **footer ar
 
 ## The 21 macrostructures — index
 
-**Pick one. Then read ONLY that one file** from `references/macrostructures/`. Do not load the whole catalogue. Slugs are stable; the diversification rule reads the `<name>` from the `/* Hallmark · macrostructure: <name> · ... */` stamp.
+**Pick one. Then read ONLY that one file** from `references/macrostructures/`. Do not load the whole catalogue. Slugs are stable; the diversification rule reads the `<name>` from the `/* Reskin · macrostructure: <name> · ... */` stamp.
 
 - **01 · Bento Grid** — Modular blocks of varying sizes laid out as an irregular grid. Each block is a feature, a quote, an image, a stat. Visual rhythm comes from size variation, not card uniformity. [`macrostructures/01-bento-grid.md`](macrostructures/01-bento-grid.md)
 - **02 · Long Document** — Reads like a memo, a letter, or a journal entry. No marketing structure. Continuous prose with inline section heads. The page is *literature* about the product. [`macrostructures/02-long-document.md`](macrostructures/02-long-document.md)
@@ -81,9 +81,9 @@ For non-SaaS work (Editorial, Manifesto, Letter, Long Document, Quote-Led), this
 ## How to pick
 
 1. **Read the brief.** Note any words that strongly signal one macrostructure ("data heavy", "tell a story", "a list of links", "many small features", "personal note").
-2. **Check the codebase** for an existing `/* Hallmark · macrostructure: <name> · ... */` stamp. If found, exclude that name from your choices.
+2. **Check the codebase** for an existing `/* Reskin · macrostructure: <name> · ... */` stamp. If found, exclude that name from your choices.
 3. **Match brief energy to a macrostructure** using the "Reach for it" lines. Most briefs match 2–4 of these patterns; pick the one that's most categorically distant from any past output for this user.
 4. **State your pick** in plain text *before* writing code: "Macrostructure: Bento Grid." Then write the code, opening the CSS with the required stamp.
 5. If genuinely torn, offer the user three choices from *different categories* (e.g. Bento + Long Document + Manifesto) and let them pick.
 
-The goal is not novelty for its own sake. The goal is that two pages Hallmark builds for two different briefs *look like different sites, not different colour-swaps of the same template*.
+The goal is not novelty for its own sake. The goal is that two pages Reskin builds for two different briefs *look like different sites, not different colour-swaps of the same template*.

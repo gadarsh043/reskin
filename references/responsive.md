@@ -4,7 +4,7 @@ Mobile-first. Content-driven breakpoints. No desktop-only interactions.
 
 ## Mobile — non-negotiable
 
-Every Hallmark output must render flawlessly at **320 px, 375 px, 414 px, and 768 px** CSS-pixel widths. Eyeball each viewport before marking the output complete:
+Every Reskin output must render flawlessly at **320 px, 375 px, 414 px, and 768 px** CSS-pixel widths. Eyeball each viewport before marking the output complete:
 
 - No horizontal scroll (slop-test gate 36)
 - No clickable text wrapping to two lines (gate 59)

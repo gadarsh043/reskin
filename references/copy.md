@@ -79,7 +79,7 @@ Three voice patterns: *date-anchored*, *refusal of the verb*, *enumerative*.
 - *"Frieze elevates the provocative and brilliant leading voices who shape and challenge today's art world."* — frieze.com — uses *challenge* instead of *empower*
 - *"We design everything for everyone."* — pentagram.com — refusal of marketing verbs; democratic claim
 - *"Writer + Photographer."* — craigmod.com — three words, two roles, no padding
-- *"Type, set with care."* — Hallmark Specimen — three words; the comma is the design
+- *"Type, set with care."* — Reskin Specimen — three words; the comma is the design
 - *"I'm a French design technologist based in London. I make websites and fonts, amongst other physical and digital artefacts."* — mathieutriay.com — named place, named deliverables, "artefacts" signals craft
 
 ### Brutalist
@@ -89,10 +89,10 @@ Three voice patterns: *flat declarative*, *refusal of metaphor*, *direct address
 - *"The product development system for teams and agents."* — linear.app — flat declarative; no flourish, no "powered by AI"
 - *"Resend is the email API for developers. Send transactional and marketing emails at scale with a simple, modern API."* — resend.com — names the form factor, the audience, and what it does
 - *"Purpose-built for planning and building products. Designed for the AI era."* — linear.app — names the era plainly, no euphemism
-- *"WE ARE A STUDIO. WE ARE NOT A PLATFORM."* — Hallmark Meridian (test 04) — defines by refusal, all caps
+- *"WE ARE A STUDIO. WE ARE NOT A PLATFORM."* — Reskin Meridian (test 04) — defines by refusal, all caps
 - *"We design products that last twelve years. We do not design products that need replacing every two."* — concrete number, paired declaration
 - *"A toolkit for assembling new worlds from the scraps of the old."* — are.na — second-position copy that breaks template
-- *"NO COMPROMISE."* — Hallmark Brutal — two words; the period is the design
+- *"NO COMPROMISE."* — Reskin Brutal — two words; the period is the design
 - *"We will not put our work behind a chatbot. We will answer the email ourselves."* — declarative refusal, two short sentences
 
 ### Soft
@@ -105,7 +105,7 @@ Three voice patterns: *poetic restraint*, *passion via enumeration*, *vulnerabil
 - *"Design engineer creating software that makes people feel something."* — rauno.me — emotional outcome over feature list; "feel something" avoids genre cliché
 - *"All I want to do is build websites. Typography, motion design, copywriting, performance — the web is an endless medium of opportunity."* — paco.me — passion via enumeration; vulnerability ("scratched the surface")
 - *"I craft UI demos that explore the power of the web and help others sharpen their skills."* — jhey.dev — names the verb (*craft*), names the audience (*others*)
-- *"Soft, but exact."* — Hallmark Plume — two short adjectives, one comma, full stop
+- *"Soft, but exact."* — Reskin Plume — two short adjectives, one comma, full stop
 - *"This page is soft because the surface should be soft. The rules underneath are not."* — pairs claim with refusal
 
 ### Technical
@@ -127,12 +127,12 @@ Three voice patterns: *heritage with specifics*, *refusal as sophistication*, *n
 
 - *"The world's most acclaimed creative collective, where 23 partners work independently and collaboratively to shape the future of design."* — pentagram.com — heritage (implied longevity), named scale (23 partners)
 - *"By appointment."* — atelier-style — refusal as gatekeeping
-- *"A salon for the senses."* — Hallmark Salon — single nominal phrase, comma-free
-- *"A page should arrive like a person — composed, deliberate, in good clothes."* — Hallmark Salon — analogy treats the page as social
-- *"With pleasure, you are most welcome."* — Hallmark Salon salutation — formal address
-- *"Restraint, repeated, becomes a signature."* — Hallmark Atelier — three commas, four words, philosophical
+- *"A salon for the senses."* — Reskin Salon — single nominal phrase, comma-free
+- *"A page should arrive like a person — composed, deliberate, in good clothes."* — Reskin Salon — analogy treats the page as social
+- *"With pleasure, you are most welcome."* — Reskin Salon salutation — formal address
+- *"Restraint, repeated, becomes a signature."* — Reskin Atelier — three commas, four words, philosophical
 - *"A studied hand."* — three words; the determiner does the work
-- *"A small, opinionated craftsmanship engine that argues with your AI assistant on your behalf — and wins."* — Hallmark Atelier — names the role precisely, embraces the conflict
+- *"A small, opinionated craftsmanship engine that argues with your AI assistant on your behalf — and wins."* — Reskin Atelier — names the role precisely, embraces the conflict
 
 ### Playful
 
@@ -142,21 +142,21 @@ Three voice patterns: *analogy via pop-culture*, *food/sensory metaphor*, *antic
 - *"Internet memory palace."* — are.na — three-word noun phrase, structural metaphor
 - *"Devouring details. Nourishing novelty. Deploying excellence."* — rauno.me — alliteration; food + tech metaphor
 - *"The kind that make you say, 'Wait, how did you do that?'"* — jhey.dev — direct address, anticipates the reader's reaction
-- *"Built to ship."* — Hallmark Sport — three words, declarative, with a verb that's a verb
-- *"Ready? You are two minutes from shipping."* — Hallmark Sport — a question, then a number
-- *"design like print: warm, off-register, intentional."* — Hallmark Riso — lowercase + colon + three modifiers
+- *"Built to ship."* — Reskin Sport — three words, declarative, with a verb that's a verb
+- *"Ready? You are two minutes from shipping."* — Reskin Sport — a question, then a number
+- *"design like print: warm, off-register, intentional."* — Reskin Riso — lowercase + colon + three modifiers
 - *"this is not a page that pretends to be paper. it is a page that remembers paper."* — Riso — refuses the imitation framing
 
 ### Austere
 
 Three voice patterns: *extreme abbreviation*, *principle as opening*, *refusal of marketing language*.
 
-- *"Hello."* — Hallmark Quiet salutation — one word; the period is the design
+- *"Hello."* — Reskin Quiet salutation — one word; the period is the design
 - *"This is a page that doesn't try."* — Quiet — declares the position openly
 - *"Things Become Other Things."* — craigmod.com — three words; treats brand as essay title
 - *"Lightness above weightiness, elevate everyone you encounter."* — craigmod.com — principle-first positioning
-- *"A quiet skill."* — Hallmark Quiet — three words; the article is doing work
-- *"Software can be soft and exact at once. That's the trick."* — Hallmark Plume — names the contradiction, names the resolution
+- *"A quiet skill."* — Reskin Quiet — three words; the article is doing work
+- *"Software can be soft and exact at once. That's the trick."* — Reskin Plume — names the contradiction, names the resolution
 - *"One HTML file."* — Anya (test 06) footer — three words; the count is the boast
 - *"This page doesn't move."* — names the design decision openly
 

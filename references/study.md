@@ -1,6 +1,6 @@
 # Study — extracting design DNA from a screenshot or URL
 
-This file is loaded when the `hallmark study` verb runs. It defines the protocol for reading a reference the user supplied — either a screenshot they attached or a URL to a live page — naming what makes it work, and producing a *diagnosis report* the user can accept or amend before any code is built.
+This file is loaded when the `reskin study` verb runs. It defines the protocol for reading a reference the user supplied — either a screenshot they attached or a URL to a live page — naming what makes it work, and producing a *diagnosis report* the user can accept or amend before any code is built.
 
 **The promise.** `study` extracts the **DNA** of a design — its macrostructure, its component archetypes, its type-pairing, its colour anchor, its rhythm — and lets the user apply that DNA to their own content. It does not copy pixels. It does not output a façade of the source.
 
@@ -22,7 +22,7 @@ The two modes share the schema, the refusal heuristics, and the diagnosis-report
 | 4 Motion | usually "not visible — assuming default reveals" | observable — read from `<script src>` tags (framer-motion, gsap, lottie-web, lenis, motion) and CSS `@keyframes` / `transition` declarations |
 | 5 Rhythm | observable directly from the visual gestalt | **not observable** — HTML alone can't tell you density / asymmetry / pacing. Mark this as a known blind spot in the diagnosis. |
 
-URL mode trades the rhythm pass for everything else getting more accurate. If rhythm is what the user wants extracted, they should attach a screenshot instead — or alongside the URL, but Hallmark still defaults to one source at a time (see the "One screenshot, one diagnosis" rule in § Limits).
+URL mode trades the rhythm pass for everything else getting more accurate. If rhythm is what the user wants extracted, they should attach a screenshot instead — or alongside the URL, but Reskin still defaults to one source at a time (see the "One screenshot, one diagnosis" rule in § Limits).
 
 ### URL mode — fetch pipeline
 
@@ -78,7 +78,7 @@ Run this check **before** extracting anything. If any of the following is true, 
 
 | If the screenshot is… | Then… |
 | --- | --- |
-| A paid template marketplace listing (ThemeForest, Gumroad templates, Webflow templates, Framer templates, Notion templates) | Refuse. Suggest: "Tell me what you like about it and I'll build with `hallmark default` instead." |
+| A paid template marketplace listing (ThemeForest, Gumroad templates, Webflow templates, Framer templates, Notion templates) | Refuse. Suggest: "Tell me what you like about it and I'll build with `reskin default` instead." |
 | A famous designer's signature work (Pentagram project pages, Klim foundry specimens, Mathieu Triay's portfolio, etc.) being treated as a template | Soft-refuse. Acknowledge the source by name, extract DNA only, and refuse to copy distinctive choices that read as that designer's signature. |
 | Copyrighted artwork, photography, or illustrations as the design's centerpiece | Refuse to reproduce the artwork. The DNA can still be extracted (the *fact* that the page uses one big image as its hero is structural; the specific image is not). |
 | A user's own previous work | Proceed. |
@@ -93,7 +93,7 @@ In URL mode, run this **before** WebFetch fires — don't even fetch the page. I
 
 | If the URL host / path is… | Then… |
 | --- | --- |
-| `themeforest.net/*`, `templatemonster.com/*`, `themely.com/*` (paid template marketplaces) | Refuse. *"This looks like a template marketplace listing. I won't study it. Tell me what about it you like and I'll build with `hallmark default` instead."* |
+| `themeforest.net/*`, `templatemonster.com/*`, `themely.com/*` (paid template marketplaces) | Refuse. *"This looks like a template marketplace listing. I won't study it. Tell me what about it you like and I'll build with `reskin default` instead."* |
 | `framer.com/templates/*`, `*.framer.website` (Framer marketplace + template demos), `webflow.com/templates/*` (Webflow templates) | Refuse same as above — these are the marketplace ecosystem by another name. |
 | `gumroad.com/*` where the page is selling a UI kit or template (heuristic: `og:type=product` plus *template*, *UI kit*, *starter*, *bundle* in the title) | Refuse. |
 | `dribbble.com/shots/*`, `behance.net/gallery/*` (designer presentation work) | Soft-refuse. *"These are individual designers' presentation pieces — I'll extract DNA only, not reproduce signature choices. If a specific designer's voice resonates, tell me what about it does."* |
@@ -244,7 +244,7 @@ Every field is required (no nulls except where the schema explicitly notes a mod
 
 ## Theme mapping
 
-After the schema is filled, map the source to one of Hallmark's named themes — but **only as a candidate**. The user may pick a different theme for their build.
+After the schema is filled, map the source to one of Reskin's named themes — but **only as a candidate**. The user may pick a different theme for their build.
 
 | If the schema looks like… | Suggest theme |
 | --- | --- |
@@ -263,7 +263,7 @@ After the schema is filled, map the source to one of Hallmark's named themes —
 | `display: ornamental script`, `paper: cream`, `density: medium-generous` | **Garden** |
 | Anything else | **Specimen** *(only if the brief is editorial)* — otherwise propose one of the eight that's closest by *paper hue + display role*, and note the mismatch. |
 
-If two themes are equally close, pick whichever is more *categorically distant* from any previous Hallmark output for this user (read the existing CSS for a `/* Hallmark · macrostructure: ... */` stamp and avoid that theme's family).
+If two themes are equally close, pick whichever is more *categorically distant* from any previous Reskin output for this user (read the existing CSS for a `/* Reskin · macrostructure: ... */` stamp and avoid that theme's family).
 
 ---
 
@@ -403,7 +403,7 @@ The "Want me to build" line is the **confirmation question** for code generation
 **If the user says "build it":** the skill builds with the **studied DNA as the system, not a catalog theme**. Paper, accent, type roles, macrostructure, and archetypes from the diagnosis become the tokens directly. Catalog rotation is suspended for this build (see SKILL.md § 2.6 Condition 0). The stamp records `theme: studied-DNA` with the source URL or image tag plus the actual OKLCH/font values inline:
 
 ```css
-/* Hallmark · macrostructure: Split Studio · H2 hero knobs: ratio=6/6, right=proof, divider=negative-space
+/* Reskin · macrostructure: Split Studio · H2 hero knobs: ratio=6/6, right=proof, divider=negative-space
  * Ft3 footer knobs: cols=4, heading=mono
  * theme: studied-DNA (source: image) · paper oklch(95% 0.012 80) · accent neutral (ink-on-paper)
  * display: italic editorial serif (Instrument Serif candidate) · body: neutral grotesque (Geist candidate) · label: mono (Geist Mono)
@@ -421,7 +421,7 @@ The "Want me to build" line is the **confirmation question** for code generation
 
 State these to the user when returning the diagnosis. Do not bury them.
 
-1. **Fonts cannot be identified from screenshots reliably.** In image mode, Hallmark names *roles* and proposes 1–2 candidates from its canon — visual font ID is wrong half the time on custom or modified faces. In **URL mode** the rule flips: the page's `@font-face`, Google Fonts `<link>`, and `next/font` declarations name the typefaces authoritatively, and the diagnosis can name them. The role still travels into the rebuilt page (Hallmark may pick a different specific face from the canon for the user's content); the original name is recorded as a side fact.
+1. **Fonts cannot be identified from screenshots reliably.** In image mode, Reskin names *roles* and proposes 1–2 candidates from its canon — visual font ID is wrong half the time on custom or modified faces. In **URL mode** the rule flips: the page's `@font-face`, Google Fonts `<link>`, and `next/font` declarations name the typefaces authoritatively, and the diagnosis can name them. The role still travels into the rebuilt page (Reskin may pick a different specific face from the canon for the user's content); the original name is recorded as a side fact.
 2. **Imagery is never copied.** The skill's build replaces the source's photography with structurally-equivalent placeholders. If the user wants real assets, they provide them.
 3. **Theme drift is allowed.** The user's content might point to a different theme than the source's surface implies. The DNA is the macrostructure + archetype tuple + colour-anchor band + type-pairing role. The dress (specific typeface, specific accent hex) can change — even when URL mode named the exact dress.
 4. **One source, one diagnosis.** Do not let the user paste five screenshots OR five URLs and ask for a "blend". Pick one as the primary reference; the others can inform individual axis choices but the DNA backbone comes from one source. Five blended references is how you produce template-soup.
@@ -434,7 +434,7 @@ If any limit is being violated, say so plainly in the diagnosis report — *"I c
 
 ## Emitting a `design.md` from `study`
 
-After the diagnosis, the user has a third option alongside "build with this DNA" and "stop here": **emit a portable `design.md`** that captures the DNA as a system other AI tools (Cursor, v0, Bolt, future Hallmark runs) can read directly. This is the same `design.md` format produced by the default verb's "lock the system" flow — but seeded from the studied DNA rather than from a build the user iterated on.
+After the diagnosis, the user has a third option alongside "build with this DNA" and "stop here": **emit a portable `design.md`** that captures the DNA as a system other AI tools (Cursor, v0, Bolt, future Reskin runs) can read directly. This is the same `design.md` format produced by the default verb's "lock the system" flow — but seeded from the studied DNA rather than from a build the user iterated on.
 
 ### Trigger phrases
 
@@ -485,15 +485,15 @@ Use the format defined in [`design-md.md`](design-md.md) § Format, with these `
 1. **Source mode informs token values.** URL mode populates the `## Tokens` block with exact OKLCH / hex values from the source's CSS, and the `## System` block with the exact fonts named in `@font-face` / Google Fonts / `next/font`. Image mode populates the same blocks with the schema's bands rendered into best-guess OKLCH (centre of band) and 1–2 candidate font names from the canon — flag these as estimated.
 2. **Add a `## Provenance` block.** Inserted between `## System` and `## Tokens`. Carries: the source mode, the URL (URL mode only) or "image (user-attached)" (image mode), the date of extraction, the attestation answer if any, and a one-line note about confidence:
    - URL mode: *"Tokens are exact (extracted from source CSS). Fonts are exact (extracted from source font declarations). Rhythm is unknown — HTML alone can't judge density."*
-   - Image mode: *"Tokens are estimated from source-image colour bands. Fonts are role-based with named candidates from the Hallmark canon. Rhythm is from a vision pass on the source."*
-3. **Add a `## Notes` block** at the end with the anti-patterns the diagnosis flagged as "do NOT carry over." Future Hallmark runs reading the file should see these as part of the system's identity.
+   - Image mode: *"Tokens are estimated from source-image colour bands. Fonts are role-based with named candidates from the Reskin canon. Rhythm is from a vision pass on the source."*
+3. **Add a `## Notes` block** at the end with the anti-patterns the diagnosis flagged as "do NOT carry over." Future Reskin runs reading the file should see these as part of the system's identity.
 4. **The stamp at the top of the file** carries `studied: yes` and `DNA-source: <mode>` plus the URL or "image" tag, mirroring the macrostructure stamp pattern.
 
 ### After the file is written
 
 Same post-emission behaviour as the default verb's lock-the-system flow (per [`design-md.md`](design-md.md) § After the file is written):
 
-- Subsequent Hallmark runs read `design.md` first; diversification inverts to consistency.
+- Subsequent Reskin runs read `design.md` first; diversification inverts to consistency.
 - If the user genuinely needs a different system for a future page, amend `design.md` with a `## Variants` section.
 - One-line confirmation back to the user: *"design.md written. The system is now locked to the extracted DNA. Future runs will defer to it."*
 
@@ -504,7 +504,7 @@ Same post-emission behaviour as the default verb's lock-the-system flow (per [`d
 `study` is the diagnosis verb. It is not for fresh builds and not for refining existing pages. After the diagnosis, the user has three options — and `study` itself stops after any one of them:
 
 - If the user says *"now build me the same kind of page for my brand"*: hand off to the **default** verb with the schema filled in as inferred design-context, and build per the standard flow — but with the studied DNA stamped.
-- If the user says *"now refactor my existing site to match this DNA"*: hand off to **`hallmark redesign`** with the schema attached. Redesign preserves the user's content; study supplied the new shape.
+- If the user says *"now refactor my existing site to match this DNA"*: hand off to **`reskin redesign`** with the schema attached. Redesign preserves the user's content; study supplied the new shape.
 - If the user says *"lock the DNA"* / *"give me a design.md"*: emit the file per § Emitting a `design.md` from `study` above. The emitted file becomes the new system; subsequent runs defer to it.
 - If the user only wanted the diagnosis and is satisfied: stop. The diagnosis report is a complete deliverable on its own.
 

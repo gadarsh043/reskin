@@ -19,9 +19,9 @@ Two passes is normal. Three is a sign the brief is wrong, not the design — re-
 | **C** | **Execution** | Are the details (rule weight, accent footprint, text-wrap, focus rings, contrast) all in spec, or is there sloppiness even if the bones are right? |
 | **D** | **Specificity** | Does this look like *this brief* — or does it look like a generic "page that could be anyone"? |
 | **E** | **Restraint** | Have you removed everything that isn't earning its place? Decoration, redundancy, padding-for-padding's-sake? |
-| **F** | **Variety** | Does this output share a structural fingerprint with a previous Hallmark output in the project? Score by structural distance, not visual distance — colour-swaps don't count as variety. |
+| **F** | **Variety** | Does this output share a structural fingerprint with a previous Reskin output in the project? Score by structural distance, not visual distance — colour-swaps don't count as variety. |
 
-Record the six scores in a one-line stamp comment at the top of the file: `/* Hallmark · pre-emit critique: P5 H4 E5 S4 R5 V5 */`. Future runs should be able to find this and avoid repeating the same weakness.
+Record the six scores in a one-line stamp comment at the top of the file: `/* Reskin · pre-emit critique: P5 H4 E5 S4 R5 V5 */`. Future runs should be able to find this and avoid repeating the same weakness.
 
 ---
 
@@ -56,8 +56,8 @@ Record the six scores in a one-line stamp comment at the top of the file: `/* Ha
 
 ## Variety
 
-21. Is the `/* Hallmark · macrostructure: <name> · ... */` stamp missing from the top of the CSS? (It must be present.)
-22. Is the macrostructure I picked the same as a previous Hallmark output's stamp in this project? (Read the file system; if a stamp exists, mine must differ.)
+21. Is the `/* Reskin · macrostructure: <name> · ... */` stamp missing from the top of the CSS? (It must be present.)
+22. Is the macrostructure I picked the same as a previous Reskin output's stamp in this project? (Read the file system; if a stamp exists, mine must differ.)
 23. Did I default to the **Specimen** macrostructure (numbered left-margin labels + huge serif + asymmetric spans + typographic-only CTA) when the brief did not explicitly call for editorial / foundry / specimen energy? (Specimen fall-through is banned.) *Genre note: atmospheric, modern-minimal, and playful never default to Specimen — only editorial does, and only when the brief signals it.*
 
 ## Implementation gates
@@ -80,9 +80,9 @@ Record the six scores in a one-line stamp comment at the top of the file: `/* Ha
 
 ## Diversification gates
 
-(Cross-reference `.hallmark/log.json` when present.)
+(Cross-reference `.reskin/log.json` when present.)
 
-34. If I used the same archetype as a previous Hallmark output (per `.hallmark/log.json` or the latest macrostructure stamp), did I pick at least one different *variation knob*? Two Bento Grids with `tiles=6, spans=irregular, accent=corner-only` are the same Bento — the within-archetype knobs in [`component-cookbook.md`](component-cookbook.md) exist precisely to prevent that. State the knob deltas in the stamp.
+34. If I used the same archetype as a previous Reskin output (per `.reskin/log.json` or the latest macrostructure stamp), did I pick at least one different *variation knob*? Two Bento Grids with `tiles=6, spans=irregular, accent=corner-only` are the same Bento — the within-archetype knobs in [`component-cookbook.md`](component-cookbook.md) exist precisely to prevent that. State the knob deltas in the stamp.
 35. Does any visual-only `<svg>`, custom-art `<div>`, `<canvas>`, or decorative figure lack `aria-label` or `aria-hidden="true"`? Hand-built CSS art and SVG illustrations need an accessible name *or* an explicit hide. Skipping this is the new accessibility tell.
 
 ## Layout-safety gates
@@ -126,7 +126,7 @@ Thresholds:
 
 48. Does any **button** have `color` ≈ `background-color` on its fill? The canary check: if the computed text colour and the computed background colour are within **5 % lightness AND 0.05 chroma** in OKLCH, fail the gate. This catches the common bug where `color: var(--color-ink)` sits on `background: var(--color-ink)` (black-on-black slop) — the LLM forgot to use `--color-accent-ink` (or `--color-paper`) for text-on-fill.
 
-49. When `--color-accent` is used as a fill anywhere on the page (button, badge, surface), is `--color-accent-ink` **also defined** (in `:root` or theme tokens) AND used as the `color` for text on that fill? If `--color-accent-ink` is missing, Hallmark output is one careless `color: white` away from a low-contrast accident. The token must exist, must verify ≥ APCA Lc 60 / WCAG 4.5:1 against `--color-accent`, and must be applied wherever accent fills a surface that carries text.
+49. When `--color-accent` is used as a fill anywhere on the page (button, badge, surface), is `--color-accent-ink` **also defined** (in `:root` or theme tokens) AND used as the `color` for text on that fill? If `--color-accent-ink` is missing, Reskin output is one careless `color: white` away from a low-contrast accident. The token must exist, must verify ≥ APCA Lc 60 / WCAG 4.5:1 against `--color-accent`, and must be applied wherever accent fills a surface that carries text.
 
 50. Does any **dark section** (a section or panel whose `background-color` has OKLCH lightness < 50 %) carry text that uses the page-default `color: var(--color-ink)` — i.e. ink-on-ink in a section that flipped its surface? Sections that swap to a dark surface MUST also swap their text colour (typically to `--color-paper`) and ensure nested children inherit. The fix is explicit: any class that sets `background: <dark>` must also set `color: <light>` in the same rule, OR be wrapped in a parent that does. The most common failure: a `.vs__col:first-child` painted with the accent or ink colour but the inner panels still using default ink-coloured text.
 
@@ -136,7 +136,7 @@ The CSS stamp at Step 6 should record the result: `· contrast: pass (46–50)` 
 
 Universal — apply to every genre. These gates catch the most-recognised AI fingerprints in nav, footer, and hero shape. They sit alongside the structural-fingerprint gate (gate 9): gate 9 catches the *page* fingerprint; 51–55 catch the *chrome* fingerprints that sit on top of it.
 
-51. **Nav fingerprint.** Is the page's `<nav>` (or top-of-page `<header>` with role="banner") the AI default — wordmark-left + 4–5 inline text links centred-or-right + button-right at full viewport width + 1 px hairline border-bottom + white background? If yes, fail unless the brief explicitly justifies N1 (the page has only 2 destinations *and* the routing table for the genre allows N1). Hallmark output should rotate among N1, N3, N4, N5, N6, N7, N8, N9 from [`component-cookbook.md`](component-cookbook.md) § Navigation.
+51. **Nav fingerprint.** Is the page's `<nav>` (or top-of-page `<header>` with role="banner") the AI default — wordmark-left + 4–5 inline text links centred-or-right + button-right at full viewport width + 1 px hairline border-bottom + white background? If yes, fail unless the brief explicitly justifies N1 (the page has only 2 destinations *and* the routing table for the genre allows N1). Reskin output should rotate among N1, N3, N4, N5, N6, N7, N8, N9 from [`component-cookbook.md`](component-cookbook.md) § Navigation.
 
 52. **Footer fingerprint.** Is the `<footer>` the AI default — 4 columns of links (Product / Company / Resources / Legal) + social-icon row + tiny copyright at the very bottom + 1 px hairline top-border + neutral grey background? If yes, fail unless the page is a genuine docs root or hub. Default to Ft1, Ft2, Ft4, Ft5, Ft6, Ft7, or Ft8 from [`component-cookbook.md`](component-cookbook.md) § Footers.
 
@@ -156,15 +156,15 @@ Universal — apply to every genre. The page must not invent facts about the use
 
 ## Re-drawn UI chrome
 
-Universal. Hallmark must reuse the user's existing chrome (browser, OS, IDE) instead of redrawing it.
+Universal. Reskin must reuse the user's existing chrome (browser, OS, IDE) instead of redrawing it.
 
-57. **Re-drawn chrome.** Did Hallmark hand-build a fake browser bar (URL pill + traffic-light dots), a fake phone frame (rounded rectangle + notch + speaker slit), a fake code-block frame (mock window-chrome around a `<pre>`), a fake terminal frame, or a fake IDE chrome (file tabs + activity bar + sidebar) using HTML/CSS or SVG? If yes, fail. Re-drawn chrome is one of the strongest "looks AI-generated" tells — the model invented a UI that already exists in the user's environment. The fix: use a `<picture>` or `<figure>` containing a real screenshot, or omit the chrome and let the content stand on its own. *(See [anti-patterns.md § Re-drawn UI chrome](anti-patterns.md).)*
+57. **Re-drawn chrome.** Did Reskin hand-build a fake browser bar (URL pill + traffic-light dots), a fake phone frame (rounded rectangle + notch + speaker slit), a fake code-block frame (mock window-chrome around a `<pre>`), a fake terminal frame, or a fake IDE chrome (file tabs + activity bar + sidebar) using HTML/CSS or SVG? If yes, fail. Re-drawn chrome is one of the strongest "looks AI-generated" tells — the model invented a UI that already exists in the user's environment. The fix: use a `<picture>` or `<figure>` containing a real screenshot, or omit the chrome and let the content stand on its own. *(See [anti-patterns.md § Re-drawn UI chrome](anti-patterns.md).)*
 
 ## Token discipline
 
 Universal. The theme picks the palette and font stack at the top of the run; the rest of the run consumes tokens, never invents them.
 
-58. **Mid-render token improvisation.** Did Hallmark introduce any colour value (`#hex`, `oklch(...)`, `rgb(...)`, `hsl(...)`) or `font-family` declaration *outside* the design tokens defined in `:root` / `[data-theme="..."]`? If yes, fail. Every colour and every font in the artifact must reference a named token (`var(--color-accent)`, `font-family: var(--font-display)`). Inline OKLCH or one-off hexes are mid-render improvisation — the model picked the theme, then forgot it and freestyled. The fix: lift the value into the token block as a new named variable, or replace it with an existing token. *(See [SKILL.md § Locked tokens](../SKILL.md) and [anti-patterns.md § Mid-render token improvisation](anti-patterns.md).)*
+58. **Mid-render token improvisation.** Did Reskin introduce any colour value (`#hex`, `oklch(...)`, `rgb(...)`, `hsl(...)`) or `font-family` declaration *outside* the design tokens defined in `:root` / `[data-theme="..."]`? If yes, fail. Every colour and every font in the artifact must reference a named token (`var(--color-accent)`, `font-family: var(--font-display)`). Inline OKLCH or one-off hexes are mid-render improvisation — the model picked the theme, then forgot it and freestyled. The fix: lift the value into the token block as a new named variable, or replace it with an existing token. *(See [SKILL.md § Locked tokens](../SKILL.md) and [anti-patterns.md § Mid-render token improvisation](anti-patterns.md).)*
 
 ## Responsive — clickable affordances
 

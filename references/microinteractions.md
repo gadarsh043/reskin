@@ -9,7 +9,7 @@ A microinteraction is one event with four parts: trigger → rules → feedback 
 - **Motion has intent or motion is cut.** Every animation must clarify, guide, or confirm. If you cannot name what a transition communicates, it is decoration. Decoration is slop.
 - **Silent success.** A successful action does *not* deserve a "Done!" toast. If the user sees the result, they don't need a confirmation. Reserve toasts for failures and for actions that hide their own effect.
 - **Optimism with rollback.** Update the UI immediately on user action. Send the request in the background. If it fails, animate the rollback and offer Undo. Round-trip latency is a perception killer.
-- **Restraint, not restraint-as-personality.** Hallmark is not "no motion." Hallmark is *the right motion in the right place.* A drag handle that springs into focus on grab is good. A page where every card pulses on hover is slop.
+- **Restraint, not restraint-as-personality.** Reskin is not "no motion." Reskin is *the right motion in the right place.* A drag handle that springs into focus on grab is good. A page where every card pulses on hover is slop.
 - **Reduced motion is a first-class state, not an afterthought.** Every interaction defines its reduced-motion behaviour explicitly. Default is: collapse spatial motion to opacity crossfade, keep duration ≤ 150ms, preserve functional state changes.
 - **Keyboard first, hover second.** Every hover affordance has a focus equivalent. No interaction is hover-only.
 
@@ -199,7 +199,7 @@ One orchestrated entrance. Stagger by DOM index, capped at ~500ms total. Use `In
 
 These are the microinteraction signatures of generated code. The slop test in [`SKILL.md`](../SKILL.md) checks for them; treat any one as a critical finding.
 
-1. **`transition-all`.** Every property animating, including ones that should be instant (visibility, display, focus rings). Always specify the properties. The class is banned in Hallmark output.
+1. **`transition-all`.** Every property animating, including ones that should be instant (visibility, display, focus rings). Always specify the properties. The class is banned in Reskin output.
 2. **Universal `hover:scale-105`.** Every card lifts on hover, with no shadow change, no easing specified, no purpose. AI's reflexive "make it interactive" gesture.
 3. **Bouncy overshoot easings.** `cubic-bezier(0.34, 1.56, 0.64, 1)` and friends on UI elements. Tasteless 2018-throwback. Reserve overshoots for genuine physical interactions (drag release).
 4. **Multiple simultaneous hover effects.** A card that translates, scales, shadows, colour-shifts, and rotates on hover. Pick *one* signal.

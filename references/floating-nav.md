@@ -9,7 +9,7 @@ One `<header>` with an inner wrapper. The outer owns the **default bar** visuals
 ```html
 <header class="nav">
   <div class="nav__inner">
-    <a class="wordmark">Hallmark</a>
+    <a class="wordmark">Reskin</a>
     <ul class="nav__links">…</ul>
     <a class="cta">Install</a>
   </div>
@@ -75,7 +75,7 @@ Three discipline points:
 - **`requestAnimationFrame` throttle** — caps to 60 calls/s, aligns with paint.
 - **Boolean-flip guard** — class operation runs once per state change, not once per scroll event.
 
-## Anti-patterns Hallmark refuses
+## Anti-patterns Reskin refuses
 
 1. Two separate `<header>` elements that swap via opacity. Doubles DOM, fights focus order, can desync content.
 2. Animating `top` / `margin-top` to add the floating offset. Triggers layout. `transform` is the only correct lever.

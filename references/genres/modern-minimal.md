@@ -59,7 +59,7 @@ See [`component-cookbook.md`](../component-cookbook.md) § Navigation and § Foo
 ## Stamp signature
 
 ```css
-/* Hallmark · genre: modern-minimal · macrostructure: <name> · theme: <name> · enrichment: <tier> · nav: <N#> · footer: <Ft#> */
+/* Reskin · genre: modern-minimal · macrostructure: <name> · theme: <name> · enrichment: <tier> · nav: <N#> · footer: <Ft#> */
 ```
 
 ## Reference register (for the LLM, not credited to anyone)

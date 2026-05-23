@@ -169,7 +169,7 @@ The outline starts transparent at 2 px so when the focus ring appears, the box g
 
 ## Contrast discipline
 
-Hallmark output must pass slop-test gates 46–50 before shipping. Compute contrast for every `(color, background-color)` pair on the page. The common failures Hallmark output trips on:
+Reskin output must pass slop-test gates 46–50 before shipping. Compute contrast for every `(color, background-color)` pair on the page. The common failures Reskin output trips on:
 
 1. **Text on a flipped surface.** `.section--ink { background: var(--color-ink); }` flips the surface dark; nested text still inherits `color: var(--color-ink)` → ink-on-ink. Fix: any rule that sets a dark `background` must *also* set `color: var(--color-paper)` in the same rule.
 2. **Button text on accent fill.** `background: var(--color-accent); color: white;` — but white is 4.5:1 against this accent only if `--color-accent` is dark enough. Use `var(--color-accent-ink)` instead, which the theme guarantees passes ≥ APCA Lc 60.
@@ -187,7 +187,7 @@ For each `(text-colour, background-colour)` pair the page actually renders:
 
 ### Token contract
 
-Every theme MUST define `--color-accent-ink` — the text colour to use whenever `--color-accent` fills a surface that carries text. The accent-ink colour is verified ≥ APCA Lc 60 against the accent at the time the theme is built. Hallmark code that uses `background: var(--color-accent)` must also set `color: var(--color-accent-ink)`. Falling back to hardcoded `color: white` is a tell — the theme's accent could be a light colour, and white-on-light is the bug.
+Every theme MUST define `--color-accent-ink` — the text colour to use whenever `--color-accent` fills a surface that carries text. The accent-ink colour is verified ≥ APCA Lc 60 against the accent at the time the theme is built. Reskin code that uses `background: var(--color-accent)` must also set `color: var(--color-accent-ink)`. Falling back to hardcoded `color: white` is a tell — the theme's accent could be a light colour, and white-on-light is the bug.
 
 ### When the surface flips
 

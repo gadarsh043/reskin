@@ -6,12 +6,12 @@ Loaded only when the user has opted into the **custom** theme route in Step 1 of
 
 ## Two words, plain English
 
-- **catalog** — the named-theme catalogue. Hallmark's 22 themes (Specimen, Atelier, Brutal, Salon, Newsprint, Linen, Studio, Manifesto, Terminal, Midnight, Almanac, Garden, Quiet, Riso, Sport, Bloom, Coral, Violet, Aurora, Halo, Plume, Editorial). Each one is a fixed combination of paper-band, display-style, and accent-hue. The rotation rule cycles through them so two consecutive runs don't read alike. **This is the default.** Most briefs use it.
+- **catalog** — the named-theme catalogue. Reskin's 22 themes (Specimen, Atelier, Brutal, Salon, Newsprint, Linen, Studio, Manifesto, Terminal, Midnight, Almanac, Garden, Quiet, Riso, Sport, Bloom, Coral, Violet, Aurora, Halo, Plume, Editorial). Each one is a fixed combination of paper-band, display-style, and accent-hue. The rotation rule cycles through them so two consecutive runs don't read alike. **This is the default.** Most briefs use it.
 - **custom** — made-to-measure. A one-off palette + font pairing constructed specifically for one brief. The skill builds the OKLCH values, picks fonts, and stamps the page — but does **not** extend the catalog with a new theme. The rules behind the catalog (paper L bands, accent chroma caps, font ban list, slop-test gates) all still apply; only the *combination* is per-brief.
 
 ## When to surface this fork — Step 1 trigger signals
 
-Hallmark must **not** offer catalog-vs-custom on every prompt. That's friction, not discipline. Surface the fork only when the brief carries one of these signals:
+Reskin must **not** offer catalog-vs-custom on every prompt. That's friction, not discipline. Surface the fork only when the brief carries one of these signals:
 
 1. **Explicit ask** — the user types `custom`, "custom theme", "tailored to our brand", "make it ours", "something unique", "play around with the colors and fonts", "I want my own palette".
 2. **Named brand colour** — the user gives a specific anchor colour as a hex / OKLCH / brand name. Example: "use our terracotta", "the brand red is hex #c0392b", "anchor on sea-blue".
@@ -169,7 +169,7 @@ Pick one based on the chosen display face:
 
 ### D.4 · Where these go
 
-Write all three into the macrostructure stamp (§ E below) and the `.hallmark/log.json` entry (§ F below). They are the durable record. The next run reads them.
+Write all three into the macrostructure stamp (§ E below) and the `.reskin/log.json` entry (§ F below). They are the durable record. The next run reads them.
 
 ---
 
@@ -178,7 +178,7 @@ Write all three into the macrostructure stamp (§ E below) and the `.hallmark/lo
 The CSS comment at the top of the produced stylesheet (per [`SKILL.md`](../SKILL.md) Step 6 § "Stamp the output"):
 
 ```css
-/* Hallmark · macrostructure: <name> · <hero archetype + knobs>
+/* Reskin · macrostructure: <name> · <hero archetype + knobs>
  * theme: custom · vibe: "<4–8 words>" · paper: oklch(<L>% <C> <H>) · accent: oklch(<L>% <C> <H>)
  * display: <font name> · body: <font name> · axes: <paper-band> / <display-style> / <accent-hue>
  * studied: no · context: <user-provided | inferred> · v0.6.x
@@ -188,7 +188,7 @@ The CSS comment at the top of the produced stylesheet (per [`SKILL.md`](../SKILL
 Concrete example:
 
 ```css
-/* Hallmark · macrostructure: Long Document · H5 hero knobs: salutation=time-stamp, body=2 paragraphs, signoff=initials
+/* Reskin · macrostructure: Long Document · H5 hero knobs: salutation=time-stamp, body=2 paragraphs, signoff=initials
  * theme: custom · vibe: "archival warmth, hand-set, no varnish" · paper: oklch(94% 0.020 65) · accent: oklch(58% 0.16 35)
  * display: Fraunces italic · body: Source Serif 4 · axes: light / italic-serif / chromatic-terracotta
  * studied: no · context: explicit · v0.8.0
@@ -199,7 +199,7 @@ The stamp is the durable record. `audit` reads it. The next run reads it. The us
 
 ---
 
-## § F · `.hallmark/log.json` entry shape
+## § F · `.reskin/log.json` entry shape
 
 Custom runs extend the existing schema with a `theme_axes` field and an optional `vibe` field:
 
@@ -213,7 +213,7 @@ Custom runs extend the existing schema with a `theme_axes` field and an optional
   "brief": "Coffeebox · subscription" }
 ```
 
-Catalog entries continue to record `theme: <name>` and skip `theme_axes` (the catalog's axes are looked up from [`tokens.css`](../../site/css/tokens.css)). Step 2.5 logic uses the same diversification check on both — for catalog entries it reads the axes from tokens.css; for custom entries it reads them from the entry.
+Catalog entries continue to record `theme: <name>` and skip `theme_axes` (the catalog's axes are looked up from [`tokens.css`](tokens.css)). Step 2.5 logic uses the same diversification check on both — for catalog entries it reads the axes from tokens.css; for custom entries it reads them from the entry.
 
 When rotating, **a custom run that follows another custom run must differ on at least one axis from the previous custom** — same rule as catalog-vs-catalog. A custom run that follows a catalog run must differ on at least one axis from the catalog's axes. The diversification rule is theme-route-blind.
 
@@ -246,7 +246,7 @@ Concrete generations to seed model imitation. Each shows the brief, the user's v
 
 **Stamp:**
 ```css
-/* Hallmark · macrostructure: Long Document · H5 hero knobs: salutation=time-stamp, body=2 paragraphs, signoff=initials
+/* Reskin · macrostructure: Long Document · H5 hero knobs: salutation=time-stamp, body=2 paragraphs, signoff=initials
  * theme: custom · vibe: "archival warmth, hand-set, no varnish" · paper: oklch(94% 0.020 65) · accent: oklch(58% 0.16 35)
  * display: Fraunces italic · body: Source Serif 4 · axes: light / italic-serif / chromatic-terracotta
  * studied: no · context: explicit · v0.8.0
@@ -278,7 +278,7 @@ Note: this *is* a single-family page (Geist + Geist Mono are the same family at 
 
 **Stamp:**
 ```css
-/* Hallmark · macrostructure: Workbench · F2 sticky-scroll knobs: pinned=right, content=trace-panel, steps=3
+/* Reskin · macrostructure: Workbench · F2 sticky-scroll knobs: pinned=right, content=trace-panel, steps=3
  * theme: custom · vibe: "industrial precision, cool, technical" · paper: oklch(13% 0.012 220) · accent: oklch(72% 0.16 220)
  * display: Geist Mono 500 · body: Geist · axes: dark / mono / cool
  * studied: no · context: explicit · v0.8.0
@@ -309,7 +309,7 @@ The vibe names two hues: *moss* (greenish, ~140°) and *soft pink* (warm, ~350°
 
 **Stamp:**
 ```css
-/* Hallmark · macrostructure: Catalogue · F1 catalogue knobs: tiles=8, columns=2, rule=hairline-between
+/* Reskin · macrostructure: Catalogue · F1 catalogue knobs: tiles=8, columns=2, rule=hairline-between
  * theme: custom · vibe: "moss, lichen, soft pink, herbal" · paper: oklch(96% 0.018 145) · accent: oklch(72% 0.13 350)
  * display: Cormorant Garamond · body: EB Garamond · axes: light / roman-serif / chromatic-other (dusty-pink)
  * studied: no · context: explicit · v0.8.0
@@ -321,7 +321,7 @@ The vibe names two hues: *moss* (greenish, ~140°) and *soft pink* (warm, ~350°
 ## What custom does **not** do (worth restating)
 
 1. **Does not invent themes that ignore the rules.** Every paper L band, accent chroma cap, neutral-tinting requirement, font ban, and slop-test gate carries forward. The freedom is the *combination* — not the rules.
-2. **Does not save themes for reuse.** A custom run is per-output. The skill does not write back to [`tokens.css`](../../site/css/tokens.css). If the user wants a permanent theme, they paste the custom palette into tokens.css themselves and name it.
+2. **Does not save themes for reuse.** A custom run is per-output. The skill does not write back to [`tokens.css`](tokens.css). If the user wants a permanent theme, they paste the custom palette into tokens.css themselves and name it.
 3. **Does not ask multiple follow-up questions.** One vibe answer (+ optional anchor) is enough. The audience/use/tone from Step 1 plus the brief plus the macrostructure pick already give the model 80 % of the signal.
 4. **Does not relax the diversification rule.** Custom entries declare their three axes the same way catalog entries do; the rotation rule fires on both, theme-route-blind.
 5. **Does not bypass the Step 5 preview.** The custom palette + pairing surface in plain text *before* any code is emitted, so the user can redirect early.

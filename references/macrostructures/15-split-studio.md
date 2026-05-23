@@ -17,7 +17,7 @@ Reference: Vercel feature pages, Stripe Sessions program pages, many dev-tool ho
 
 **Sample opening lines** (imitate the *specificity* — Split Studio openings pair a positioning statement with a proof column):
 > *"A studio for what's next."* — italic display + selected-work column on the right
-> *"Print discipline, on screen."* — Hallmark Newsprint — two-phrase headline, masthead-style
+> *"Print discipline, on screen."* — Reskin Newsprint — two-phrase headline, masthead-style
 > *"We design and build distinctive products for ambitious teams."* — names the verb (design and build), names the audience
 
 ---

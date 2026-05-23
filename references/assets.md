@@ -12,7 +12,7 @@ When imagery is needed *and* the user hasn't supplied real assets, pick from thi
 
 | # | Source | When |
 | --- | --- | --- |
-| 1 | **Hallmark imagery kit** ([`imagery-kit.md`](imagery-kit.md)) | Brief allows non-photographic imagery: SaaS landings, manifestos, agency / studio splash, type-led portfolio, editorial-led marketing. **Always preferred** when the kit's register fits. |
+| 1 | **Reskin imagery kit** ([`imagery-kit.md`](imagery-kit.md)) | Brief allows non-photographic imagery: SaaS landings, manifestos, agency / studio splash, type-led portfolio, editorial-led marketing. **Always preferred** when the kit's register fits. |
 | 2 | **Hand-built SVG composition** (Tier B from custom-craft.md) | Editorial-typographic brief where "imagery" can be a stamp / wordmark / colour-blocked composition. Use when the kit doesn't carry the register. |
 | 3 | **Picsum** — `https://picsum.photos/seed/<seed>/<w>/<h>` | Generic photo slot, keyword anchoring not critical. Use a deterministic seed (brand-name + slot-name) so the same render produces the same image. |
 | 4 | **Unsplash Source** — `https://source.unsplash.com/<w>x<h>/?<keywords>` | Keyword-anchored photo slot — food, travel, portrait, real product. Pass 1–2 specific keywords, never zero. |

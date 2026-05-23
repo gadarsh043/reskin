@@ -87,7 +87,7 @@ Three sources, in priority order:
 | Family | Source | Voice | Best for |
 | --- | --- | --- | --- |
 | **Geist** | Google | The default modern body sans | Modern minimal, SaaS, atmospheric |
-| **The Future** | (in repo) | Hallmark's own body workhorse | Default Hallmark tone |
+| **The Future** | (in repo) | Reskin's own body workhorse | Default Reskin tone |
 | **Newsreader** | Google | Reading serif, optical-size aware | Editorial body, longform |
 | **Source Serif 4** | Google | Body-grade serif | Editorial mid-weight |
 | **EB Garamond** | Google | Classical body | Editorial slow reading |
@@ -102,7 +102,7 @@ Three sources, in priority order:
 
 | Family | Source | Voice | Best for |
 | --- | --- | --- | --- |
-| **Geist Mono** | Google | Geist's mono companion | Default Hallmark mono, code, captions |
+| **Geist Mono** | Google | Geist's mono companion | Default Reskin mono, code, captions |
 | **JetBrains Mono** | Google | Engineering mono, ligatures | Code, terminal, technical |
 | **IBM Plex Mono** | Google | Engineering mono, broad family | Technical body-grade |
 | **Commit Mono** | Google | Tighter mono, modern | Code, modern terminal |
@@ -130,7 +130,7 @@ Each tone gets two rows: a **free baseline** (Google Fonts / Fontshare; works ou
 | | *Paid* | *ABC Diatype · ABC Monument Grotesk · Söhne (regular) · ABC Pressura* | *ABC Diatype · Söhne* | *ABC Diatype Mono · Söhne Mono* |
 | **Atmospheric** | Free | Geist (600) · Sentient · Tomorrow · Bricolage Grotesque | Geist (400) · Switzer | Geist Mono · JetBrains Mono |
 | | *Paid* | *Söhne · GT Pressura · ABC Diatype* | *Söhne · ABC Diatype* | *Berkeley Mono · Söhne Mono* |
-| **Workshop** *(Hallmark's own theme)* | Free | The Future · Geist · Cabinet Grotesk | The Future · Switzer | The Future Mono · Geist Mono |
+| **Workshop** *(Reskin's own theme)* | Free | The Future · Geist · Cabinet Grotesk | The Future · Switzer | The Future Mono · Geist Mono |
 | | *Paid* | *Avenir Next · GT Walsheim* | *Söhne · GT Walsheim* | *Berkeley Mono* |
 
 **The discipline.** Default to the free pairings. They're not consolation prizes; Fraunces, Geist, Bricolage Grotesque, Cabinet Grotesk, Sentient, and JetBrains Mono are first-rate faces in 2026. The paid upgrades exist for two cases: (a) the user has explicitly confirmed they're licensed, or (b) the user is asking for a specific named foundry voice (e.g., "make it look like Klim", "I want Söhne"). Reach for Tier 2 only then; otherwise the free row is the right answer. Treat the free row as canon, the paid row as a *cited* alternative.
@@ -170,7 +170,7 @@ When to use a contrasting family:
 
 ## Scale
 
-Pick a ratio. The default for Hallmark work is **1.25** (major third). Build the scale from a 16px body, then clamp display sizes for responsive.
+Pick a ratio. The default for Reskin work is **1.25** (major third). Build the scale from a 16px body, then clamp display sizes for responsive.
 
 ```css
 :root {

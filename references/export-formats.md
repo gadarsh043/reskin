@@ -1,6 +1,6 @@
 # Export formats
 
-Loaded by [`SKILL.md`](../SKILL.md) Step 6 when emitting the design system as portable tokens. Defines the four canonical formats Hallmark always writes:
+Loaded by [`SKILL.md`](../SKILL.md) Step 6 when emitting the design system as portable tokens. Defines the four canonical formats Reskin always writes:
 
 1. **`tokens.css`** — the source of truth. Always emitted alongside the page CSS.
 2. **Tailwind v4 `@theme`** — for projects on Tailwind. Emitted into `design.md`'s Exports section on multi-page projects.
@@ -11,11 +11,11 @@ The output rule: `tokens.css` is always written. The other three live inline in 
 
 ---
 
-## Token taxonomy — Hallmark's source of truth
+## Token taxonomy — Reskin's source of truth
 
-Every Hallmark output writes these tokens (or a subset, if the page doesn't use one). The names are the source; every other format is a translation.
+Every Reskin output writes these tokens (or a subset, if the page doesn't use one). The names are the source; every other format is a translation.
 
-| Hallmark token | Type | Example value |
+| Reskin token | Type | Example value |
 | --- | --- | --- |
 | `--color-paper` | colour | `oklch(96% 0.018 80)` |
 | `--color-paper-2` | colour | `oklch(94% 0.020 80)` |
@@ -46,7 +46,7 @@ If the page introduces *additional* tokens, name them by role and add to `tokens
 
 ## Format 1 — `tokens.css`
 
-The source. Plain CSS custom properties at `:root`. Every Hallmark page CSS imports this file at the top:
+The source. Plain CSS custom properties at `:root`. Every Reskin page CSS imports this file at the top:
 
 ```css
 @import "tokens.css";
@@ -151,7 +151,7 @@ Or, if the project uses a CSS bundler / framework that doesn't honour bare `@imp
 
 ## Format 2 — Tailwind v4 `@theme`
 
-Tailwind v4 reads CSS variables inside `@theme` and generates utilities (`bg-paper`, `text-ink`, etc.) automatically. The translation from Hallmark tokens is direct — same variable names, same OKLCH values:
+Tailwind v4 reads CSS variables inside `@theme` and generates utilities (`bg-paper`, `text-ink`, etc.) automatically. The translation from Reskin tokens is direct — same variable names, same OKLCH values:
 
 ```css
 @theme {
@@ -173,7 +173,7 @@ Tailwind v4 reads CSS variables inside `@theme` and generates utilities (`bg-pap
   --font-body:    "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "Geist Mono", ui-monospace, monospace;
 
-  /* Spacing — Tailwind reads --spacing-* by default; we keep Hallmark's --space-* names alongside */
+  /* Spacing — Tailwind reads --spacing-* by default; we keep Reskin's --space-* names alongside */
   --spacing-3xs: 0.25rem;
   --spacing-2xs: 0.5rem;
   --spacing-xs:  0.75rem;
@@ -204,7 +204,7 @@ Tailwind v4 reads CSS variables inside `@theme` and generates utilities (`bg-pap
 ```
 
 Notes:
-- Tailwind v4 expects `--spacing-*` (with `ing`) for the spacing utilities. We mirror Hallmark's `--space-*` to `--spacing-*` so both names work.
+- Tailwind v4 expects `--spacing-*` (with `ing`) for the spacing utilities. We mirror Reskin's `--space-*` to `--spacing-*` so both names work.
 - `--text-*` works as-is (Tailwind v4 picks them up for `text-md` etc.).
 - `--font-*` becomes `font-display` / `font-body` / `font-outlier` utilities.
 - The user's `tailwind.config.{ts,js}` may need `@source` directives but no `theme.extend` — v4 reads `@theme` directly.
@@ -275,7 +275,7 @@ Notes:
 
 shadcn/ui's component library reads CSS custom properties with specific names, in a specific shape. The values are **space-separated** triples (no `oklch()` wrapper, no commas) so shadcn can compose them with `oklch(<value> / <alpha>)`.
 
-The translation from Hallmark tokens:
+The translation from Reskin tokens:
 
 ```css
 :root {
@@ -297,7 +297,7 @@ The translation from Hallmark tokens:
   --muted:                86%   0.020 78;     /* rule */
   --muted-foreground:     50%   0.018 78;     /* muted */
 
-  --accent:               58%   0.16  60;     /* accent (same as primary in Hallmark) */
+  --accent:               58%   0.16  60;     /* accent (same as primary in Reskin) */
   --accent-foreground:    98%   0.012 75;
 
   --destructive:          58%   0.20  25;     /* warm red, fixed */
@@ -311,9 +311,9 @@ The translation from Hallmark tokens:
 }
 ```
 
-Then the user's `tailwind.config.ts` (or v4 `@theme`) reads them with `oklch(var(--background))`. Hallmark's accent → shadcn's primary is the canonical mapping; secondary → paper-3.
+Then the user's `tailwind.config.ts` (or v4 `@theme`) reads them with `oklch(var(--background))`. Reskin's accent → shadcn's primary is the canonical mapping; secondary → paper-3.
 
-If the user wants a dark variant, mirror with the dark theme tokens under a `.dark` selector (Hallmark's Midnight / Bloom / Terminal supply the values).
+If the user wants a dark variant, mirror with the dark theme tokens under a `.dark` selector (Reskin's Midnight / Bloom / Terminal supply the values).
 
 ---
 

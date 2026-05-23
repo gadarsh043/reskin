@@ -20,19 +20,19 @@ Before picking an enrichment tier, decide whether the brief actually wants image
 | team, staff, "about us", portraits, hiring, careers | Portrait crops — placeholder until user provides |
 | travel, hotel, destination, real estate, listing, property | Cover photo + tile photos — placeholder until user provides |
 | news, blog, magazine, journal, publication | Feature image per post — placeholder until user provides |
-| SaaS landing, manifesto, agency, studio, atmospheric, slow-and-editorial | **Kit-led.** Use Hallmark imagery kit (washes, transparent abstracts, ornaments) — see [`assets.md` § Placeholder strategy](assets.md) and [`imagery-kit.md`](imagery-kit.md). |
+| SaaS landing, manifesto, agency, studio, atmospheric, slow-and-editorial | **Kit-led.** Use Reskin imagery kit (washes, transparent abstracts, ornaments) — see [`assets.md` § Placeholder strategy](assets.md) and [`imagery-kit.md`](imagery-kit.md). |
 | API, docs, changelog, CLI, library, dev-tool, SDK, package | **No imagery.** Typography-only. Code blocks if needed. |
 | editorial, essay, letter, foundry, type-specimen, broadside | **No imagery.** Display typography is the design. |
 | (all other / vague / unspecified) | **Default: typography-only.** When in doubt, no images. |
 
 Rules:
 
-- When the user has attached an image asset (or `.hallmark/preflight.json` cached one), use it. Never overwrite with a placeholder.
+- When the user has attached an image asset (or `.reskin/preflight.json` cached one), use it. Never overwrite with a placeholder.
 - When the brief is genuinely ambiguous between a "needs photos" row and a "no imagery" row, ask one short question: *"Will you have product photos, or should I leave swappable placeholders?"*
 - A placeholder must look like a placeholder, not like a confident decision. The skill refuses to invent stock photos as if they were the final design.
 - Imagery rows above don't override genre overlays. Modern-minimal genre still suppresses decorative kit imagery (gate in `imagery-kit.md` anti-patterns).
 
-The hierarchy below picks the tier *after* this gate decides imagery is needed at all. Skipping this gate is what produces "blob illustration on every page" outputs — exactly the AI-default Hallmark refuses.
+The hierarchy below picks the tier *after* this gate decides imagery is needed at all. Skipping this gate is what produces "blob illustration on every page" outputs — exactly the AI-default Reskin refuses.
 
 ---
 
@@ -99,7 +99,7 @@ A display headline left, a demo video right, and the rightmost ~10–20 % of the
 - Aspect ratio (16/10 · 16/9 · 4/3)
 - Frame treatment (hairline 1 px frame · browser chrome · none)
 
-**Example.** Tracejam (SaaS observability — see [`site/_tests/05-tracejam-saas/`](../../site/_tests/05-tracejam-saas/)). Display headline left ("Distributed tracing that explains itself."); hand-built CSS-art trace waterfall right, tilted -0.4°, extending 12 vw past the viewport's right edge. Aspect 16/10. Hairline frame. **Not a real video** — the mockup is custom-built CSS at Tier A (rectangles on a percentage grid simulating a flame chart). Mobile (< 60 rem): drop the clip, stack vertically.
+**Example.** Tracejam (SaaS observability brief). Display headline left ("Distributed tracing that explains itself."); hand-built CSS-art trace waterfall right, tilted -0.4°, extending 12 vw past the viewport's right edge. Aspect 16/10. Hairline frame. **Not a real video** — the mockup is custom-built CSS at Tier A (rectangles on a percentage grid simulating a flame chart). Mobile (< 60 rem): drop the clip, stack vertically.
 
 ```html
 <section class="hero hero--clipped">
@@ -204,7 +204,7 @@ A hand-built SVG (the default, Tier B) or a generated raster (Tier C, when chara
 - Animation (none · loop · scroll-linked)
 - Scale (small accent · dominant)
 
-**Example.** Maple Street Bread (bakery — see [`site/_tests/03-maple-bakery/`](../../site/_tests/03-maple-bakery/)). Letter-style hero copy left ("Saturday, 6:14 a.m. The dough went in at midnight."), 60-line hand-built SVG loaf right, 3 paths (body, shade, score-marks). Animated with `@property --rise` for a subtle 4 px breathing-loop over 6 s, alternating; the score-marks draw themselves on first paint via `stroke-dasharray`. Tier B, dominant scale, animation: loop. Reduced-motion fallback is a static keyframe.
+**Example.** Maple Street Bread (bakery brief). Letter-style hero copy left ("Saturday, 6:14 a.m. The dough went in at midnight."), 60-line hand-built SVG loaf right, 3 paths (body, shade, score-marks). Animated with `@property --rise` for a subtle 4 px breathing-loop over 6 s, alternating; the score-marks draw themselves on first paint via `stroke-dasharray`. Tier B, dominant scale, animation: loop. Reduced-motion fallback is a static keyframe.
 
 For *how* to build a hand-drawn loaf in 60 lines of SVG and animate its breath with `@property`, see [`custom-craft.md`](custom-craft.md) — there's a full bakery worked example, plus four more recipes (workflow diagram, mascot, architectural diagram, botanical accent).
 
@@ -312,7 +312,7 @@ The H1 is intentionally larger than the viewport — `overflow-x: clip` on the h
 ```html
 <header class="hero hero--overflow">
   <h1 class="hero__display hero__display--xxl">STOP MAKING UI THAT LOOKS LIKE EVERYONE ELSE'S UI.</h1>
-  <p class="hero__lede">Hallmark. A design skill that refuses defaults.</p>
+  <p class="hero__lede">Reskin. A design skill that refuses defaults.</p>
 </header>
 ```
 ```css
@@ -449,7 +449,7 @@ The slop test ([`SKILL.md`](../SKILL.md) §5) carries four binary gates that mir
 When you ship enrichment, the macrostructure stamp records the choice:
 
 ```css
-/* Hallmark · macrostructure: Marquee Hero · H1 hero knobs: size=xxl, alignment=left-bias
+/* Reskin · macrostructure: Marquee Hero · H1 hero knobs: size=xxl, alignment=left-bias
  * enrichment: E1 Clipped-Edge Video · clip=right, aspect=16/10, frame=hairline
  * polish: HP3 Cursor-spotlight (scoped to hero, reduced-motion fallback pinned at 50%/30%)
  * nav: N5 Floating pill · footer: Ft5 Statement
@@ -460,7 +460,7 @@ When you ship enrichment, the macrostructure stamp records the choice:
 
 If no polish pattern is used, omit the `polish:` line — don't fake it. Same for enrichment.
 
-This signals to future Hallmark runs (and to the audit verb) what was chosen and how. It also lets the user see the inferences in one place and redirect if anything's off.
+This signals to future Reskin runs (and to the audit verb) what was chosen and how. It also lets the user see the inferences in one place and redirect if anything's off.
 
 ---
 

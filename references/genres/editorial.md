@@ -1,8 +1,8 @@
 # Genre — editorial (default)
 
-The canonical Hallmark voice. Pages built for content-led briefs: portfolios, manifestos, type specimens, agency sites, magazine pieces, indie podcasts, bakery / brand stories, considered B2C marketing.
+The canonical Reskin voice. Pages built for content-led briefs: portfolios, manifestos, type specimens, agency sites, magazine pieces, indie podcasts, bakery / brand stories, considered B2C marketing.
 
-This is what Hallmark looks like when no other genre signal fires. It is the silent default.
+This is what Reskin looks like when no other genre signal fires. It is the silent default.
 
 ## When to pick it
 
@@ -66,5 +66,5 @@ See [`component-cookbook.md`](../component-cookbook.md) § Navigation and § Foo
 Output's CSS comment header reads:
 
 ```css
-/* Hallmark · genre: editorial · macrostructure: <name> · theme: <name> · enrichment: <tier> · nav: <N#> · footer: <Ft#> */
+/* Reskin · genre: editorial · macrostructure: <name> · theme: <name> · enrichment: <tier> · nav: <N#> · footer: <Ft#> */
 ```

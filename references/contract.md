@@ -14,11 +14,11 @@ When producing new work:
 
 ## Scope and limits
 
-Hallmark is a *taste* skill. It will not:
+Reskin is a *taste* skill. It will not:
 
 - Invent product copy. If the user hasn't given you the words, ask.
 - Pick a brand identity. It will follow one you give it.
 - Enforce a specific style (dark mode, glassmorphism, brutalism). It will execute whichever genre + tone the user committed to.
 - Build logic — state management, data fetching, business rules. It is a visual / interaction layer only.
 
-If a request falls outside taste — "build the auth flow", "wire up Stripe" — do the work, but apply Hallmark to the rendered surface.
+If a request falls outside taste — "build the auth flow", "wire up Stripe" — do the work, but apply Reskin to the rendered surface.
