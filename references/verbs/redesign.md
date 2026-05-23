@@ -28,6 +28,21 @@ If `.reskin/understanding.md` exists and `comprehension.confirmed` is already `t
 
 **Do not** pick a macrostructure, write `design.md`, or edit UI until comprehension is confirmed.
 
+## Concept injection · optional (after comprehension)
+
+**When:** After comprehension is confirmed on a wired-up codebase, **or** after the redesign target is clear when comprehension was skipped. **Before** macrostructure selection, scope branching, or any UI edits.
+
+Load [`concept.md`](../concept.md).
+
+1. Ask the **concept prompt** (one message). User may supply a one-line vision or decline (*no concept*, *clean and professional*, *skip*).
+2. If declined → set `concept: null` in `.reskin/preflight.json`, skip `concept.md`, proceed to Step 0. Genre / theme / macrostructure run unchanged.
+3. If supplied → expand a **Concept Brief** using component `id`s from `.reskin/understanding.md` (§ Concept × intent rule is mandatory). Write `.reskin/concept.md`, merge `concept` into `preflight.json`, present the brief, and **hard-stop for `concept confirmed`** before continuing.
+4. Approved concept **constrains** macrostructure, type, colour, motion, and enrichment — it does **not** disable slop-test gates, protected paths, or data-bound contracts.
+
+Per-component **intensity** (how hard the concept pushes on each region) will be controlled by a future **change-dial** step; until then, use the Concept Brief **restraint map** (`full` / `light` / `none`).
+
+**Do not** pick a macrostructure, write `design.md`, or edit UI until comprehension is confirmed **and** concept is either confirmed or explicitly skipped.
+
 ## Step 0 · Detect scope first
 
 Before anything else, decide whether the redesign is **single-page** or **multi-page**. The behaviour diverges hard.
@@ -251,6 +266,8 @@ If a page genuinely needs something `design.md` doesn't allow (e.g. a marketing 
 (The classic redesign behaviour — plus comprehension when wired-up.)
 
 **Comprehension gate.** If the project is wired-up (`package.json` + `src/` / `app/` / `components/`), the comprehension pass (§ above) must finish and the user must confirm `.reskin/understanding.md` before you redesign — even when only one page file is in scope. Shared nav, layout, and data hooks still matter.
+
+**Concept gate.** After comprehension (or immediately if comprehension was skipped), run § Concept injection. Professional / no-concept briefs skip cleanly; creative one-liners require `concept confirmed` before visual work.
 
 **What to preserve:**
 - The copy intent, factual claims, product names, and primary message. Preserve exact wording only when it already lives in the target UI or the user explicitly asks for verbatim copy.

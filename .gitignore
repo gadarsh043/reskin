@@ -32,9 +32,10 @@ build/
 .image-cache/
 
 # Reskin runtime state (written in projects where the skill runs — do not commit)
-#   .reskin/preflight.json      — design-token scan + comprehension cache
+#   .reskin/preflight.json      — design-token scan + comprehension + concept cache
 #   .reskin/understanding.md    — Site Understanding report (user-reviewed)
-#   .reskin/log.json            — macrostructure / theme rotation history
+#   .reskin/concept.md          — Concept Brief (optional; user-reviewed)
+#   .reskin/log.json            — macrostructure / theme / concept rotation history
 .reskin/
 
 # `skills` CLI install lockfile — generated when `skills add` runs in this directory

@@ -195,9 +195,24 @@ If you want Reskin to override any preserved item, say so.
     "dataBoundComponents": ["home-hero"],
     "protectedPaths": ["lib/firebase/**", "app/api/**"],
     "navigation": { "summary": "…", "layoutFile": "…", "navComponentId": "…" }
-  }
+  },
+  "concept": null
 }
 ```
+
+When the user supplies a creative one-liner during redesign, `concept` becomes an object — see [`concept.md`](references/concept.md):
+
+```json
+"concept": {
+  "name": "harry-potter-spellbook",
+  "input": "my portfolio as a Harry Potter spellbook",
+  "metaphor": "The site is a living spellbook the visitor opens and turns through.",
+  "vocabulary": [{ "id": "home-hero", "treatment": "Hogwarts-style framed portraits" }],
+  "confirmed": false
+}
+```
+
+Human-readable mirror: `.reskin/concept.md` (only when concept is active).
 
 Full protocol: [`comprehension.md`](references/comprehension.md). Human-readable mirror: `.reskin/understanding.md`.
 
@@ -405,6 +420,7 @@ The non-negotiables live in [`references/`](references/). **Be precise about wha
 **Verb-specific:**
 - [`verbs/audit.md`](references/verbs/audit.md), [`verbs/redesign.md`](references/verbs/redesign.md) — load only when that verb runs.
 - [`comprehension.md`](references/comprehension.md) — load when `reskin redesign` targets a wired-up codebase (`package.json` + `src/` / `app/` / `components/`).
+- [`concept.md`](references/concept.md) — load during `reskin redesign` after comprehension confirmation (or after target is scoped if comprehension skipped); skip expansion when user declines concept.
 - [`study.md`](references/study.md) — load only when `reskin study` runs.
 
 **Human-only (do NOT auto-load):**
@@ -479,7 +495,7 @@ Always:
 - Include `:focus-visible` with a visible ring at ≥3:1 contrast. **Never animate the ring's appearance** — it must show instantly on focus.
 - For each interaction in the output (button, input, modal, toast, drag, copy, etc.), apply the recipe in [`microinteractions.md`](references/microinteractions.md). Pick *silent success* over celebratory toasts. Pick *optimistic update + Undo* over confirmation dialogs. Pick *delay 800ms* on hover tooltips and *0ms* on focus tooltips.
 - Cut motion before adding it. Most pages have too much, not too little. If removing an animation wouldn't lose the user information, remove it.
-- **Stamp the output.** The first non-empty line of the produced CSS file (or the top of `<style>` if inline) MUST be a comment of the form: `/* Reskin · macrostructure: <name> · tone: <tone> · anchor hue: <hue> */`. This stamp is the durable record of what you chose. The next time Reskin runs in this project, it reads the stamp and picks a *different* macrostructure. **For custom themes**, the stamp also carries the vibe, paper + accent OKLCH values, the chosen display + body fonts, and the three diversification axes — the full multi-line format is in [`custom-theme.md`](references/custom-theme.md) § E. **For studied-DNA builds** (Step 2.6 Condition 0 routed here from a `study` diagnosis), the stamp's `theme:` field is `studied-DNA (source: <URL or "image">)` followed by the paper OKLCH, accent OKLCH, and display + body fonts pulled directly from the diagnosis — not a catalog theme name. Diversification stays suspended for the run; the log entry below records `theme: studied-DNA` so Step 2.5 on the next run knows not to rotate against it.
+- **Stamp the output.** The first non-empty line of the produced CSS file (or the top of `<style>` if inline) MUST be a comment of the form: `/* Reskin · macrostructure: <name> · tone: <tone> · anchor hue: <hue> */`. When a concept is active, add `· concept: <name>` (and optionally a second line `concept-metaphor: …`). Omit `concept:` when `concept: null`. This stamp is the durable record of what you chose. The next time Reskin runs in this project, it reads the stamp and picks a *different* macrostructure. **For custom themes**, the stamp also carries the vibe, paper + accent OKLCH values, the chosen display + body fonts, and the three diversification axes — the full multi-line format is in [`custom-theme.md`](references/custom-theme.md) § E. **For studied-DNA builds** (Step 2.6 Condition 0 routed here from a `study` diagnosis), the stamp's `theme:` field is `studied-DNA (source: <URL or "image">)` followed by the paper OKLCH, accent OKLCH, and display + body fonts pulled directly from the diagnosis — not a catalog theme name. Diversification stays suspended for the run; the log entry below records `theme: studied-DNA` so Step 2.5 on the next run knows not to rotate against it.
 - **Append to project memory.** After you write the stamp, update (or create) `.reskin/log.json` at the project root. Append a new entry at the **front** of the array: `{ "date": "<YYYY-MM-DD>", "macrostructure": "<name>", "theme": "<name>", "enrichment": "<E# name or 'none'>", "brief": "<one-line summary>" }`. **Custom entries** also carry `"theme": "custom"` plus `"theme_axes": "<paper-band> / <display-style> / <accent-hue>"` and an optional `"vibe": "<4–8 words>"` — see [`custom-theme.md`](references/custom-theme.md) § F. Trim the file to the last 20 entries (rotate the oldest off). Create `.reskin/` and the file if they don't exist; respect any existing `.gitignore` (the user may or may not want this committed). This file is what Step 2.5 reads on the next run.
 - **Always emit `tokens.css`.** After writing the page CSS, also write `tokens.css` at the project root containing every `--color-*`, `--font-*`, `--space-*`, `--text-*`, `--ease-*`, `--dur-*`, `--rule-*`, and `--radius-*` token used in the build. The page CSS imports `tokens.css` (or, on framework projects, the project's existing entry-point includes it) — the page CSS must reference tokens by name, never inline raw values. Even single-page builds get a `tokens.css`. This is what makes the design system portable to the next project. Load [`export-formats.md`](references/export-formats.md) at this point only when the project warrants additional formats — see below.
 - **Multi-format exports on `design.md` projects.** If a `design.md` exists at the project root (a system-managed project), append all four export formats — `tokens.css`, Tailwind v4 `@theme`, DTCG `tokens.json`, shadcn/ui CSS variables — into `design.md`'s `## Exports` section. Load [`export-formats.md`](references/export-formats.md) for the canonical mapping from Reskin tokens to each format. Single-page projects skip this step (they get only `tokens.css`).
@@ -510,9 +526,10 @@ Load [`references/verbs/redesign.md`](references/verbs/redesign.md) and follow i
 1. Produce the Site Understanding report (routing, component inventory with user-facing **labels** and inferred **intent**, data layer, **protected paths**, navigation).
 2. Write `.reskin/understanding.md` and merge `comprehension` into `.reskin/preflight.json`.
 3. **Hard checkpoint** — ask the user to confirm or correct (especially intent). Do not redesign until they say comprehension is confirmed.
-4. Then continue per `redesign.md` (scope, `design.md` for multi-page, macrostructure, slop test).
+4. **Concept injection (optional)** — load [`references/concept.md`](references/concept.md). Ask the one-line concept prompt. If the user declines → `concept: null`, proceed with genre/theme as normal. If they supply a vision → expand Concept Brief from comprehension `id`s, write `.reskin/concept.md`, **checkpoint for `concept confirmed`**, then continue.
+5. Then continue per `redesign.md` (scope, `design.md` for multi-page, macrostructure, slop test). Concept constrains choices; slop gates and protected paths still win.
 
-Skip comprehension for greenfield or static-HTML-only targets. The Non-destructive implementation rule and Implementation safety rail apply throughout; `protectedPaths` is the enforceable allowlist.
+Skip comprehension for greenfield or static-HTML-only targets (concept prompt may still run once the target page is scoped). The Non-destructive implementation rule and Implementation safety rail apply throughout; `protectedPaths` is the enforceable allowlist.
 
 ---
 
