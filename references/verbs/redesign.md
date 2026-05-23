@@ -310,11 +310,30 @@ If the user specifies a mood (`reskin redesign ./hero.tsx --mood luxury`), pick 
 
 **Project-level check.** Before treating this as a true single-page redesign, look for `design.md` at the project root. If it exists, the project is being designed as an app and **the single-page rules don't apply** — read `design.md` and follow it instead. The diversification rule reverses (consistency wins). If you actually want to break from the locked system, *update `design.md` first*, then redesign.
 
+## Verification · final step (wired-up codebases only)
+
+After **Step 6 (build)** and **Step 7 (slop test)** — not before.
+
+Load [`verify.md`](../verify.md) and run the four-tier verification pass. Use `comprehension` + `changePlan` from `.reskin/preflight.json` as the checklist source.
+
+**Order (full redesign):** comprehension → concept → change-plan → macrostructure / theme / build → slop test → **VERIFY** → handoff.
+
+- If **Tier 1 (build) fails** during verification, **stop** — report errors; do not present the redesign as complete.
+- Write `.reskin/verify-report.md` and merge `verification` into `preflight.json`.
+- Present PASSED / FAILED / NEEDS YOUR EYES in chat — honest and specific (see verify.md core principle).
+
+**Skip** for static single-file HTML or when user says *"skip verification"*.
+
+User may re-run anytime with **`reskin verify`** ([`verbs/verify.md`](verify.md)) without redesigning.
+
+---
+
 **Output:**
 
-Return the redesigned code, plus a short note explaining:
+Return the redesigned code, the **Verification Report** (if wired-up), plus a short note explaining:
 
 - The structural fingerprint you picked, axis by axis.
 - Why this combination fits the brief better than the original.
 - One thing you removed and why.
 - (If genre changed) why the new genre fits the user's stated kind of design.
+- Verification summary: build pass/fail; data-bound status; count of manual checks.

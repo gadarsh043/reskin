@@ -1,6 +1,6 @@
 ---
 name: reskin
-description: "Anti-AI-slop design skill for greenfield pages, audits, redesigns, and design extraction from URLs or screenshots. Use when the user asks to build a new app or landing page, wants to redesign something, invokes Reskin by name, or uses audit/redesign/study."
+description: "Anti-AI-slop design skill for greenfield pages, audits, redesigns, verification, and design extraction from URLs or screenshots. Use when the user asks to build a new app or landing page, wants to redesign something, invokes Reskin by name, or uses audit/redesign/study/verify."
 version: 1.0.0
 ---
 
@@ -16,16 +16,17 @@ The differentiator: Reskin insists on **structural variety**, not just visual va
 
 ## How to use this skill
 
-Reskin has one default behaviour and three explicit verbs.
+Reskin has one default behaviour and four explicit verbs.
 
 | Invocation | What it does |
 | --- | --- |
 | *(default)* | The user asked you to design or build something new. Follow the **Design flow** below. |
 | `reskin audit <target>` | Read the target, score it against the anti-pattern list, return a ranked punch list. **Do not edit.** |
-| `reskin redesign <target> [--mood <name>]` | Take the target's content and intent, then redesign the visual structure **inside the existing implementation boundaries unless the user explicitly confirms a full rebuild.** New section rhythm, new heading placement, new component voice. Preserve existing routes, component ownership, copy intent, brand, and information architecture; replace only the visual/interaction layer needed for the requested scope. |
+| `reskin redesign <target> [--mood <name>]` | Take the target's content and intent, then redesign the visual structure **inside the existing implementation boundaries unless the user explicitly confirms a full rebuild.** New section rhythm, new heading placement, new component voice. Preserve existing routes, component ownership, copy intent, brand, and information architecture; replace only the visual/interaction layer needed for the requested scope. On wired-up codebases, ends with **verification** after build + slop test. |
 | `reskin study <screenshot \| URL>` | The user pasted or attached an image of a design they admire, **or** pasted a URL to a live page. Extract the **DNA** — macrostructure, archetypes, type-pairing, colour anchor — and produce a diagnosis report, then optionally rebuild the user's content using the extracted DNA **or** emit a portable `design.md` of the DNA. Detection is automatic: a URL (`http://` / `https://` prefix) routes to URL mode; anything else routes to image mode. **URL mode** reads the page's HTML and CSS via WebFetch — it can name exact fonts and exact colour values, but can't judge rhythm. After the diagnosis, the user has three follow-ups: build with the DNA (handoff to default), lock the DNA into a portable `design.md` (opt-in via "lock the DNA" / "give me a design.md"), or stop at the diagnosis. **Never copies pixels. Refuses template-marketplace URLs. Tighter refusal layer for `design.md` emission than for the diagnosis itself — URL-mode emission requires attestation that the source is the user's own or a public reference for their own brand. Falls back to asking for a screenshot if the URL is auth-walled, a JS-only SPA shell, or otherwise un-readable.** Load [`references/study.md`](references/study.md) before this verb runs. |
+| `reskin verify` | Re-run the post-redesign verification pass on a wired-up codebase — build, routes, data still flows, protected paths intact, interactions wired. **No redesign.** Load [`references/verify.md`](references/verify.md) and [`references/verbs/verify.md`](references/verbs/verify.md). |
 
-If the user types anything that does not clearly map to `audit`, `redesign`, or `study`, treat it as default. If the user attaches an image or pastes a URL without a verb prefix, ask: *"Should I `study` this (extract the DNA), or should I treat it as a reference for a fresh build?"*
+If the user types anything that does not clearly map to `audit`, `redesign`, `study`, or `verify`, treat it as default. If the user attaches an image or pastes a URL without a verb prefix, ask: *"Should I `study` this (extract the DNA), or should I treat it as a reference for a fresh build?"*
 
 **Implementation safety rail.** Reskin is a design skill, not a license to bulldoze a codebase. In any existing project:
 - Never delete production files, route trees, component directories, or an old website unless the user explicitly asks for deletion or approves a file-level plan that lists the deletions.
@@ -197,7 +198,8 @@ If you want Reskin to override any preserved item, say so.
     "navigation": { "summary": "…", "layoutFile": "…", "navComponentId": "…" }
   },
   "concept": null,
-  "changePlan": null
+  "changePlan": null,
+  "verification": null
 }
 ```
 
@@ -228,6 +230,24 @@ After concept, redesign runs the change plan — see [`change-plan.md`](referenc
 ```
 
 Human-readable mirror: `.reskin/change-plan.md`. Dial levels: `Full` | `Heavy` | `Moderate` | `Light` | `Leave`.
+
+After redesign on wired-up codebases, run verification — see [`verify.md`](references/verify.md):
+
+```json
+"verification": {
+  "ranAt": "2026-05-23T15:00:00Z",
+  "trigger": "redesign",
+  "build": { "command": "npm run build", "passed": true, "errors": [] },
+  "routes": { "checked": 4, "passed": 4, "headlessAvailable": false, "degraded": true },
+  "data": { "sourcesChecked": 2, "sourcesPassed": 2, "protectedPathsIntact": true, "violations": [] },
+  "interactions": { "checked": 12, "wired": 12, "failed": [] },
+  "manualChecks": ["Click through locally — headless unavailable"],
+  "overallPassed": true,
+  "confirmed": false
+}
+```
+
+Human-readable mirror: `.reskin/verify-report.md`.
 
 Full protocol: [`comprehension.md`](references/comprehension.md). Human-readable mirror: `.reskin/understanding.md`.
 
@@ -437,6 +457,8 @@ The non-negotiables live in [`references/`](references/). **Be precise about wha
 - [`comprehension.md`](references/comprehension.md) — load when `reskin redesign` targets a wired-up codebase (`package.json` + `src/` / `app/` / `components/`).
 - [`concept.md`](references/concept.md) — load during `reskin redesign` after comprehension confirmation (or after target is scoped if comprehension skipped); skip expansion when user declines concept.
 - [`change-plan.md`](references/change-plan.md) — load during `reskin redesign` after concept step; mandatory before macrostructure selection.
+- [`verify.md`](references/verify.md) — load after build + slop test on wired-up `reskin redesign`, or for `reskin verify`.
+- [`verbs/verify.md`](references/verbs/verify.md) — load when `reskin verify` runs.
 - [`study.md`](references/study.md) — load only when `reskin study` runs.
 
 **Human-only (do NOT auto-load):**
@@ -525,6 +547,17 @@ Run the slop test BEFORE writing the Slop test row in the Step 5 preview block �
 
 If any gate fails, fix it. Do not ship slop.
 
+### 8. Verification (wired-up redesigns only)
+
+After Steps 6–7 on **`reskin redesign`** when the target is a wired-up codebase, load [`references/verify.md`](references/verify.md) and run the verification pass. **Not** part of default greenfield builds or static HTML unless the user runs `reskin verify`.
+
+- Tier 1 build **must pass** before claiming success; if build fails, stop and report — do not hand off a broken redesign as done.
+- Use `comprehension` from `preflight.json` for routes, data sources, data-bound components, and protected paths.
+- Write `.reskin/verify-report.md`; merge `verification` into `preflight.json`.
+- Be honest: PASSED / FAILED / NEEDS YOUR EYES — never *"everything works."*
+
+Standalone re-check: **`reskin verify`** → [`references/verbs/verify.md`](references/verbs/verify.md).
+
 ---
 
 ## `reskin audit`
@@ -544,9 +577,16 @@ Load [`references/verbs/redesign.md`](references/verbs/redesign.md) and follow i
 3. **Hard checkpoint** — ask the user to confirm or correct (especially intent). Do not redesign until they say comprehension is confirmed.
 4. **Concept injection (optional)** — load [`references/concept.md`](references/concept.md). Ask the one-line concept prompt. If the user declines → `concept: null`, proceed with genre/theme as normal. If they supply a vision → expand Concept Brief from comprehension `id`s, write `.reskin/concept.md`, **checkpoint for `concept confirmed`**, then continue.
 5. **Change plan (control layer)** — load [`references/change-plan.md`](references/change-plan.md). Tier 1 structure → Tier 2 dials per unit (seeded from concept restraint + intent caps). Write `.reskin/change-plan.md`, **checkpoint for `plan confirmed`**. Leave units are not edited; Light = theming only; Full may reimagine macrostructure on that unit.
-6. Then continue per `redesign.md` (scope, `design.md` for multi-page, macrostructure, slop test). Plan + concept constrain choices; slop gates and protected paths still win.
+6. Then continue per `redesign.md` (scope, `design.md` for multi-page, macrostructure, build, slop test, **verification**). Plan + concept constrain choices; slop gates and protected paths still win.
+7. **Verification** (wired-up only) — after build + slop test, run [`verify.md`](references/verify.md). If build fails in verification, stop; present FAILED + manual list honestly.
 
 Skip comprehension for greenfield or static-HTML-only targets (concept prompt may still run once the target page is scoped). The Non-destructive implementation rule and Implementation safety rail apply throughout; `protectedPaths` is the enforceable allowlist.
+
+---
+
+## `reskin verify`
+
+Load [`references/verbs/verify.md`](references/verbs/verify.md) and [`references/verify.md`](references/verify.md). Re-run verification without redesigning. Requires comprehension map in `.reskin/preflight.json`.
 
 ---
 
