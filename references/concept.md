@@ -58,9 +58,9 @@ Use the site's own inventory, not abstract UI jargon alone:
 
 Include **global chrome** (`site-nav`, `footer`, `cursor` if custom) when they exist.
 
-### Change-dial hook (future)
+### Feeds the change plan
 
-Per-component **intensity** (how far the concept pushes on each region) will be controlled by a separate **change-dial** step. For now: record a proposed default in the restraint map (`full` / `light` / `none`). When the change-dial step ships, it will read this map and let the user tune per section without rewriting the Concept Brief.
+Per-unit **intensity** is set in the next step: [`change-plan.md`](change-plan.md) Tier 2. The restraint map (`full` / `light` / `none`) **seeds** default dials (Full / Light / Leave) per page or section after Tier 1 structure is fixed. Intent caps from comprehension may lower or warn on those defaults.
 
 ---
 

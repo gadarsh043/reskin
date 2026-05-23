@@ -39,9 +39,22 @@ Load [`concept.md`](../concept.md).
 3. If supplied → expand a **Concept Brief** using component `id`s from `.reskin/understanding.md` (§ Concept × intent rule is mandatory). Write `.reskin/concept.md`, merge `concept` into `preflight.json`, present the brief, and **hard-stop for `concept confirmed`** before continuing.
 4. Approved concept **constrains** macrostructure, type, colour, motion, and enrichment — it does **not** disable slop-test gates, protected paths, or data-bound contracts.
 
-Per-component **intensity** (how hard the concept pushes on each region) will be controlled by a future **change-dial** step; until then, use the Concept Brief **restraint map** (`full` / `light` / `none`).
-
 **Do not** pick a macrostructure, write `design.md`, or edit UI until comprehension is confirmed **and** concept is either confirmed or explicitly skipped.
+
+## Change plan · structure + dial (after concept)
+
+**When:** After comprehension is confirmed **and** after the concept step (set or skipped). **Before** macrostructure selection, Step 0 scope branching, or any UI edits.
+
+Load [`change-plan.md`](../change-plan.md).
+
+1. **Tier 1 · Structure** — ask keep multi-page / collapse to single page / let concept decide. This fixes whether Tier 2 units are **pages** or **sections**. Collapse uses comprehension `pages[]` → section map; data bindings and protected paths stay unchanged.
+2. **Tier 2 · Change dial** — for each unit, seed dials from concept restraint map (`full`→Full, `light`→Light, `none`→Leave) and cap by comprehension **intent** (legibility units default ≤ Moderate; warn if user pushes higher).
+3. Accept shortcuts (*everything Full*, *home Full resume Leave*). Write `.reskin/change-plan.md` and `changePlan` in `.reskin/preflight.json`.
+4. **Hard-stop for `plan confirmed`** before macrostructure or code.
+
+**Build rules from dial:** **Leave** = do not touch that unit's files. **Light** = theming only, layout intact. **Moderate+** = increasing structural freedom; **Full** may reimagine macrostructure on that unit. Slop gates and protected paths apply at every level.
+
+**Do not** pick a macrostructure, write `design.md`, or edit UI until comprehension is confirmed, concept is resolved, **and** the Change Plan is confirmed.
 
 ## Step 0 · Detect scope first
 
@@ -268,6 +281,8 @@ If a page genuinely needs something `design.md` doesn't allow (e.g. a marketing 
 **Comprehension gate.** If the project is wired-up (`package.json` + `src/` / `app/` / `components/`), the comprehension pass (§ above) must finish and the user must confirm `.reskin/understanding.md` before you redesign — even when only one page file is in scope. Shared nav, layout, and data hooks still matter.
 
 **Concept gate.** After comprehension (or immediately if comprehension was skipped), run § Concept injection. Professional / no-concept briefs skip cleanly; creative one-liners require `concept confirmed` before visual work.
+
+**Change-plan gate.** After concept, run § Change plan. Structure first, then per-unit dials. Requires `plan confirmed` before visual work. Leave units are skipped entirely in the build.
 
 **What to preserve:**
 - The copy intent, factual claims, product names, and primary message. Preserve exact wording only when it already lives in the target UI or the user explicitly asks for verbatim copy.

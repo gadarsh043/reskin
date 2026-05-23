@@ -35,6 +35,7 @@ build/
 #   .reskin/preflight.json      — design-token scan + comprehension + concept cache
 #   .reskin/understanding.md    — Site Understanding report (user-reviewed)
 #   .reskin/concept.md          — Concept Brief (optional; user-reviewed)
+#   .reskin/change-plan.md      — Structure + per-unit dial plan (user-reviewed)
 #   .reskin/log.json            — macrostructure / theme / concept rotation history
 .reskin/
 

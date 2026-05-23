@@ -196,7 +196,8 @@ If you want Reskin to override any preserved item, say so.
     "protectedPaths": ["lib/firebase/**", "app/api/**"],
     "navigation": { "summary": "…", "layoutFile": "…", "navComponentId": "…" }
   },
-  "concept": null
+  "concept": null,
+  "changePlan": null
 }
 ```
 
@@ -213,6 +214,20 @@ When the user supplies a creative one-liner during redesign, `concept` becomes a
 ```
 
 Human-readable mirror: `.reskin/concept.md` (only when concept is active).
+
+After concept, redesign runs the change plan — see [`change-plan.md`](references/change-plan.md):
+
+```json
+"changePlan": {
+  "structure": { "mode": "multi-page", "proposal": null, "collapseMap": [] },
+  "units": [
+    { "id": "home", "scope": "page", "route": "/", "dialLevel": "Full", "intentCap": "Moderate", "intentCapWarned": false }
+  ],
+  "confirmed": false
+}
+```
+
+Human-readable mirror: `.reskin/change-plan.md`. Dial levels: `Full` | `Heavy` | `Moderate` | `Light` | `Leave`.
 
 Full protocol: [`comprehension.md`](references/comprehension.md). Human-readable mirror: `.reskin/understanding.md`.
 
@@ -421,6 +436,7 @@ The non-negotiables live in [`references/`](references/). **Be precise about wha
 - [`verbs/audit.md`](references/verbs/audit.md), [`verbs/redesign.md`](references/verbs/redesign.md) — load only when that verb runs.
 - [`comprehension.md`](references/comprehension.md) — load when `reskin redesign` targets a wired-up codebase (`package.json` + `src/` / `app/` / `components/`).
 - [`concept.md`](references/concept.md) — load during `reskin redesign` after comprehension confirmation (or after target is scoped if comprehension skipped); skip expansion when user declines concept.
+- [`change-plan.md`](references/change-plan.md) — load during `reskin redesign` after concept step; mandatory before macrostructure selection.
 - [`study.md`](references/study.md) — load only when `reskin study` runs.
 
 **Human-only (do NOT auto-load):**
@@ -527,7 +543,8 @@ Load [`references/verbs/redesign.md`](references/verbs/redesign.md) and follow i
 2. Write `.reskin/understanding.md` and merge `comprehension` into `.reskin/preflight.json`.
 3. **Hard checkpoint** — ask the user to confirm or correct (especially intent). Do not redesign until they say comprehension is confirmed.
 4. **Concept injection (optional)** — load [`references/concept.md`](references/concept.md). Ask the one-line concept prompt. If the user declines → `concept: null`, proceed with genre/theme as normal. If they supply a vision → expand Concept Brief from comprehension `id`s, write `.reskin/concept.md`, **checkpoint for `concept confirmed`**, then continue.
-5. Then continue per `redesign.md` (scope, `design.md` for multi-page, macrostructure, slop test). Concept constrains choices; slop gates and protected paths still win.
+5. **Change plan (control layer)** — load [`references/change-plan.md`](references/change-plan.md). Tier 1 structure → Tier 2 dials per unit (seeded from concept restraint + intent caps). Write `.reskin/change-plan.md`, **checkpoint for `plan confirmed`**. Leave units are not edited; Light = theming only; Full may reimagine macrostructure on that unit.
+6. Then continue per `redesign.md` (scope, `design.md` for multi-page, macrostructure, slop test). Plan + concept constrain choices; slop gates and protected paths still win.
 
 Skip comprehension for greenfield or static-HTML-only targets (concept prompt may still run once the target page is scoped). The Non-destructive implementation rule and Implementation safety rail apply throughout; `protectedPaths` is the enforceable allowlist.
 
