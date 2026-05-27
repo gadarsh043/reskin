@@ -25,7 +25,7 @@ Verb fixtures (before/after examples): [`references/verb-examples/`](references/
 ## Install
 
 ```bash
-npx skills add adarshgella/reskin
+npx skills add gadarsh043/reskin
 ```
 
 Or copy into a `reskin/` folder in your skills directory:
@@ -39,6 +39,36 @@ Or copy into a `reskin/` folder in your skills directory:
 Copy [`docs/`](docs/) alongside if you want recipes and study walkthroughs locally.
 
 Worked prompts: [`docs/recipes.md`](docs/recipes.md) · study walkthroughs: [`docs/study-examples.md`](docs/study-examples.md).
+
+## Workflow
+
+Use this once, then follow it verbatim on every redesign run.
+
+1. **Start the redesign**
+   Say: `"use the reskin skill to redesign this site"`
+2. **Comprehension checkpoint**
+   Review `.reskin/understanding.md`, then say: `"comprehension confirmed"`
+   If needed, send corrections in plain English instead.
+3. **Concept input**
+   When asked, give one line like `"my portfolio as a Harry Potter spellbook"` or say `"no concept, keep it clean"`.
+4. **Concept checkpoint**
+   Review `.reskin/concept.md`, then say: `"concept confirmed"` or send edits.
+5. **Change plan dials**
+   Set per-unit dials, for example: `"home Full, projects Heavy, resume Light"`.
+6. **Plan checkpoint**
+   Say: `"plan confirmed"`.
+7. **Build**
+   The build runs automatically. Wait for completion.
+8. **Verification**
+   Review the verification report and run the manual checks listed there.
+9. **Iterate**
+   To re-run with different settings, say exactly what to change.
+
+### Tips
+
+- For wild-concept demos, push dials to `Full` to override restraint defaults.
+- The `.reskin/` folder is your conversation log and is safe to commit.
+- If something looks off, describe it in plain English and ask the agent to revise it.
 
 ---
 
