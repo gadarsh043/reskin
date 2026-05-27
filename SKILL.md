@@ -1,6 +1,6 @@
 ---
 name: reskin
-description: "Anti-AI-slop design skill: greenfield builds, audits, redesigns (comprehension → optional concept → change-plan → build → 69-gate slop test → verify on wired-up apps), study from URLs/screenshots, and standalone verify. Backend-safe on real codebases. Invoke via reskin or audit/redesign/study/verify."
+description: "Anti-AI-slop design skill: greenfield builds, audits, and wired-up redesigns with comprehension -> optional concept -> change-plan -> structural transformation for Full/Heavy units -> theming -> 69-gate slop test -> verify. Study URLs/screenshots or run standalone verify. Backend-safe on real codebases."
 version: 1.0.0
 ---
 
@@ -215,6 +215,7 @@ The pre-flight block is the user's accountability line: *"here's what I noticed 
   "comprehension": null,
   "concept": null,
   "changePlan": null,
+  "structuralTransformation": null,
   "verification": null
 }
 ```
@@ -328,6 +329,29 @@ The pre-flight block is the user's accountability line: *"here's what I noticed 
 ```
 
 - `trigger` — `redesign` | `standalone-verify`.
+
+**`structuralTransformation`** — `null` until a triggered pass rewrites structure in wired-up redesign:
+
+```json
+"structuralTransformation": {
+  "ranAt": "2026-05-27T20:00:00Z",
+  "unitsTransformed": ["home", "projects"],
+  "jsxFilesRewritten": ["app/projects/Projects.jsx", "components/home/Hero.jsx"],
+  "motionAdded": ["page-turn section transition", "ink-bleed reveal"],
+  "macrostructureOverridden": [
+    {
+      "unitId": "projects",
+      "from": "Workbench",
+      "to": "Long Document",
+      "reason": "folio spread better expresses spellbook chapter metaphor"
+    }
+  ],
+  "protectedPathsRespected": true
+}
+```
+
+- `unitsTransformed[]` uses `changePlan.units[].id`.
+- `protectedPathsRespected` must be computed after rewrite pass.
 
 ### 1. Design-context gate
 
@@ -513,6 +537,7 @@ The non-negotiables live in [`references/`](references/). **Be precise about wha
 - [`comprehension.md`](references/comprehension.md) — load when `reskin redesign` targets a wired-up codebase (`package.json` + `src/` / `app/` / `components/`).
 - [`concept.md`](references/concept.md) — load during `reskin redesign` after comprehension confirmation (or after target is scoped if comprehension skipped); skip expansion when user declines concept.
 - [`change-plan.md`](references/change-plan.md) — load during **wired-up** `reskin redesign` after concept step (set or skipped); **skip** on greenfield or static single-file HTML. Mandatory before macrostructure selection when it runs.
+- [`structural-transformation.md`](references/structural-transformation.md) — load during wired-up `reskin redesign` **build** when any planned unit is `Full`/`Heavy`, or concept restraint marks a component `full`, or the user explicitly asks for structural change.
 - [`verify.md`](references/verify.md) — load after build + slop test on wired-up `reskin redesign`, or for `reskin verify`.
 - [`verbs/verify.md`](references/verbs/verify.md) — load when `reskin verify` runs.
 - [`study.md`](references/study.md) — load only when `reskin study` runs.
@@ -575,6 +600,20 @@ If any slop-test gate fails when you reach Step 7, return to the relevant Build 
 
 Emit code that satisfies the tone and structural fingerprint. Match the complexity of the code to the ambition of the tone — a brutalist page needs raw, heavy CSS; an austere page needs restraint.
 
+**Primary wired-up branch (with change plan + concept):**
+
+- If any planned unit is `Full`/`Heavy` **and** concept is active, run [`references/structural-transformation.md`](references/structural-transformation.md) first.
+- Trigger rules are per unit: `dialLevel` in `Full|Heavy`, or concept restraint marks component `full`, or user explicitly requested structural change.
+- Structural pass rewrites JSX/markup for triggered units, integrates concept motion language, may override macrostructure on those units when concept requires, and writes `structuralTransformation` into `.reskin/preflight.json`.
+- After structural pass, run SCSS/theme layering across all non-Leave units.
+- Mixed plans are expected: Full/Heavy units get structural + theming; Light/Moderate units get theming-first refresh; Leave units untouched.
+
+**Motion dependency rule (structural pass only):**
+
+- Detect existing motion library from `package.json` and imports.
+- If no suitable library is present and structural pass requires concept motion, install `framer-motion` and log the install in build notes.
+- Every motion treatment must ship `prefers-reduced-motion` fallback.
+
 Always:
 
 - **Hero headline — match font-size to copy length.** When you write the headline yourself (no user-supplied copy), aim for **≤ 7 words and ≤ 50 chars** from the start. For longer headlines, apply the size-by-length brackets in [`typography.md § Hero headline sizing`](references/typography.md): 21–50 chars use `--text-display`; 51–90 chars cap at `--text-display-s`; > 90 chars rewrite shorter or cap at `--text-4xl`. Aggressive-display themes (Brutal, Riso, Manifesto) auto-step down one rung past 50 chars — their 6.5–9rem ceiling is for short statements only.
@@ -632,7 +671,9 @@ Load [`references/verbs/redesign.md`](references/verbs/redesign.md) and follow i
 2. **Concept** (optional) — one-line prompt → brief or `concept: null` → **PAUSE** if a creative concept was set (`concept confirmed`)
 3. **Change plan** — Tier 1 structure → Tier 2 dials → `.reskin/change-plan.md` → **PAUSE** (`plan confirmed`)
 4. **Macrostructure / theme** — picks constrained by plan + concept
-5. **Build** (Step 6)
+5. **Build branch** (Step 6):
+   - if any unit is `Full`/`Heavy` with concept active → **structural transformation pass** (JSX rewrite + concept motion + optional macrostructure override for those units) → SCSS/theme pass
+   - else → Hallmark-style theming-first build
 6. **69-gate slop test** (Step 7)
 7. **Verify** — four-tier pass → `.reskin/verify-report.md` → **present** PASSED / FAILED / NEEDS YOUR EYES to the user
 
@@ -646,7 +687,7 @@ Load [`references/verbs/redesign.md`](references/verbs/redesign.md) and follow i
 - **`no concept` / `skip` / `clean and professional`** → `concept: null`; pipeline continues.
 - On static/greenfield, after optional concept go straight to macrostructure/theme (no change-plan).
 
-Load [`references/comprehension.md`](references/comprehension.md), [`references/concept.md`](references/concept.md), [`references/change-plan.md`](references/change-plan.md), and [`references/verify.md`](references/verify.md) per the skip table. Persist to [`preflight.json`](#preflight-json-schema). The Non-destructive implementation rule and Implementation safety rail apply throughout; `protectedPaths` is the enforceable allowlist on wired-up targets.
+Load [`references/comprehension.md`](references/comprehension.md), [`references/concept.md`](references/concept.md), [`references/change-plan.md`](references/change-plan.md), [`references/structural-transformation.md`](references/structural-transformation.md) when triggered, and [`references/verify.md`](references/verify.md) per the skip table. Persist to [`preflight.json`](#preflight-json-schema). The Non-destructive implementation rule and Implementation safety rail apply throughout; `protectedPaths` is the enforceable allowlist on wired-up targets.
 
 ---
 

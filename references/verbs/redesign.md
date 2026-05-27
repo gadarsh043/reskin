@@ -10,9 +10,11 @@ Word-for-order; each **PAUSE** is a hard checkpoint:
 2. **Concept** (optional) → **PAUSE** if a creative concept was set (`concept confirmed`)
 3. **Change plan** → **PAUSE** (`plan confirmed`)
 4. **Macrostructure / theme**
-5. **Build** (Step 6)
+5. **Build branch** (Step 6):
+   - if any unit is `Full`/`Heavy` with concept active -> structural transformation pass -> SCSS/theme pass
+   - else -> Hallmark-style theming-first build
 6. **69-gate slop test** (Step 7)
-7. **Verify** → **present** to user
+7. **Verify** -> **present** to user
 
 **Skip rules:**
 
@@ -80,6 +82,36 @@ Load [`change-plan.md`](../change-plan.md).
 **Build rules from dial:** **Leave** = do not touch that unit's files. **Light** = theming only, layout intact. **Moderate+** = increasing structural freedom; **Full** may reimagine macrostructure on that unit. Slop gates and protected paths apply at every level.
 
 **Do not** pick a macrostructure, write `design.md`, or edit UI until comprehension is confirmed, concept is resolved, **and** the Change Plan is confirmed.
+
+## Structural transformation pass (build-stage, triggered)
+
+Load [`structural-transformation.md`](../structural-transformation.md) during Step 6 when **any** of these are true for a planned unit:
+
+- `changePlan.units[].dialLevel` is `Full` or `Heavy`
+- concept restraint marks the component `full`
+- user explicitly requested structural change
+
+When triggered:
+
+1. Rewrite JSX/markup for those units (not just SCSS), derived from concept vocabulary.
+2. Integrate concept motion language using existing motion library; if none and needed, install `framer-motion`.
+3. Respect reduced-motion fallbacks.
+4. Keep protected paths untouched and data-bound contracts stable.
+5. Write `structuralTransformation` to `.reskin/preflight.json`.
+
+Data-bound contract stability means:
+
+- preserve data imports exactly
+- preserve hook/query call shapes exactly
+- preserve props passed to data consumers
+- preserve loading/error/empty states
+- preserve interactive handlers (`href`, analytics, submit/click behavior)
+
+Mixed plans are mandatory behavior:
+
+- Full/Heavy units -> structural pass + SCSS/theme pass
+- Moderate/Light units -> theming-first refresh
+- Leave units -> untouched
 
 ## Step 0 · Detect scope first
 
@@ -341,7 +373,7 @@ After **Step 6 (build)** and **Step 7 (slop test)** — not before.
 
 Load [`verify.md`](../verify.md) and run the four-tier verification pass. Use `comprehension` + `changePlan` from `.reskin/preflight.json` as the checklist source.
 
-**Order (wired-up redesign):** comprehension → concept → change-plan → macrostructure / theme / build → 69-gate slop test → **VERIFY** → present to user.
+**Order (wired-up redesign):** comprehension → concept → change-plan → macrostructure / theme → (if triggered: structural transformation → SCSS/theme pass, else Hallmark-style theming-first build) → 69-gate slop test → **VERIFY** → present to user.
 
 - If **Tier 1 (build) fails** during verification, **stop** — report errors; do not present the redesign as complete.
 - Write `.reskin/verify-report.md` and merge `verification` into `preflight.json`.

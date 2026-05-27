@@ -75,6 +75,16 @@ Only after Tier 1 is settled and units are named.
 | **Light** | 25% | Polish and theming only; structure intact. |
 | **Leave** | 0% | **Do not touch** this unit — no CSS/markup changes. |
 
+### Dial consequence warning (show this before user confirms dials)
+
+> **Dial choice is the single most consequential setting in this flow:**
+> - **Leave / Light** = theming and copy only, structure preserved
+> - **Moderate** = theming + minor layout adjustments
+> - **Heavy / Full** = **STRUCTURAL TRANSFORMATION**: JSX rewritten, components restructured, motion added
+>
+> Use **Full** when you want a real transformation, not a refresh.
+> Intent caps protect production sites from over-redesign — for demos and personal sites where you want the concept fully expressed, push dials to **Full**.
+
 **Hard rules:**
 
 - **Leave** → zero edits to that unit's files. Skip in build; stamp notes `dial: leave`.
@@ -185,6 +195,13 @@ Ask:
 >
 > Review structure and each unit's dial. Say **"plan confirmed"** or edit (e.g. "collapse to single page", "resume Leave", "projects Full").
 >
+> **Dial choice is the single most consequential setting in this flow:**
+> - Leave / Light = theming and copy only, structure preserved
+> - Moderate = theming + minor layout adjustments
+> - Heavy / Full = **STRUCTURAL TRANSFORMATION** (JSX rewritten, components restructured, motion added)
+>
+> Use Full when you want real transformation, not a refresh. Intent caps protect production sites from over-redesign — for demos/personal sites, push dials to Full.
+>
 > I won't build until you confirm.
 
 On edits, update both files and re-ask. Set `changePlan.confirmed: true` only after explicit approval.
@@ -198,8 +215,8 @@ On edits, update both files and re-ask. Set `changePlan.confirmed: true` only af
 | Leave | — | — | **Untouched** |
 | Light | Keep existing layout | Theming only | Same tree, tokens/CSS |
 | Moderate | Light structural refresh | Partial vocabulary | In-place |
-| Heavy | New voice, familiar grid | Most vocabulary | In-place or additive |
-| Full | May pick new macrostructure for unit | Full restraint allowance | May reshape sections |
+| Heavy | Structural transformation allowed | Most vocabulary | JSX/markup rewrite for targeted units + theming |
+| Full | Structural transformation primary | Full restraint allowance | JSX/markup rewrite; may override macrostructure per unit |
 
 - **Per-unit macrostructure:** allowed on Full/Heavy units; prefer one macrostructure family across the site when `design.md` exists.
 - **Concept:** applies fully only where dial and concept restraint allow; **none** on Leave; Light gets borders/type/colour only.
